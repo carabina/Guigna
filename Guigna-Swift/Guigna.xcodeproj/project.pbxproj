@@ -1,0 +1,648 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C5181D5E1946190F00B1E6E7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C5181D5C1946190F00B1E6E7 /* Credits.rtf */; };
+		C51ED05C19458CB0000B582A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51ED05B19458CB0000B582A /* main.swift */; };
+		C51ED05E19458CB0000B582A /* GuignaAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51ED05D19458CB0000B582A /* GuignaAppDelegate.swift */; };
+		C51ED06119458CB0000B582A /* Guigna.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C51ED05F19458CB0000B582A /* Guigna.xcdatamodeld */; };
+		C51ED06319458CB0000B582A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51ED06219458CB0000B582A /* Images.xcassets */; };
+		C51ED06619458CB0000B582A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C51ED06419458CB0000B582A /* MainMenu.xib */; };
+		C51ED07219458CB0000B582A /* GuignaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51ED07119458CB0000B582A /* GuignaTests.swift */; };
+		C554334C1972EE060080B0BD /* Fink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554334B1972EE060080B0BD /* Fink.swift */; };
+		C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5635BEA1952F53F007424E2 /* MacPorts.swift */; };
+		C5779CAA1969922B00755926 /* HomebrewCasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5779CA91969922B00755926 /* HomebrewCasks.swift */; };
+		C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1214E1945D91800A351A8 /* GAgent.swift */; };
+		C5A1215B1945E4A700A351A8 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A1215A1945E4A700A351A8 /* ScriptingBridge.framework */; };
+		C5A1215E1945EB2700A351A8 /* GItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1215C1945EB2700A351A8 /* GItem.swift */; };
+		C5A1215F1945EB2700A351A8 /* GSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1215D1945EB2700A351A8 /* GSystem.swift */; };
+		C5A121621945EB4300A351A8 /* Homebrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A121611945EB4300A351A8 /* Homebrew.swift */; };
+		C5AD0FB6196287360001FB53 /* GPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD0FB4196287360001FB53 /* GPackage.swift */; };
+		C5AD0FB7196287360001FB53 /* GSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD0FB5196287360001FB53 /* GSource.swift */; };
+		C5B736FF194732C90046B2E2 /* GAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B736FE194732C80046B2E2 /* GAdditions.swift */; };
+		C5D04FBB195D853300D968E5 /* GuignaScrapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D04FBA195D853300D968E5 /* GuignaScrapes.swift */; };
+		C5DB9B881945A9B80005244E /* guigna.icns in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B6B1945A9B70005244E /* guigna.icns */; };
+		C5DB9B891945A9B80005244E /* source-appshopper.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B6C1945A9B70005244E /* source-appshopper.tiff */; };
+		C5DB9B8A1945A9B80005244E /* source-cocoapods.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B6D1945A9B70005244E /* source-cocoapods.tiff */; };
+		C5DB9B8B1945A9B80005244E /* source-debian.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B6E1945A9B70005244E /* source-debian.tiff */; };
+		C5DB9B8C1945A9B80005244E /* source-freebsd.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B6F1945A9B80005244E /* source-freebsd.tiff */; };
+		C5DB9B8D1945A9B80005244E /* source-freecode.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B701945A9B80005244E /* source-freecode.tiff */; };
+		C5DB9B8E1945A9B80005244E /* source-macupdate.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B711945A9B80005244E /* source-macupdate.tiff */; };
+		C5DB9B8F1945A9B80005244E /* source-native.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B721945A9B80005244E /* source-native.tiff */; };
+		C5DB9B901945A9B80005244E /* source-pkgsrc.se.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B731945A9B80005244E /* source-pkgsrc.se.tiff */; };
+		C5DB9B911945A9B80005244E /* source-pypi.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B741945A9B80005244E /* source-pypi.tiff */; };
+		C5DB9B921945A9B80005244E /* source-rubygems.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B751945A9B80005244E /* source-rubygems.tiff */; };
+		C5DB9B931945A9B80005244E /* status-marked.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B761945A9B80005244E /* status-marked.tiff */; };
+		C5DB9B941945A9B80005244E /* status-new.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B771945A9B80005244E /* status-new.tiff */; };
+		C5DB9B951945A9B80005244E /* status-updated.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B781945A9B80005244E /* status-updated.tiff */; };
+		C5DB9B961945A9B80005244E /* system-fink.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B791945A9B80005244E /* system-fink.tiff */; };
+		C5DB9B971945A9B80005244E /* system-gentoo.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B7A1945A9B80005244E /* system-gentoo.tiff */; };
+		C5DB9B981945A9B80005244E /* system-gtkosx.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B7B1945A9B80005244E /* system-gtkosx.tiff */; };
+		C5DB9B991945A9B80005244E /* system-homebrew.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B7C1945A9B80005244E /* system-homebrew.tiff */; };
+		C5DB9B9A1945A9B80005244E /* system-homebrewcasks.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B7D1945A9B80005244E /* system-homebrewcasks.tiff */; };
+		C5DB9B9B1945A9B80005244E /* system-itunes.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B7E1945A9B80005244E /* system-itunes.tiff */; };
+		C5DB9B9C1945A9B80005244E /* system-macosx.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B7F1945A9B80005244E /* system-macosx.tiff */; };
+		C5DB9B9D1945A9B80005244E /* system-macports.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B801945A9B80005244E /* system-macports.tiff */; };
+		C5DB9B9E1945A9B80005244E /* system-pkgsrc.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B811945A9B80005244E /* system-pkgsrc.tiff */; };
+		C5DB9B9F1945A9B80005244E /* system-rudix.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B821945A9B80005244E /* system-rudix.tiff */; };
+		C5DB9BA01945A9B80005244E /* toolbar-apply.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B831945A9B80005244E /* toolbar-apply.tiff */; };
+		C5DB9BA11945A9B80005244E /* toolbar-mark.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B841945A9B80005244E /* toolbar-mark.tiff */; };
+		C5DB9BA21945A9B80005244E /* toolbar-shell.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B851945A9B80005244E /* toolbar-shell.tiff */; };
+		C5DB9BA31945A9B80005244E /* toolbar-stop.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B861945A9B80005244E /* toolbar-stop.tiff */; };
+		C5DB9BA41945A9B80005244E /* toolbar-sync.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5DB9B871945A9B80005244E /* toolbar-sync.tiff */; };
+		C5DB9BA61945ABF60005244E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5DB9BA51945ABF60005244E /* WebKit.framework */; };
+		C5E07BBC1972779400DA3CD3 /* Pkgsrc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E07BBB1972779400DA3CD3 /* Pkgsrc.swift */; };
+		C5E9D8A51966AA6000E5291C /* MacOSX.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E9D8A41966AA6000E5291C /* MacOSX.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C51ED06C19458CB0000B582A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C51ED04E19458CB0000B582A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C51ED05519458CB0000B582A;
+			remoteInfo = Guigna;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C5181D5D1946190F00B1E6E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = Base; path = Base.lproj/Credits.rtf; sourceTree = "<group>"; };
+		C51ED05619458CB0000B582A /* Guigna.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Guigna.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51ED05A19458CB0000B582A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C51ED05B19458CB0000B582A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		C51ED05D19458CB0000B582A /* GuignaAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuignaAppDelegate.swift; sourceTree = "<group>"; };
+		C51ED06019458CB0000B582A /* Guigna.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Guigna.xcdatamodel; sourceTree = "<group>"; };
+		C51ED06219458CB0000B582A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C51ED06519458CB0000B582A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		C51ED06B19458CB0000B582A /* GuignaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuignaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C51ED07019458CB0000B582A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C51ED07119458CB0000B582A /* GuignaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuignaTests.swift; sourceTree = "<group>"; };
+		C554334B1972EE060080B0BD /* Fink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fink.swift; sourceTree = "<group>"; };
+		C5635BEA1952F53F007424E2 /* MacPorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacPorts.swift; sourceTree = "<group>"; };
+		C5779CA91969922B00755926 /* HomebrewCasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomebrewCasks.swift; sourceTree = "<group>"; };
+		C5A1214E1945D91800A351A8 /* GAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAgent.swift; sourceTree = "<group>"; };
+		C5A121541945E45200A351A8 /* Guigna-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Guigna-Bridging-Header.h"; sourceTree = "<group>"; };
+		C5A121571945E45200A351A8 /* Safari.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Safari.h; sourceTree = "<group>"; };
+		C5A121581945E45200A351A8 /* Terminal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terminal.h; sourceTree = "<group>"; };
+		C5A1215A1945E4A700A351A8 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		C5A1215C1945EB2700A351A8 /* GItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GItem.swift; sourceTree = "<group>"; };
+		C5A1215D1945EB2700A351A8 /* GSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSystem.swift; sourceTree = "<group>"; };
+		C5A121611945EB4300A351A8 /* Homebrew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Homebrew.swift; sourceTree = "<group>"; };
+		C5AD0FB4196287360001FB53 /* GPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPackage.swift; sourceTree = "<group>"; };
+		C5AD0FB5196287360001FB53 /* GSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSource.swift; sourceTree = "<group>"; };
+		C5B736FE194732C80046B2E2 /* GAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAdditions.swift; sourceTree = "<group>"; };
+		C5D04FBA195D853300D968E5 /* GuignaScrapes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuignaScrapes.swift; sourceTree = "<group>"; };
+		C5DB9B6B1945A9B70005244E /* guigna.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = guigna.icns; sourceTree = "<group>"; };
+		C5DB9B6C1945A9B70005244E /* source-appshopper.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-appshopper.tiff"; sourceTree = "<group>"; };
+		C5DB9B6D1945A9B70005244E /* source-cocoapods.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-cocoapods.tiff"; sourceTree = "<group>"; };
+		C5DB9B6E1945A9B70005244E /* source-debian.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-debian.tiff"; sourceTree = "<group>"; };
+		C5DB9B6F1945A9B80005244E /* source-freebsd.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-freebsd.tiff"; sourceTree = "<group>"; };
+		C5DB9B701945A9B80005244E /* source-freecode.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-freecode.tiff"; sourceTree = "<group>"; };
+		C5DB9B711945A9B80005244E /* source-macupdate.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-macupdate.tiff"; sourceTree = "<group>"; };
+		C5DB9B721945A9B80005244E /* source-native.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-native.tiff"; sourceTree = "<group>"; };
+		C5DB9B731945A9B80005244E /* source-pkgsrc.se.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-pkgsrc.se.tiff"; sourceTree = "<group>"; };
+		C5DB9B741945A9B80005244E /* source-pypi.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-pypi.tiff"; sourceTree = "<group>"; };
+		C5DB9B751945A9B80005244E /* source-rubygems.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-rubygems.tiff"; sourceTree = "<group>"; };
+		C5DB9B761945A9B80005244E /* status-marked.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "status-marked.tiff"; sourceTree = "<group>"; };
+		C5DB9B771945A9B80005244E /* status-new.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "status-new.tiff"; sourceTree = "<group>"; };
+		C5DB9B781945A9B80005244E /* status-updated.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "status-updated.tiff"; sourceTree = "<group>"; };
+		C5DB9B791945A9B80005244E /* system-fink.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-fink.tiff"; sourceTree = "<group>"; };
+		C5DB9B7A1945A9B80005244E /* system-gentoo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-gentoo.tiff"; sourceTree = "<group>"; };
+		C5DB9B7B1945A9B80005244E /* system-gtkosx.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-gtkosx.tiff"; sourceTree = "<group>"; };
+		C5DB9B7C1945A9B80005244E /* system-homebrew.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-homebrew.tiff"; sourceTree = "<group>"; };
+		C5DB9B7D1945A9B80005244E /* system-homebrewcasks.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-homebrewcasks.tiff"; sourceTree = "<group>"; };
+		C5DB9B7E1945A9B80005244E /* system-itunes.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-itunes.tiff"; sourceTree = "<group>"; };
+		C5DB9B7F1945A9B80005244E /* system-macosx.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-macosx.tiff"; sourceTree = "<group>"; };
+		C5DB9B801945A9B80005244E /* system-macports.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-macports.tiff"; sourceTree = "<group>"; };
+		C5DB9B811945A9B80005244E /* system-pkgsrc.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-pkgsrc.tiff"; sourceTree = "<group>"; };
+		C5DB9B821945A9B80005244E /* system-rudix.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-rudix.tiff"; sourceTree = "<group>"; };
+		C5DB9B831945A9B80005244E /* toolbar-apply.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "toolbar-apply.tiff"; sourceTree = "<group>"; };
+		C5DB9B841945A9B80005244E /* toolbar-mark.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "toolbar-mark.tiff"; sourceTree = "<group>"; };
+		C5DB9B851945A9B80005244E /* toolbar-shell.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "toolbar-shell.tiff"; sourceTree = "<group>"; };
+		C5DB9B861945A9B80005244E /* toolbar-stop.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "toolbar-stop.tiff"; sourceTree = "<group>"; };
+		C5DB9B871945A9B80005244E /* toolbar-sync.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "toolbar-sync.tiff"; sourceTree = "<group>"; };
+		C5DB9BA51945ABF60005244E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		C5E07BBB1972779400DA3CD3 /* Pkgsrc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pkgsrc.swift; sourceTree = "<group>"; };
+		C5E9D8A41966AA6000E5291C /* MacOSX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacOSX.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C51ED05319458CB0000B582A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5A1215B1945E4A700A351A8 /* ScriptingBridge.framework in Frameworks */,
+				C5DB9BA61945ABF60005244E /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51ED06819458CB0000B582A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C51ED04D19458CB0000B582A = {
+			isa = PBXGroup;
+			children = (
+				C51ED05819458CB0000B582A /* Guigna */,
+				C51ED06E19458CB0000B582A /* GuignaTests */,
+				C5A1215A1945E4A700A351A8 /* ScriptingBridge.framework */,
+				C5DB9BA51945ABF60005244E /* WebKit.framework */,
+				C51ED05719458CB0000B582A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C51ED05719458CB0000B582A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C51ED05619458CB0000B582A /* Guigna.app */,
+				C51ED06B19458CB0000B582A /* GuignaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C51ED05819458CB0000B582A /* Guigna */ = {
+			isa = PBXGroup;
+			children = (
+				C51ED05D19458CB0000B582A /* GuignaAppDelegate.swift */,
+				C5A1214E1945D91800A351A8 /* GAgent.swift */,
+				C5B736FE194732C80046B2E2 /* GAdditions.swift */,
+				C5A1215C1945EB2700A351A8 /* GItem.swift */,
+				C5AD0FB5196287360001FB53 /* GSource.swift */,
+				C5AD0FB4196287360001FB53 /* GPackage.swift */,
+				C5A1215D1945EB2700A351A8 /* GSystem.swift */,
+				C5D04FBA195D853300D968E5 /* GuignaScrapes.swift */,
+				C51ED06219458CB0000B582A /* Images.xcassets */,
+				C51ED06419458CB0000B582A /* MainMenu.xib */,
+				C51ED05F19458CB0000B582A /* Guigna.xcdatamodeld */,
+				C5A121601945EB4300A351A8 /* Systems */,
+				C5DB9B6A1945A9B70005244E /* Images */,
+				C51ED05919458CB0000B582A /* Supporting Files */,
+			);
+			path = Guigna;
+			sourceTree = "<group>";
+		};
+		C51ED05919458CB0000B582A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C51ED05A19458CB0000B582A /* Info.plist */,
+				C51ED05B19458CB0000B582A /* main.swift */,
+				C5181D5C1946190F00B1E6E7 /* Credits.rtf */,
+				C5A121571945E45200A351A8 /* Safari.h */,
+				C5A121581945E45200A351A8 /* Terminal.h */,
+				C5A121541945E45200A351A8 /* Guigna-Bridging-Header.h */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C51ED06E19458CB0000B582A /* GuignaTests */ = {
+			isa = PBXGroup;
+			children = (
+				C51ED07119458CB0000B582A /* GuignaTests.swift */,
+				C51ED06F19458CB0000B582A /* Supporting Files */,
+			);
+			path = GuignaTests;
+			sourceTree = "<group>";
+		};
+		C51ED06F19458CB0000B582A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C51ED07019458CB0000B582A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C5A121601945EB4300A351A8 /* Systems */ = {
+			isa = PBXGroup;
+			children = (
+				C5A121611945EB4300A351A8 /* Homebrew.swift */,
+				C5779CA91969922B00755926 /* HomebrewCasks.swift */,
+				C5E9D8A41966AA6000E5291C /* MacOSX.swift */,
+				C5635BEA1952F53F007424E2 /* MacPorts.swift */,
+				C554334B1972EE060080B0BD /* Fink.swift */,
+				C5E07BBB1972779400DA3CD3 /* Pkgsrc.swift */,
+			);
+			path = Systems;
+			sourceTree = "<group>";
+		};
+		C5DB9B6A1945A9B70005244E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C5DB9B6B1945A9B70005244E /* guigna.icns */,
+				C5DB9B6C1945A9B70005244E /* source-appshopper.tiff */,
+				C5DB9B6D1945A9B70005244E /* source-cocoapods.tiff */,
+				C5DB9B6E1945A9B70005244E /* source-debian.tiff */,
+				C5DB9B6F1945A9B80005244E /* source-freebsd.tiff */,
+				C5DB9B701945A9B80005244E /* source-freecode.tiff */,
+				C5DB9B711945A9B80005244E /* source-macupdate.tiff */,
+				C5DB9B721945A9B80005244E /* source-native.tiff */,
+				C5DB9B731945A9B80005244E /* source-pkgsrc.se.tiff */,
+				C5DB9B741945A9B80005244E /* source-pypi.tiff */,
+				C5DB9B751945A9B80005244E /* source-rubygems.tiff */,
+				C5DB9B761945A9B80005244E /* status-marked.tiff */,
+				C5DB9B771945A9B80005244E /* status-new.tiff */,
+				C5DB9B781945A9B80005244E /* status-updated.tiff */,
+				C5DB9B791945A9B80005244E /* system-fink.tiff */,
+				C5DB9B7A1945A9B80005244E /* system-gentoo.tiff */,
+				C5DB9B7B1945A9B80005244E /* system-gtkosx.tiff */,
+				C5DB9B7C1945A9B80005244E /* system-homebrew.tiff */,
+				C5DB9B7D1945A9B80005244E /* system-homebrewcasks.tiff */,
+				C5DB9B7E1945A9B80005244E /* system-itunes.tiff */,
+				C5DB9B7F1945A9B80005244E /* system-macosx.tiff */,
+				C5DB9B801945A9B80005244E /* system-macports.tiff */,
+				C5DB9B811945A9B80005244E /* system-pkgsrc.tiff */,
+				C5DB9B821945A9B80005244E /* system-rudix.tiff */,
+				C5DB9B831945A9B80005244E /* toolbar-apply.tiff */,
+				C5DB9B841945A9B80005244E /* toolbar-mark.tiff */,
+				C5DB9B851945A9B80005244E /* toolbar-shell.tiff */,
+				C5DB9B861945A9B80005244E /* toolbar-stop.tiff */,
+				C5DB9B871945A9B80005244E /* toolbar-sync.tiff */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C51ED05519458CB0000B582A /* Guigna */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51ED07519458CB0000B582A /* Build configuration list for PBXNativeTarget "Guigna" */;
+			buildPhases = (
+				C51ED05219458CB0000B582A /* Sources */,
+				C51ED05319458CB0000B582A /* Frameworks */,
+				C51ED05419458CB0000B582A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Guigna;
+			productName = Guigna;
+			productReference = C51ED05619458CB0000B582A /* Guigna.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C51ED06A19458CB0000B582A /* GuignaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C51ED07819458CB0000B582A /* Build configuration list for PBXNativeTarget "GuignaTests" */;
+			buildPhases = (
+				C51ED06719458CB0000B582A /* Sources */,
+				C51ED06819458CB0000B582A /* Frameworks */,
+				C51ED06919458CB0000B582A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C51ED06D19458CB0000B582A /* PBXTargetDependency */,
+			);
+			name = GuignaTests;
+			productName = GuignaTests;
+			productReference = C51ED06B19458CB0000B582A /* GuignaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C51ED04E19458CB0000B582A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Guido Soranzio";
+				TargetAttributes = {
+					C51ED05519458CB0000B582A = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					C51ED06A19458CB0000B582A = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = C51ED05519458CB0000B582A;
+					};
+				};
+			};
+			buildConfigurationList = C51ED05119458CB0000B582A /* Build configuration list for PBXProject "Guigna" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C51ED04D19458CB0000B582A;
+			productRefGroup = C51ED05719458CB0000B582A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C51ED05519458CB0000B582A /* Guigna */,
+				C51ED06A19458CB0000B582A /* GuignaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C51ED05419458CB0000B582A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5DB9B931945A9B80005244E /* status-marked.tiff in Resources */,
+				C5DB9B961945A9B80005244E /* system-fink.tiff in Resources */,
+				C5DB9B8C1945A9B80005244E /* source-freebsd.tiff in Resources */,
+				C5DB9B951945A9B80005244E /* status-updated.tiff in Resources */,
+				C5DB9B8A1945A9B80005244E /* source-cocoapods.tiff in Resources */,
+				C5DB9B9E1945A9B80005244E /* system-pkgsrc.tiff in Resources */,
+				C5DB9B971945A9B80005244E /* system-gentoo.tiff in Resources */,
+				C5DB9BA11945A9B80005244E /* toolbar-mark.tiff in Resources */,
+				C5DB9B9A1945A9B80005244E /* system-homebrewcasks.tiff in Resources */,
+				C5DB9B8F1945A9B80005244E /* source-native.tiff in Resources */,
+				C51ED06319458CB0000B582A /* Images.xcassets in Resources */,
+				C5DB9B8B1945A9B80005244E /* source-debian.tiff in Resources */,
+				C5DB9B921945A9B80005244E /* source-rubygems.tiff in Resources */,
+				C5DB9BA21945A9B80005244E /* toolbar-shell.tiff in Resources */,
+				C5DB9BA31945A9B80005244E /* toolbar-stop.tiff in Resources */,
+				C5DB9B981945A9B80005244E /* system-gtkosx.tiff in Resources */,
+				C5DB9B941945A9B80005244E /* status-new.tiff in Resources */,
+				C5DB9B891945A9B80005244E /* source-appshopper.tiff in Resources */,
+				C51ED06619458CB0000B582A /* MainMenu.xib in Resources */,
+				C5181D5E1946190F00B1E6E7 /* Credits.rtf in Resources */,
+				C5DB9B991945A9B80005244E /* system-homebrew.tiff in Resources */,
+				C5DB9B8D1945A9B80005244E /* source-freecode.tiff in Resources */,
+				C5DB9B901945A9B80005244E /* source-pkgsrc.se.tiff in Resources */,
+				C5DB9B8E1945A9B80005244E /* source-macupdate.tiff in Resources */,
+				C5DB9B9C1945A9B80005244E /* system-macosx.tiff in Resources */,
+				C5DB9B9B1945A9B80005244E /* system-itunes.tiff in Resources */,
+				C5DB9B9F1945A9B80005244E /* system-rudix.tiff in Resources */,
+				C5DB9B881945A9B80005244E /* guigna.icns in Resources */,
+				C5DB9B9D1945A9B80005244E /* system-macports.tiff in Resources */,
+				C5DB9BA01945A9B80005244E /* toolbar-apply.tiff in Resources */,
+				C5DB9B911945A9B80005244E /* source-pypi.tiff in Resources */,
+				C5DB9BA41945A9B80005244E /* toolbar-sync.tiff in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51ED06919458CB0000B582A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C51ED05219458CB0000B582A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51ED06119458CB0000B582A /* Guigna.xcdatamodeld in Sources */,
+				C5B736FF194732C90046B2E2 /* GAdditions.swift in Sources */,
+				C5A1215F1945EB2700A351A8 /* GSystem.swift in Sources */,
+				C51ED05E19458CB0000B582A /* GuignaAppDelegate.swift in Sources */,
+				C5E07BBC1972779400DA3CD3 /* Pkgsrc.swift in Sources */,
+				C5E9D8A51966AA6000E5291C /* MacOSX.swift in Sources */,
+				C5AD0FB7196287360001FB53 /* GSource.swift in Sources */,
+				C5779CAA1969922B00755926 /* HomebrewCasks.swift in Sources */,
+				C5D04FBB195D853300D968E5 /* GuignaScrapes.swift in Sources */,
+				C5A121621945EB4300A351A8 /* Homebrew.swift in Sources */,
+				C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */,
+				C5A1215E1945EB2700A351A8 /* GItem.swift in Sources */,
+				C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */,
+				C554334C1972EE060080B0BD /* Fink.swift in Sources */,
+				C5AD0FB6196287360001FB53 /* GPackage.swift in Sources */,
+				C51ED05C19458CB0000B582A /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C51ED06719458CB0000B582A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C51ED07219458CB0000B582A /* GuignaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C51ED06D19458CB0000B582A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C51ED05519458CB0000B582A /* Guigna */;
+			targetProxy = C51ED06C19458CB0000B582A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C5181D5C1946190F00B1E6E7 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C5181D5D1946190F00B1E6E7 /* Base */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		C51ED06419458CB0000B582A /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C51ED06519458CB0000B582A /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C51ED07319458CB0000B582A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C51ED07419458CB0000B582A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C51ED07619458CB0000B582A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Guigna/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Guigna/Guigna-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C51ED07719458CB0000B582A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Guigna/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Guigna/Guigna-Bridging-Header.h";
+			};
+			name = Release;
+		};
+		C51ED07919458CB0000B582A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Guigna.app/Contents/MacOS/Guigna";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GuignaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		C51ED07A19458CB0000B582A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Guigna.app/Contents/MacOS/Guigna";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = GuignaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C51ED05119458CB0000B582A /* Build configuration list for PBXProject "Guigna" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51ED07319458CB0000B582A /* Debug */,
+				C51ED07419458CB0000B582A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51ED07519458CB0000B582A /* Build configuration list for PBXNativeTarget "Guigna" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51ED07619458CB0000B582A /* Debug */,
+				C51ED07719458CB0000B582A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C51ED07819458CB0000B582A /* Build configuration list for PBXNativeTarget "GuignaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C51ED07919458CB0000B582A /* Debug */,
+				C51ED07A19458CB0000B582A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C51ED05F19458CB0000B582A /* Guigna.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C51ED06019458CB0000B582A /* Guigna.xcdatamodel */,
+			);
+			currentVersion = C51ED06019458CB0000B582A /* Guigna.xcdatamodel */;
+			path = Guigna.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C51ED04E19458CB0000B582A /* Project object */;
+}

@@ -1,0 +1,8 @@
+.DS_Store
+xcuserdata
+*.xcworkspace
+
+## Specific to RubyMotion:
+.dat*
+.repl_history
+

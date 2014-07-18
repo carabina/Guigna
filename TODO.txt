@@ -1,0 +1,59 @@
+FIXME
+
+* Swift:
+  - MacPorts.list() really slow because of the NString <-> String
+    conversions in NSScanner
+  - Erratic visibility of enum values causing compiling errors
+  - Inactive packages are filtered for systems other than MacPorts and Homebrew
+* RubyMotion huge memory leaks
+* Help doesn't always open the wiki page
+* The password to sudo is echoed in clear text
+* Old uninstalled Mac OS X packages shouldn't be shown
+* A new Shell should be opened if the user closed the last one
+
+
+TODO
+
+* Swift port:
+    - porting remaining systems and scrapes
+    - line-by-line review compared to RubyMotion
+* mdfind 'kMDItemContentType==com.apple.application-bundle'
+* Manage --force flags
+* itemsTable date column
+* Fink categories, deps, binaries
+* pkgsrc deps, outdated, options, Pkgsrc.se CVSWeb
+  Faster pkgsrc cvs update -dP (i.e. github.com/jsonn/pkgsrc)
+  port2pkg and pkgsrc wip
+* GPkgin: http://pkgsrc.smartos.org/packages/Darwin/
+* GHMUG: http://www.hmug.org/pub/MacOS_X/Status.php
+* Core Data, predicate editor
+* Async URL fetches, download manager
+* GTasks, Stop button, exceptions handling
+* Display notes and caveats after installing
+* Details sliding panel
+* Contextual options when marking items
+* commandsPopUp suggestions
+* Monitor displaying background tasks
+* Launch/Run action, detecting binaries
+* Scriptability
+* launchd and preferences plists editor
+* GPython and GRuby systems
+* JPortsGUI good ideas:
+    Sort MacPorts by date
+    Display status of dependencies
+    Get favicon.ico
+* Progress indicator in dock tile
+* Back/Forward buttons for WebView
+* Log selected GSystem#search results when searching
+* Dependencies analysis (MacPorts -y, Homebrew missing)
+* Adding marks and pins while browsing scrapes
+* Option no to hide prefixes
+* Screenshots from Debian, NSWorkspace.sharedWorkspace.iconForFile
+* Download BSD INDEXes when activated in Options
+* FreeBSD Deps
+* Freecode log->home
+* http://opensourcemac.org, http://www.freesmug.org/
+* http://packages.gentoo.org/arch/x64-macos?arches=prefix
+* npm, CPAN
+* GNOME and LAMP configurations
+
