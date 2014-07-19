@@ -20,7 +20,7 @@
 @synthesize items, allPackages, packagesIndex, markedItems;
 @synthesize marksCount, selectedSegment, previousSegment;
 @synthesize APPDIR;
-@synthesize tableFont, tableTextColor, logTextColor, sourceListBackgroundColor;
+@synthesize tableFont, tableTextColor, logTextColor, linkTextAttributes, sourceListBackgroundColor;
 @synthesize ready;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize managedObjectModel = __managedObjectModel;
@@ -151,6 +151,7 @@
             self.shellWindow = window;
     }
     self.sourceListBackgroundColor = [sourcesOutline backgroundColor];
+    self.linkTextAttributes = [infoText linkTextAttributes];
     NSString *theme = defaults[@"Theme"];
     if (theme == nil || [theme is:@"Default"]) {
         shell.backgroundColor = [NSColor colorWithCalibratedRed:1.0 green:1.0 blue:0.8 alpha:1.0]; // light yellow
@@ -1671,6 +1672,9 @@
         [commandsPopUp setBezelStyle:NSSmallSquareBezelStyle];
         [infoText setBackgroundColor:[NSColor blackColor]];
         [infoText setTextColor:[NSColor greenColor]];
+        NSMutableDictionary *cyanLinkAttributes = linkTextAttributes.mutableCopy;
+        cyanLinkAttributes[NSForegroundColorAttributeName] = [NSColor cyanColor];
+        infoText.linkTextAttributes = cyanLinkAttributes;
         [logText setBackgroundColor:[NSColor blueColor]];
         [logText setTextColor:[NSColor whiteColor]];
         self.logTextColor = [NSColor whiteColor];
@@ -1699,6 +1703,7 @@
         [commandsPopUp setBezelStyle:NSTexturedRoundedBezelStyle];
         [infoText setBackgroundColor:[NSColor colorWithCalibratedRed:0.82290249429999995 green:0.97448979589999996 blue:0.67131519269999995 alpha:1.0]]; // light green
         [infoText setTextColor:[NSColor blackColor]];
+        infoText.linkTextAttributes = linkTextAttributes;
         [logText setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:1.0 blue:0.8 alpha:1.0]]; // light yellow
         [logText setTextColor:[NSColor blackColor]];
         self.logTextColor = [NSColor blackColor];

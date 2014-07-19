@@ -65,6 +65,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     var tableFont: NSFont!
     var tableTextColor: NSColor!
     var logTextColor: NSColor!
+    var linkTextAttributes: NSDictionary!
     var sourceListBackgroundColor: NSColor!
     
     var adminPassword: String?
@@ -189,6 +190,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             }
         }
         sourceListBackgroundColor = sourcesOutline.backgroundColor
+        linkTextAttributes = infoText.linkTextAttributes
         if !defaults["Theme"] {
             defaults["Theme"] = "Default"
         }
@@ -1742,6 +1744,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             commandsPopUp.bezelStyle = .SmallSquareBezelStyle
             infoText.backgroundColor = NSColor.blackColor()
             infoText.textColor = NSColor.greenColor()
+            var cyanLinkAttribute = NSMutableDictionary(dictionary: linkTextAttributes)
+            cyanLinkAttribute[NSForegroundColorAttributeName] = NSColor.cyanColor()
+            infoText.linkTextAttributes = cyanLinkAttribute
             logText.backgroundColor = NSColor.blueColor()
             logText.textColor = NSColor.whiteColor()
             logTextColor = NSColor.whiteColor()
@@ -1770,6 +1775,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             commandsPopUp.bezelStyle = .RoundRectBezelStyle // TODO: Round in Mavericks
             infoText.backgroundColor = NSColor(calibratedRed: 0.82290249429999995, green: 0.97448979589999996, blue: 0.67131519269999995, alpha: 1.0) // light green
             infoText.textColor = NSColor.blackColor()
+            infoText.linkTextAttributes = linkTextAttributes
             logText.backgroundColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 0.8, alpha: 1.0) // lioght yellow
             logText.textColor = NSColor.blackColor()
             logTextColor = NSColor.blackColor()

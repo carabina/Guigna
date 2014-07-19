@@ -26,7 +26,7 @@ class GuignaAppDelegate
   attr_accessor :sources, :systems, :scrapes, :repos
   attr_accessor :items, :all_packages, :packages_index, :marked_items
   attr_accessor :marks_count, :selected_segment, :previous_segment
-  attr_accessor :tableFont, :tableTextColor, :logTextColor, :sourceListBackgroundColor
+  attr_accessor :tableFont, :tableTextColor, :logTextColor, :linkTextAttributes, :sourceListBackgroundColor
   attr_accessor :adminPassword, :minute_timer, :ready
   
   def status(msg)
@@ -152,6 +152,7 @@ class GuignaAppDelegate
     @terminal.windows.each {|window| @shellWindow = window if window.name.include?("Guigna ")}
     
     self.sourceListBackgroundColor = sourcesOutline.backgroundColor
+    self.linkTextAttributes = infoText.linkTextAttributes
     theme = defaults["Theme"]
     if theme.nil? || theme == "Default"
       @shell.backgroundColor = NSColor.colorWithCalibratedRed(1.0, green:1.0, blue:0.8, alpha:1.0) # light yellow
@@ -1529,6 +1530,9 @@ class GuignaAppDelegate
       commandsPopUp.setBezelStyle NSSmallSquareBezelStyle
       infoText.setBackgroundColor NSColor.blackColor
       infoText.setTextColor NSColor.greenColor
+      cyanLinkAttributes = linkTextAttributes.mutableCopy
+      cyanLinkAttributes[NSForegroundColorAttributeName] = NSColor.cyanColor
+      infoText.linkTextAttributes = cyanLinkAttributes
       logText.setBackgroundColor NSColor.blueColor
       logText.setTextColor NSColor.whiteColor
       self.logTextColor = NSColor.whiteColor
@@ -1559,6 +1563,7 @@ class GuignaAppDelegate
       commandsPopUp.setBezelStyle NSTexturedRoundedBezelStyle
       infoText.setBackgroundColor(NSColor.colorWithCalibratedRed 0.82290249429999995, green:0.97448979589999996, blue:0.67131519269999995, alpha:1.0) # light green
       infoText.setTextColor NSColor.blackColor
+      infoText.linkTextAttributes = linkTextAttributes
       logText.setBackgroundColor NSColor.colorWithCalibratedRed 1.0, green:1.0, blue:0.8, alpha:1.0 # light yellow
       logText.setTextColor NSColor.blackColor
       self.logTextColor = NSColor.blackColor

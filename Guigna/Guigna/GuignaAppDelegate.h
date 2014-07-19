@@ -97,6 +97,7 @@
 @property(strong) NSFont *tableFont;
 @property(strong) NSColor *tableTextColor;
 @property(strong) NSColor *logTextColor;
+@property(strong) NSDictionary *linkTextAttributes;
 @property(strong) NSColor *sourceListBackgroundColor;
 
 @property(strong) NSString *adminPassword;
