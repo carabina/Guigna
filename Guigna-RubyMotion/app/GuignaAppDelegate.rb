@@ -267,10 +267,8 @@ class GuignaAppDelegate
       @systems << itunes
     end
     
-    @repos = [Native.new(agent), Rudix.new(agent)]
-    
     defaults["ScrapesCount"] = 15 if defaults["ScrapesCount"] == nil
-    
+    @repos = [Native.new(agent), Rudix.new(agent)]
     @scrapes = [PkgsrcSE.new(agent), Freecode.new(agent), Debian.new(agent), CocoaPods.new(agent), PyPI.new(agent), RubyGems.new(agent), MacUpdate.new(agent), AppShopper.new(agent), AppShopperIOS.new(agent)]
     
     source1 = GSource.new("SYSTEMS")

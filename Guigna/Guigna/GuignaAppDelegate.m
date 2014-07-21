@@ -282,13 +282,14 @@
         [systems addObject:itunes];
     }
     
+    
+    if (defaults[@"ScrapesCount"] == nil)
+        defaults[@"ScrapesCount"] = @15;
+
     GRepo *native = [[GNative alloc] initWithAgent:self.agent];
     [repos addObject:native];
     GRepo *rudix = [[GRudix alloc] initWithAgent:self.agent];
     [repos addObject:rudix];
-    
-    if (defaults[@"ScrapesCount"] == nil)
-        defaults[@"ScrapesCount"] = @15;
     
     GScrape *pkgsrcse = [[GPkgsrcSE alloc] initWithAgent:self.agent];
     GScrape *freecode = [[GFreecode alloc] initWithAgent:self.agent];

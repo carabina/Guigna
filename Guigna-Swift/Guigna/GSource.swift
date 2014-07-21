@@ -97,6 +97,8 @@ class GSourceTransformer: NSValueTransformer {
             return NSImage(named: "system-pkgsrc.tiff")
         case "Mac OS X":
             return NSImage(named: "system-macosx.tiff")
+        case "Native Installers":
+            return NSImage(named: "source-native")
         case "Pkgsrc.se":
             return NSImage(named: "source-pkgsrc.se.tiff")
         case "Debian":

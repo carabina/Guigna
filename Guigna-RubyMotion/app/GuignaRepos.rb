@@ -52,7 +52,6 @@ class Native < GRepo
   def initialize(agent=nil)
     super("Native Installers", agent)
     @homepage = "http://github.com/gui-dos/Guigna/"
-    @page_number = 1
     @items_per_page = 250
     @cmd = "installer"
   end

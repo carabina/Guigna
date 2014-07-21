@@ -51,7 +51,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     var sources = [GSource]()
     var systems = [GSystem]()
     var scrapes = [GScrape]()
-    var repos = []
+    var repos   = [GRepo]()
     
     var items = [GItem]()
     var allPackages = [GPackage]()
@@ -311,22 +311,26 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         
         systems += MacOSX(agent: agent)
         
-        if !defaults["ScrapesCount"] {
-            defaults["ScrapesCount"] = 15
-        }
         if !defaults["DebugMode"] {
             defaults["DebugMode"] = false
         }
         
+        if !defaults["ScrapesCount"] {
+            defaults["ScrapesCount"] = 15
+        }
+        
+        repos   += [Native(agent: agent)]
         scrapes += [PkgsrcSE(agent: agent), Debian(agent: agent), PyPI(agent: agent), RubyGems(agent: agent), MacUpdate(agent: agent), AppShopper(agent: agent), AppShopperIOS(agent: agent)]
         
         var source1 = GSource(name: "SYSTEMS")
         source1.categories = systems
         var source2 = GSource(name: "STATUS")
         source2.categories = [GSource(name: "installed"), GSource(name: "outdated"), GSource(name: "inactive")]
+        var source3 = GSource(name: "REPOS")
+        source3.categories = repos
         var source4 = GSource(name: "SCRAPES")
         source4.categories = scrapes
-        sourcesController.content = [source1, GSource(name: ""), source2, GSource(name: ""), source4]
+        sourcesController.content = [source1, GSource(name: ""), source2, GSource(name: ""),  source3, GSource(name: ""), source4]
         sourcesOutline.reloadData()
         sourcesOutline.expandItem(nil, expandChildren: true)
         sourcesOutline.display()

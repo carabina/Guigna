@@ -14,6 +14,7 @@
 		C51ED06319458CB0000B582A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C51ED06219458CB0000B582A /* Images.xcassets */; };
 		C51ED06619458CB0000B582A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C51ED06419458CB0000B582A /* MainMenu.xib */; };
 		C51ED07219458CB0000B582A /* GuignaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51ED07119458CB0000B582A /* GuignaTests.swift */; };
+		C5264CA0197D710F00562D94 /* GuignaRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5264C9F197D710F00562D94 /* GuignaRepos.swift */; };
 		C554334C1972EE060080B0BD /* Fink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554334B1972EE060080B0BD /* Fink.swift */; };
 		C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5635BEA1952F53F007424E2 /* MacPorts.swift */; };
 		C5779CAA1969922B00755926 /* HomebrewCasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5779CA91969922B00755926 /* HomebrewCasks.swift */; };
@@ -82,6 +83,7 @@
 		C51ED06B19458CB0000B582A /* GuignaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuignaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C51ED07019458CB0000B582A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C51ED07119458CB0000B582A /* GuignaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuignaTests.swift; sourceTree = "<group>"; };
+		C5264C9F197D710F00562D94 /* GuignaRepos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuignaRepos.swift; sourceTree = "<group>"; };
 		C554334B1972EE060080B0BD /* Fink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fink.swift; sourceTree = "<group>"; };
 		C5635BEA1952F53F007424E2 /* MacPorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacPorts.swift; sourceTree = "<group>"; };
 		C5779CA91969922B00755926 /* HomebrewCasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomebrewCasks.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				C5AD0FB4196287360001FB53 /* GPackage.swift */,
 				C5A1215D1945EB2700A351A8 /* GSystem.swift */,
 				C5D04FBA195D853300D968E5 /* GuignaScrapes.swift */,
+				C5264C9F197D710F00562D94 /* GuignaRepos.swift */,
 				C51ED06219458CB0000B582A /* Images.xcassets */,
 				C51ED06419458CB0000B582A /* MainMenu.xib */,
 				C51ED05F19458CB0000B582A /* Guigna.xcdatamodeld */,
@@ -411,6 +414,7 @@
 				C5D04FBB195D853300D968E5 /* GuignaScrapes.swift in Sources */,
 				C5A121621945EB4300A351A8 /* Homebrew.swift in Sources */,
 				C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */,
+				C5264CA0197D710F00562D94 /* GuignaRepos.swift in Sources */,
 				C5A1215E1945EB2700A351A8 /* GItem.swift in Sources */,
 				C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */,
 				C554334C1972EE060080B0BD /* Fink.swift in Sources */,
