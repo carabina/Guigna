@@ -84,7 +84,7 @@ class Homebrew: GSystem {
             let versionCount = components.count
             let version = components[components.count - 1]
             var pkg: GPackage! = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if versionCount > 1 {
                 for var i = 0 ; i < versionCount - 1 ; i++ {
                     var inactivePkg = GPackage(name: name, version: latestVersion, system: self, status: .Inactive)
@@ -131,7 +131,7 @@ class Homebrew: GSystem {
                 return pkgs
             }
             var pkg = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             // let version = components[1] // TODO: strangely, output contains only name
             let version = (pkg == nil) ? "..." : pkg.installed
             if pkg == nil {

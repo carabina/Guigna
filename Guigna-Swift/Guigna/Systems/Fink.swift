@@ -101,7 +101,7 @@ class Fink: GSystem {
             let version = components[1]
             status = .UpToDate
             var pkg: GPackage! = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: status)
                 self[name] = pkg
@@ -136,7 +136,7 @@ class Fink: GSystem {
             let version = components[2]
             let description = components[3]
             var pkg: GPackage! = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: .Outdated)
                 self[name] = pkg

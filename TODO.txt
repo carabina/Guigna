@@ -15,7 +15,7 @@ FIXME
 TODO
 
 * Swift port:
-    - porting remaining systems and scrapes
+    - port remaining systems and scrapes
     - line-by-line review compared to RubyMotion
 * mdfind 'kMDItemContentType==com.apple.application-bundle'
 * Manage --force flags
@@ -47,7 +47,7 @@ TODO
 * Log selected GSystem#search results when searching
 * Dependencies analysis (MacPorts -y, Homebrew missing)
 * Adding marks and pins while browsing scrapes
-* Option no to hide prefixes
+* Option not to hide prefixes
 * Screenshots from Debian, NSWorkspace.sharedWorkspace.iconForFile
 * Download BSD INDEXes when activated in Options
 * FreeBSD Deps
@@ -55,5 +55,5 @@ TODO
 * http://opensourcemac.org, http://www.freesmug.org/
 * http://packages.gentoo.org/arch/x64-macos?arches=prefix
 * npm, CPAN
-* GNOME and LAMP configurations
+* GNOME and LAMP presets
 

@@ -470,7 +470,9 @@
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                     <connections>
+                                                                                        <binding destination="386" name="font" keyPath="tableFont" id="ESN-Wn-f12"/>
                                                                                         <binding destination="WHQ-ke-92u" name="value" keyPath="objectValue.license" id="7ug-nQ-alg"/>
+                                                                                        <binding destination="386" name="textColor" keyPath="tableTextColor" id="rZs-4X-CWB"/>
                                                                                     </connections>
                                                                                 </textField>
                                                                             </subviews>
@@ -1733,6 +1735,18 @@ DQ
                         <connections>
                             <binding destination="386" name="enabled" keyPath="ready" id="1438"/>
                             <binding destination="440" name="value" keyPath="values.HomebrewMainTaps" id="50t-Wx-c21"/>
+                        </connections>
+                    </button>
+                    <button id="Pbq-Ja-aoR">
+                        <rect key="frame" x="158" y="188" width="80" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="PortIndex" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="xiY-no-NF5">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="oSh-Om-14i"/>
+                            <binding destination="440" name="value" keyPath="values.MacPortsParsePortIndex" id="ZRX-lE-0sH"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="1453">

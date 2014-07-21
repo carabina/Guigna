@@ -1821,6 +1821,22 @@ DQ
                             <action selector="preferences:" target="386" id="Fta-mx-GgN"/>
                         </connections>
                     </segmentedControl>
+                    <button id="k80-fv-nFQ">
+                        <rect key="frame" x="158" y="188" width="108" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="PortIndex (slow)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LrH-OJ-PaI">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="Bgm-9P-g8R"/>
+                            <binding destination="440" name="value" keyPath="values.MacPortsParsePortIndex" id="uza-A9-9EJ">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
         </window>

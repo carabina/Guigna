@@ -21,85 +21,121 @@
     [self.index removeAllObjects];
     [self.items removeAllObjects];
     NSMutableArray *pkgs = [NSMutableArray array];
-    NSString *portIndex;
-    if (self.mode == GOnlineMode) // TODO: fetch PortIndex
-        portIndex = [NSString stringWithContentsOfFile:[@"~/Library/Application Support/Guigna/MacPorts/PortIndex" stringByExpandingTildeInPath] encoding:NSUTF8StringEncoding error:nil];
-    else
-        portIndex = [NSString stringWithContentsOfFile:[self.prefix stringByAppendingString:@"/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex"] encoding:NSUTF8StringEncoding error:nil];
-    NSScanner *s =  [NSScanner scannerWithString:portIndex];
-    [s setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@""]];
-    NSCharacterSet *spaceOrReturn = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *str = [[NSString alloc] init];
-    NSUInteger loc;
-    NSString *name = [[NSString alloc] init];
-    NSString *key =  [[NSString alloc] init];
-    NSMutableString *value =  [[NSMutableString alloc] init];
-    NSString *version = nil;
-    NSString *revision = nil;
-    NSString *categories = nil;
-    NSString *description = nil;
-    NSString *homepage = nil;
-    NSString *license = nil;
-    while (1) {
-        if ( ![s scanUpToString:@" " intoString: &name])
-            break;
-        [s scanUpToString:@"\n" intoString: nil];
-        [s scanString:@"\n" intoString: nil];
+    if ([self.agent.appDelegate.defaults[@"MacPortsParsePortIndex"] isEqual:@NO]) {
+        NSMutableArray *output = [NSMutableArray arrayWithArray:[[self outputFor:@"%@ list", self.cmd] split:@"\n"]];
+        [output removeLastObject];
+        NSCharacterSet *whitespaceCharacterSet = [NSCharacterSet whitespaceCharacterSet];
+        NSString *name;
+        NSString *version;
+        // NSString *revision;
+        NSString *categories;
+        for (NSString *line in output) {
+            NSArray *components = [line split:@"@"];
+            name = [components[0] stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+            components = [components[1] split];
+            version = components[0];
+            // revision = "..."
+            categories = [[components lastObject] split:@"/"][0];
+            GPackage *pkg = [[GPackage alloc] initWithName:name
+                                                   version:version
+                                                    system:self
+                                                    status:GAvailableStatus];
+            //            GPackage *pkg = [[GPackage alloc] initWithName:name
+            //                                                   version:[NSString stringWithFormat:@"%@_%@", version, revision]
+            //                                                    system:self
+            //                                                    status:GAvailableStatus];
+            pkg.categories = categories;
+            // pkg.description = description;
+            // pkg.license = license;
+            // if (self.mode == GOnlineMode) {
+            //     pkg.homepage = homepage;
+            // }
+            [pkgs addObject:pkg];
+            [self.items addObject:pkg];
+            self[name] = pkg;
+            
+        }
+    } else {
+        NSString *portIndex;
+        if (self.mode == GOnlineMode) // TODO: fetch PortIndex
+            portIndex = [NSString stringWithContentsOfFile:[@"~/Library/Application Support/Guigna/MacPorts/PortIndex" stringByExpandingTildeInPath] encoding:NSUTF8StringEncoding error:nil];
+        else
+            portIndex = [NSString stringWithContentsOfFile:[self.prefix stringByAppendingString:@"/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex"] encoding:NSUTF8StringEncoding error:nil];
+        NSScanner *s =  [NSScanner scannerWithString:portIndex];
+        [s setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@""]];
+        NSCharacterSet *spaceOrReturn = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSString *str = [[NSString alloc] init];
+        NSUInteger loc;
+        NSString *name = [[NSString alloc] init];
+        NSString *key =  [[NSString alloc] init];
+        NSMutableString *value =  [[NSMutableString alloc] init];
+        NSString *version = nil;
+        NSString *revision = nil;
+        NSString *categories = nil;
+        NSString *description = nil;
+        NSString *homepage = nil;
+        NSString *license = nil;
         while (1) {
-            [s scanUpToString:@" " intoString: &key];
-            [s scanString:@" " intoString: nil];
-            loc = [s scanLocation];
-            BOOL nextIsBrace = [s scanString:@"{" intoString:nil];
-            [s setScanLocation:loc];
-            if (nextIsBrace) {
-                [value setString:@""];
-                [s scanString:@"{" intoString:nil];
-                do {
-                    NSRange range = [value rangeOfString:@"{"];
-                    if (range.location != NSNotFound)
-                        [value replaceCharactersInRange:range withString:@""];
-                    if ([s scanUpToString:@"}" intoString:&str])
-                        [value appendString:str];
-                    [s scanString:@"}" intoString:nil];
-                } while ([value rangeOfString:@"{"].location != NSNotFound);
-            } else {
-                [s scanUpToCharactersFromSet:spaceOrReturn intoString:&str];
-                [value setString:str];
-            }
-            if ([key is:@"version"])
-                version = [value copy];
-            if ([key is:@"revision"])
-                revision = [value copy];
-            if ([key is:@"categories"])
-                categories = [value copy];
-            if ([key is:@"description"])
-                description = [value copy];
-            if ([key is:@"homepage"])
-                homepage = [value copy];
-            if ([key is:@"license"])
-                license = [value copy];
-            loc = [s scanLocation];
-            BOOL nextIsReturn = [s scanString:@"\n" intoString:nil];
-            [s setScanLocation:loc];
-            if (nextIsReturn) {
-                [s scanString:@"\n" intoString:nil];
+            if ( ![s scanUpToString:@" " intoString: &name])
                 break;
+            [s scanUpToString:@"\n" intoString: nil];
+            [s scanString:@"\n" intoString: nil];
+            while (1) {
+                [s scanUpToString:@" " intoString: &key];
+                [s scanString:@" " intoString: nil];
+                loc = [s scanLocation];
+                BOOL nextIsBrace = [s scanString:@"{" intoString:nil];
+                [s setScanLocation:loc];
+                if (nextIsBrace) {
+                    [value setString:@""];
+                    [s scanString:@"{" intoString:nil];
+                    do {
+                        NSRange range = [value rangeOfString:@"{"];
+                        if (range.location != NSNotFound)
+                            [value replaceCharactersInRange:range withString:@""];
+                        if ([s scanUpToString:@"}" intoString:&str])
+                            [value appendString:str];
+                        [s scanString:@"}" intoString:nil];
+                    } while ([value rangeOfString:@"{"].location != NSNotFound);
+                } else {
+                    [s scanUpToCharactersFromSet:spaceOrReturn intoString:&str];
+                    [value setString:str];
+                }
+                if ([key is:@"version"])
+                    version = [value copy];
+                if ([key is:@"revision"])
+                    revision = [value copy];
+                if ([key is:@"categories"])
+                    categories = [value copy];
+                if ([key is:@"description"])
+                    description = [value copy];
+                if ([key is:@"homepage"])
+                    homepage = [value copy];
+                if ([key is:@"license"])
+                    license = [value copy];
+                loc = [s scanLocation];
+                BOOL nextIsReturn = [s scanString:@"\n" intoString:nil];
+                [s setScanLocation:loc];
+                if (nextIsReturn) {
+                    [s scanString:@"\n" intoString:nil];
+                    break;
+                }
+                [s scanString:@" " intoString: nil];
             }
-            [s scanString:@" " intoString: nil];
+            GPackage *pkg = [[GPackage alloc] initWithName:name
+                                                   version:[NSString stringWithFormat:@"%@_%@", version, revision]
+                                                    system:self
+                                                    status:GAvailableStatus];
+            pkg.categories = categories;
+            pkg.description = description;
+            pkg.license = license;
+            if (self.mode == GOnlineMode) {
+                pkg.homepage = homepage;
+            }
+            [pkgs addObject:pkg];
+            [self.items addObject:pkg];
+            self[name] = pkg;
         }
-        GPackage *pkg = [[GPackage alloc] initWithName:name
-                                               version:[NSString stringWithFormat:@"%@_%@", version, revision]
-                                                system:self
-                                                status:GAvailableStatus];
-        pkg.categories = categories;
-        pkg.description = description;
-        pkg.license = license;
-        if (self.mode == GOnlineMode) {
-            pkg.homepage = homepage;
-        }
-        [pkgs addObject:pkg];
-        [self.items addObject:pkg];
-        self[name] = pkg;
     }
     [self installed]; // update status
     return pkgs;

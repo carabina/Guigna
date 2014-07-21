@@ -136,7 +136,7 @@ class Pkgsrc: GSystem {
             name = id.substringFromIndex(sep + 1)
             status = .UpToDate
             var pkg: GPackage! = self[id]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: status)
                 self[id] = pkg

@@ -241,8 +241,11 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             if !defaults["MacPortsStatus"] {
                 defaults["MacPortsStatus"] = GState.On.toRaw()
             }
+            if !defaults["MacPortsParsePortIndex"] {
+                defaults["MacPortsParsePortIndex"] = true
+            }
         }
-        if defaults["MacPortsStatus"] == GState.On.toRaw() {
+        if defaults["MacPortsStatus"] != nil && defaults["MacPortsStatus"] == GState.On.toRaw() {
             var macports = MacPorts(agent: agent)
             if !fileManager.fileExistsAtPath(portPath) {
                 macports.mode = GMode.Online
@@ -261,7 +264,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 defaults["HomebrewStatus"] = GState.On.toRaw()
             }
         }
-        if defaults["HomebrewStatus"] == GState.On.toRaw() {
+        if defaults["HomebrewStatus"] != nil && defaults["HomebrewStatus"] == GState.On.toRaw() {
             if fileManager.fileExistsAtPath(brewPath) { // TODO: online mode
                 var homebrew = Homebrew(agent: agent)
                 systems += homebrew
@@ -283,7 +286,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 defaults["FinkStatus"] = GState.On.toRaw()
             }
         }
-        if defaults["FinkStatus"] == GState.On.toRaw() {
+        if defaults["FinkStatus"] != nil && defaults["FinkStatus"] == GState.On.toRaw() {
             var fink = Fink(agent: agent)
             if !fileManager.fileExistsAtPath("/sw/bin/fink") {
                 fink.mode = GMode.Online
@@ -298,7 +301,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 defaults["pkgsrcCVS"] = true
             }
         }
-        if defaults["pkgsrcStatus"] == GState.On.toRaw() {
+        if defaults["pkgsrcStatus"] != nil && defaults["pkgsrcStatus"] == GState.On.toRaw() {
             var pkgsrc = Pkgsrc(agent: agent)
             if !fileManager.fileExistsAtPath("/usr/pkg/sbin/pkg_info") {
                 pkgsrc.mode = GMode.Online
@@ -1030,7 +1033,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         moreButton.hidden = false
         updateTabView(itemsController.selectedObjects[0] as GItem)
         tableProgressIndicator.stopAnimation(self)
-        if statusField.stringValue.hasPrefix("Executing") {
+        if !statusField.stringValue.hasPrefix("Executing") {
             status("OK.")
         }
     }

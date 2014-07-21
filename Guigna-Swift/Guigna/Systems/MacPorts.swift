@@ -20,93 +20,120 @@ class MacPorts: GSystem {
         pkgs.reserveCapacity(50000)
         var idx = [String: GPackage](minimumCapacity: 50000)
         
-        var portIndex = "" as NSString
-        if mode == GMode.Online { // TODO: fetch PortIndex
-            portIndex = NSString(contentsOfFile: "~/Library/Application Support/Guigna/MacPorts/PortIndex".stringByExpandingTildeInPath, encoding: NSUTF8StringEncoding, error: nil)
-        } else {
-            portIndex = NSString(contentsOfFile: "\(prefix)/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding: NSUTF8StringEncoding, error: nil)
-        }
-        let s =  NSScanner(string: portIndex)
-        s.charactersToBeSkipped = NSCharacterSet(charactersInString: "")
-        let spaceOrReturn = NSCharacterSet.whitespaceAndNewlineCharacterSet()
-        var str: NSString? = nil
-        var loc: Int
-        var name: NSString? = nil
-        var key: NSString? = nil
-        var value: NSMutableString = ""
-        var version: String?
-        var revision: String?
-        var categories: String?
-        var description: String?
-        var homepage: String?
-        var license: String?
-        while true {
-            if !s.scanUpToString(" ", intoString: &name) {
-                break
+        if agent.appDelegate!.defaults["MacPortsParsePortIndex"] == false {
+            var outputLines = output("\(cmd) list").split("\n")
+            outputLines.removeLast()
+            let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
+            for line in outputLines {
+                var components = line.split("@")
+                let name = components[0].stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+                components = components[1].split()
+                let version = components[0]
+                // let revision = "..."
+                let categories = components[components.count - 1].split("/")[0]
+                var pkg = GPackage(name: name, version: version, system: self, status: .Available)
+                // var pkg = GPackage(name: name, version: "\(version)_\(revision)", system: self, status: .Available)
+                pkg.categories = categories
+                // pkg.description = description!
+                // pkg.license = license
+                // if (self.mode == GOnlineMode) {
+                //    pkg.homepage = homepage;
+                // }
+                // items += pkg // FIXME: slow
+                pkgs += pkg
+                // self[name] = pkg // FIXME: slow
+                idx[pkg.key] = pkg
             }
-            s.scanUpToString("\n", intoString: nil)
-            s.scanString("\n", intoString: nil)
+        
+        } else {
+            var portIndex = "" as NSString
+            if mode == GMode.Online { // TODO: fetch PortIndex
+                portIndex = NSString(contentsOfFile: "~/Library/Application Support/Guigna/MacPorts/PortIndex".stringByExpandingTildeInPath, encoding: NSUTF8StringEncoding, error: nil)
+            } else {
+                portIndex = NSString(contentsOfFile: "\(prefix)/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding: NSUTF8StringEncoding, error: nil)
+            }
+            let s =  NSScanner(string: portIndex)
+            s.charactersToBeSkipped = NSCharacterSet(charactersInString: "")
+            let spaceOrReturn = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+            var str: NSString? = nil
+            var loc: Int
+            var name: NSString? = nil
+            var key: NSString? = nil
+            var value: NSMutableString = ""
+            var version: String?
+            var revision: String?
+            var categories: String?
+            var description: String?
+            var homepage: String?
+            var license: String?
             while true {
-                s.scanUpToString(" ", intoString: &key)
-                s.scanString(" ", intoString: nil)
-                loc = s.scanLocation
-                var nextIsBrace = s.scanString("{", intoString: nil)
-                s.scanLocation = loc
-                if nextIsBrace {
-                    value.setString("")
-                    s.scanString("{", intoString: nil)
-                    do {
-                        var range = value.rangeOfString("{")
-                        if range.location != NSNotFound {
-                            value.replaceCharactersInRange(range, withString: "")
-                        }
-                        if s.scanUpToString("}", intoString: &str) {
-                            value.appendString(str)
-                        }
-                        s.scanString("}", intoString: nil)
-                    } while value.containsString("{")
-                } else {
-                    s.scanUpToCharactersFromSet(spaceOrReturn, intoString: &str)
-                    value.setString(str)
-                }
-                if key == "version" {
-                    version = value
-                }
-                if key == "revision" {
-                    revision = value
-                }
-                if key == "categories" {
-                    categories = value
-                }
-                if key == "description" {
-                    description = value
-                }
-                if key == "homepage" {
-                    homepage = value
-                }
-                if key == "license" {
-                    license = value
-                }
-                loc = s.scanLocation
-                var nextIsReturn = s.scanString("\n", intoString: nil)
-                s.scanLocation = loc
-                if nextIsReturn {
-                    s.scanString("\n", intoString: nil)
+                if !s.scanUpToString(" ", intoString: &name) {
                     break
                 }
-                s.scanString(" ", intoString: nil)
+                s.scanUpToString("\n", intoString: nil)
+                s.scanString("\n", intoString: nil)
+                while true {
+                    s.scanUpToString(" ", intoString: &key)
+                    s.scanString(" ", intoString: nil)
+                    loc = s.scanLocation
+                    var nextIsBrace = s.scanString("{", intoString: nil)
+                    s.scanLocation = loc
+                    if nextIsBrace {
+                        value.setString("")
+                        s.scanString("{", intoString: nil)
+                        do {
+                            var range = value.rangeOfString("{")
+                            if range.location != NSNotFound {
+                                value.replaceCharactersInRange(range, withString: "")
+                            }
+                            if s.scanUpToString("}", intoString: &str) {
+                                value.appendString(str)
+                            }
+                            s.scanString("}", intoString: nil)
+                        } while value.containsString("{")
+                    } else {
+                        s.scanUpToCharactersFromSet(spaceOrReturn, intoString: &str)
+                        value.setString(str)
+                    }
+                    if key == "version" {
+                        version = value
+                    }
+                    if key == "revision" {
+                        revision = value
+                    }
+                    if key == "categories" {
+                        categories = value
+                    }
+                    if key == "description" {
+                        description = value
+                    }
+                    if key == "homepage" {
+                        homepage = value
+                    }
+                    if key == "license" {
+                        license = value
+                    }
+                    loc = s.scanLocation
+                    var nextIsReturn = s.scanString("\n", intoString: nil)
+                    s.scanLocation = loc
+                    if nextIsReturn {
+                        s.scanString("\n", intoString: nil)
+                        break
+                    }
+                    s.scanString(" ", intoString: nil)
+                }
+                var pkg = GPackage(name: name!, version: "\(version)_\(revision)", system: self, status: .Available)
+                pkg.categories = categories
+                pkg.description = description!
+                pkg.license = license
+                // if (self.mode == GOnlineMode) {
+                //    pkg.homepage = homepage;
+                // }
+                // items += pkg // FIXME: slow
+                pkgs += pkg
+                // self[name] = pkg // FIXME: slow
+                idx[pkg.key] = pkg
             }
-            var pkg = GPackage(name: name!, version: "\(version)_\(revision)", system: self, status: .Available)
-            pkg.categories = categories
-            pkg.description = description!
-            pkg.license = license
-            // if (self.mode == GOnlineMode) {
-            //    pkg.homepage = homepage;
-            // }
-            // items += pkg // FIXME: slow
-            pkgs += pkg
-            // self[name] = pkg // FIXME: slow
-            idx[pkg.key] = pkg
         }
         items = pkgs
         index = idx
@@ -162,7 +189,7 @@ class MacPorts: GSystem {
             }
             status = components.count == 2 ? .Inactive : .UpToDate
             var pkg: GPackage! = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if status == .Inactive {
                 pkg = nil
             }
@@ -208,7 +235,7 @@ class MacPorts: GSystem {
             let name = components[0]
             let version = components[components.count-1]
             var pkg = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: .Outdated)
                 self[name] = pkg
@@ -241,7 +268,7 @@ class MacPorts: GSystem {
         }
         return pkgs
     }
-
+    
     
     override func info(item: GItem) -> String {
         if self.isHidden {

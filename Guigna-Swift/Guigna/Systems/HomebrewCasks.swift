@@ -99,7 +99,7 @@ class HomebrewCasks: GSystem {
             // TODO: manage multiple versions
             version = version.stringByReplacingOccurrencesOfString("\n", withString: ", ")
             var pkg: GPackage! = self[name]
-            var latestVersion: String! = (pkg == nil) ? nil : pkg.version
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: .UpToDate)
                 self[name] = pkg
