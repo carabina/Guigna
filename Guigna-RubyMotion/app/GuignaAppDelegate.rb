@@ -195,6 +195,7 @@ class GuignaAppDelegate
     
     if File.exist?(port_path) || File.exist?("#{$APPDIR}/MacPorts/PortIndex")
       defaults["MacPortsStatus"] = ON if defaults["MacPortsStatus"] == nil
+      defaults["MacPortsParsePortIndex"] = true if defaults["MacPortsParsePortIndex"] == nil
     end
     if defaults["MacPortsStatus"] == ON
       macports = MacPorts.new(agent)

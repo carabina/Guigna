@@ -17,70 +17,91 @@ class MacPorts < GSystem
     @index.clear
     @items.clear
     pkgs = []
-    if self.mode == :online
-      portindex = NSString.stringWithContentsOfFile(File.expand_path("~/Library/Application Support/Guigna/MacPorts/PortIndex"), encoding:NSUTF8StringEncoding, error:nil)
-    else
-      portindex = NSString.stringWithContentsOfFile("#{prefix}/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding:NSUTF8StringEncoding, error:nil)
-    end
-    s = NSScanner.scannerWithString(portindex) # MacRuby's StringScanner too slow
-    s.setCharactersToBeSkipped NSCharacterSet.characterSetWithCharactersInString("")
-    spaceOrReturn = NSCharacterSet.whitespaceAndNewlineCharacterSet
-    str = Pointer.new(:id)
-    loop do
-      break if !s.scanUpToString(" ", intoString:str)
-      name = str[0]
-      s.scanUpToString("\n", intoString:nil)
-      s.scanString("\n", intoString:nil)
-      begin
-        s.scanUpToString(' ', intoString:str)
-        key = str[0]
-        s.scanString(' ', intoString:nil)
-        loc = s.scanLocation # portindex[s.scanLocation] too slow
-        next_is_brace = s.scanString('{', intoString:nil)
-        s.setScanLocation loc
-        if next_is_brace
-          value = ''
-          s.scanString('{', intoString:nil)
-          begin
-            value.sub!('{', '')
-            value << str[0] if s.scanUpToString('}', intoString:str)
-            s.scanString('}', intoString:nil)
-          end while value.include?('{')
-        else
-          s.scanUpToCharactersFromSet(spaceOrReturn, intoString:str)
-          value = str[0]
-        end
-        case key
-        when 'version'
-          version = value
-        when 'revision'
-          revision = value
-        when 'categories'
-          categories = value
-        when 'description'
-          description = value
-        when 'homepage'
-          homepage = value
-        when 'license'
-          license = value
-        end
-        loc = s.scanLocation
-        next_is_return = s.scanString("\n", intoString:nil)
-        s.setScanLocation loc
-        if next_is_return
-          s.scanString("\n", intoString:nil)
-          break
-        end
-        s.scanString(' ', intoString:nil)
-      end while true
-      pkg = GPackage.new(name, "#{version}_#{revision}", self, :available)
-      pkg.categories = categories
-      pkg.description = description
-      pkg.license = license
-      pkg.homepage = homepage if self.mode == :online
-      pkgs << pkg
-      @items << pkg
-      self[name] = pkg
+    if self.agent.app_delegate.defaults['MacPortsParsePortIndex'] == false
+      list = `export HOME=~ ; #{cmd} list`.split("\n")
+      for line in list
+        components = line.split("@")
+        name = components.first.strip
+        components = components[1].split
+        version = components[0]
+        # revision = "..."
+        categories = components.last.split("/").first
+        pkg = GPackage.new(name, version, self, :available)
+        # pkg = GPackage.new(name, "#{version}_#{revision}", self, :available)
+        pkg.categories = categories
+        # pkg.description = description
+        # pkg.license = license
+        # pkg.homepage = homepage if self.mode == :online
+        pkgs << pkg
+        @items << pkg
+        self[name] = pkg
+      end
+    else  
+      if self.mode == :online
+        portindex = NSString.stringWithContentsOfFile(File.expand_path("~/Library/Application Support/Guigna/MacPorts/PortIndex"), encoding:NSUTF8StringEncoding, error:nil)
+      else
+        portindex = NSString.stringWithContentsOfFile("#{prefix}/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding:NSUTF8StringEncoding, error:nil)
+      end
+      s = NSScanner.scannerWithString(portindex) # MacRuby's StringScanner too slow
+      s.setCharactersToBeSkipped NSCharacterSet.characterSetWithCharactersInString("")
+      spaceOrReturn = NSCharacterSet.whitespaceAndNewlineCharacterSet
+      str = Pointer.new(:id)
+      loop do
+        break if !s.scanUpToString(" ", intoString:str)
+        name = str[0]
+        s.scanUpToString("\n", intoString:nil)
+        s.scanString("\n", intoString:nil)
+        begin
+          s.scanUpToString(' ', intoString:str)
+          key = str[0]
+          s.scanString(' ', intoString:nil)
+          loc = s.scanLocation # portindex[s.scanLocation] too slow
+          next_is_brace = s.scanString('{', intoString:nil)
+          s.setScanLocation loc
+          if next_is_brace
+            value = ''
+            s.scanString('{', intoString:nil)
+            begin
+              value.sub!('{', '')
+              value << str[0] if s.scanUpToString('}', intoString:str)
+              s.scanString('}', intoString:nil)
+            end while value.include?('{')
+          else
+            s.scanUpToCharactersFromSet(spaceOrReturn, intoString:str)
+            value = str[0]
+          end
+          case key
+          when 'version'
+            version = value
+          when 'revision'
+            revision = value
+          when 'categories'
+            categories = value
+          when 'description'
+            description = value
+          when 'homepage'
+            homepage = value
+          when 'license'
+            license = value
+          end
+          loc = s.scanLocation
+          next_is_return = s.scanString("\n", intoString:nil)
+          s.setScanLocation loc
+          if next_is_return
+            s.scanString("\n", intoString:nil)
+            break
+          end
+          s.scanString(' ', intoString:nil)
+        end while true
+        pkg = GPackage.new(name, "#{version}_#{revision}", self, :available)
+        pkg.categories = categories
+        pkg.description = description
+        pkg.license = license
+        pkg.homepage = homepage if self.mode == :online
+        pkgs << pkg
+        @items << pkg
+        self[name] = pkg
+      end
     end
     self.installed # update status
     pkgs
