@@ -92,10 +92,13 @@ extension NSXMLNode {
         }
     }
     
-    func attribute(name: String) -> String {
-        return (self as NSXMLElement).attributeForName(name).stringValue!
+    func attribute(name: String) -> String! {
+        if let attribute = (self as NSXMLElement).attributeForName(name) {
+            return attribute.stringValue!
+        } else {
+            return nil
+        }
     }
-    
     
     var href: String { // FIXME: coompiling error when used
     get {
