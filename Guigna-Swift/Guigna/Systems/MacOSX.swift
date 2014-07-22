@@ -182,7 +182,7 @@ class MacOSX: GSystem {
             files.removeLast()
             for file in files {
                 let filePath = NSString.pathWithComponents([plist["volume"]!, plist["install-location"]!, file])
-                if !(fileManager.fileExistsAtPath(filePath, isDirectory: &isDir) && (isDir == true)) {
+                if !(fileManager.fileExistsAtPath(filePath, isDirectory: &isDir) && isDir) {
                     if (dirsToDelete.filter { filePath.contains($0) }).count == 0 {
                         commands += "sudo rm \"\(filePath)\""
                     }
