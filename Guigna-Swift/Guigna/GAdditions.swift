@@ -26,6 +26,54 @@ extension Array {
 
 extension String {
     
+    //    var length: Int {
+    //    get {
+    //        return (self as NSString).length
+    //    }
+    //    }
+    
+    var length: Int {
+    get {
+        return countElements(self)
+    }
+    }
+    
+    //    func index(string: String) -> Int {
+    //        return (self as NSString).rangeOfString(string).location
+    //    }
+    
+    func index(string: String) -> Int {
+        if let range = self.rangeOfString(string) {
+            return toString(range.startIndex).toInt()! // ugly
+        } else {
+            return NSNotFound
+        }
+    }
+    
+    //    func rindex(string: String) -> Int {
+    //        return (self as NSString).rangeOfString(string, options: .BackwardsSearch).location
+    //    }
+    
+    func rindex(string: String) -> Int {
+        if let range = self.rangeOfString(string, options: .BackwardsSearch) {
+            return toString(range.startIndex).toInt()! // ugly
+        } else {
+            return NSNotFound
+        }
+    }
+    
+    //    func contains(string: String) -> Bool {
+    //        return (self as NSString).containsString(string)
+    //    }
+    
+    func contains(string: String) -> Bool {
+        if let range = self.rangeOfString(string) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     subscript(index: Int) -> Character {
         return self[advance(startIndex, index)]
     }
@@ -34,47 +82,21 @@ extension String {
         return self[Range(start: advance(startIndex, range.startIndex), end: advance(startIndex, range.endIndex))]
     }
     
-    func split() -> Array<String> {
-        return self.componentsSeparatedByString(" ")
-    }
-    
-    func split(delimiter: String) -> Array<String> {
-        return self.componentsSeparatedByString(delimiter)
-    }
-    
-    var length: Int {
-    get {
-        return (self as NSString).length
-    }
-    }
-    
-    func index(string: String) -> Int {
-        return (self as NSString).rangeOfString(string).location
-    }
-    
-    func rindex(string: String) -> Int {
-        return (self as NSString).rangeOfString(string, options: .BackwardsSearch).location
-    }
-    
-    func contains(string: String) -> Bool {
-        return (self as NSString).containsString(string)
-    }
-    
-//    func substring(location: Int, _ length: Int) -> String {
-//        return (self as NSString).substringWithRange(NSMakeRange(location, length))
-//    }
+    //    func substring(location: Int, _ length: Int) -> String {
+    //        return (self as NSString).substringWithRange(NSMakeRange(location, length))
+    //    }
     
     func substring(location: Int, _ length: Int) -> String {
         return self[Range(start: location, end: location + length)]
     }
     
-//    func substringFromIndex(index: Int) -> String {
-//        return (self as NSString).substringFromIndex(index)
-//    }
-//    
-//    func substringToIndex(index: Int) -> String {
-//        return (self as NSString).substringToIndex(index)
-//    }
+    //    func substringFromIndex(index: Int) -> String {
+    //        return (self as NSString).substringFromIndex(index)
+    //    }
+    //
+    //    func substringToIndex(index: Int) -> String {
+    //        return (self as NSString).substringToIndex(index)
+    //    }
     
     
     func substringFromIndex(index: Int) -> String {
@@ -83,6 +105,14 @@ extension String {
     
     func substringToIndex(index: Int) -> String {
         return self[Range(start: 0, end: index)]
+    }
+    
+    func split() -> Array<String> {
+        return self.componentsSeparatedByString(" ")
+    }
+    
+    func split(delimiter: String) -> Array<String> {
+        return self.componentsSeparatedByString(delimiter)
     }
     
 }

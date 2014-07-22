@@ -1,7 +1,7 @@
 FIXME
 
 * Swift:
-  - Slowness of substringFromIndex() and substringToIndex() casting to NSString
+  - Slowness of String's substrings extensions
   - MacPorts.list() really slow because of the NString <-> String
     conversions in NSScanner
   - Erratic visibility of enum values causing compiling errors
