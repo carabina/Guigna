@@ -5,48 +5,48 @@ import ScriptingBridge
 class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource, NSTextViewDelegate {
     
     var agent: GAgent = GAgent()
-    @IBOutlet var defaults: NSUserDefaultsController
+    @IBOutlet var defaults: NSUserDefaultsController!
     
-    @IBOutlet var window: NSWindow
-    @IBOutlet var sourcesOutline: NSOutlineView
-    @IBOutlet var itemsTable: NSTableView
-    @IBOutlet var searchField: NSSearchField
-    @IBOutlet var tabView: NSTabView
+    @IBOutlet var window: NSWindow!
+    @IBOutlet var sourcesOutline: NSOutlineView!
+    @IBOutlet var itemsTable: NSTableView!
+    @IBOutlet var searchField: NSSearchField!
+    @IBOutlet var tabView: NSTabView!
     @IBOutlet strong var infoText: NSTextView!
-    @IBOutlet var webView: WebView
+    @IBOutlet var webView: WebView!
     @IBOutlet strong var logText: NSTextView!
-    @IBOutlet var segmentedControl: NSSegmentedControl
-    @IBOutlet var commandsPopUp: NSPopUpButton
-    @IBOutlet var shellDisclosure: NSButton
-    @IBOutlet var cmdline: NSTextField
-    @IBOutlet var statusField: NSTextField
-    @IBOutlet var clearButton: NSButton
-    @IBOutlet var screenshotsButton: NSButton
-    @IBOutlet var moreButton: NSButton
-    @IBOutlet var statsLabel: NSTextField
-    @IBOutlet var progressIndicator: NSProgressIndicator
-    @IBOutlet var tableProgressIndicator: NSProgressIndicator
-    @IBOutlet var applyButton: NSToolbarItem
-    @IBOutlet var stopButton: NSToolbarItem
-    @IBOutlet var syncButton: NSToolbarItem
+    @IBOutlet var segmentedControl: NSSegmentedControl!
+    @IBOutlet var commandsPopUp: NSPopUpButton!
+    @IBOutlet var shellDisclosure: NSButton!
+    @IBOutlet var cmdline: NSTextField!
+    @IBOutlet var statusField: NSTextField!
+    @IBOutlet var clearButton: NSButton!
+    @IBOutlet var screenshotsButton: NSButton!
+    @IBOutlet var moreButton: NSButton!
+    @IBOutlet var statsLabel: NSTextField!
+    @IBOutlet var progressIndicator: NSProgressIndicator!
+    @IBOutlet var tableProgressIndicator: NSProgressIndicator!
+    @IBOutlet var applyButton: NSToolbarItem!
+    @IBOutlet var stopButton: NSToolbarItem!
+    @IBOutlet var syncButton: NSToolbarItem!
     
     var statusItem: NSStatusItem!
-    @IBOutlet var statusMenu: NSMenu
-    @IBOutlet var toolsMenu: NSMenu
-    @IBOutlet var markMenu: NSMenu
+    @IBOutlet var statusMenu: NSMenu!
+    @IBOutlet var toolsMenu: NSMenu!
+    @IBOutlet var markMenu: NSMenu!
     
-    @IBOutlet var optionsPanel: NSPanel
-    @IBOutlet var optionsProgressIndicator: NSProgressIndicator
-    @IBOutlet var optionsStatusField: NSTextField
-    @IBOutlet var themesSegmentedControl: NSSegmentedControl
+    @IBOutlet var optionsPanel: NSPanel!
+    @IBOutlet var optionsProgressIndicator: NSProgressIndicator!
+    @IBOutlet var optionsStatusField: NSTextField!
+    @IBOutlet var themesSegmentedControl: NSSegmentedControl!
     
     var terminal: AnyObject! // TerminalApplication!
     var shell: AnyObject! // TerminalTab!
     var shellWindow: NSObject! // TerminalWindow!
     var browser: AnyObject! // SafariApplication!
     
-    @IBOutlet var sourcesController: NSTreeController
-    @IBOutlet var itemsController: NSArrayController
+    @IBOutlet var sourcesController: NSTreeController!
+    @IBOutlet var itemsController: NSArrayController!
     
     var sources = [GSource]()
     var systems = [GSystem]()
