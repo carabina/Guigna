@@ -26,18 +26,12 @@ extension Array {
 
 extension String {
     
-    subscript(integerIndex: Int) -> Character
-        {
-        let index = advance(startIndex, integerIndex)
-            return self[index]
+    subscript(index: Int) -> Character {
+        return self[advance(startIndex, index)]
     }
     
-    subscript(integerRange: Range<Int>) -> String
-        {
-        let start = advance(startIndex, integerRange.startIndex)
-            let end = advance(startIndex, integerRange.endIndex)
-            let range = start..<end
-            return self[range]
+    subscript(range: Range<Int>) -> String {
+        return self[Range(start: advance(startIndex, range.startIndex), end: advance(startIndex, range.endIndex))]
     }
     
     func split() -> Array<String> {
@@ -66,37 +60,30 @@ extension String {
         return (self as NSString).containsString(string)
     }
     
+//    func substring(location: Int, _ length: Int) -> String {
+//        return (self as NSString).substringWithRange(NSMakeRange(location, length))
+//    }
+    
     func substring(location: Int, _ length: Int) -> String {
-        return (self as NSString).substringWithRange(NSMakeRange(location, length))
+        return self[Range(start: location, end: location + length)]
     }
     
+//    func substringFromIndex(index: Int) -> String {
+//        return (self as NSString).substringFromIndex(index)
+//    }
+//    
+//    func substringToIndex(index: Int) -> String {
+//        return (self as NSString).substringToIndex(index)
+//    }
+    
+    
     func substringFromIndex(index: Int) -> String {
-        return (self as NSString).substringFromIndex(index)
+        return self[Range(start: index, end: countElements(self))]
     }
     
     func substringToIndex(index: Int) -> String {
-        return (self as NSString).substringToIndex(index)
+        return self[Range(start: 0, end: index)]
     }
-    
-    //    func from(index: Int) -> String {
-    //        let range = Range(start: index, end: countElements(self)) // 1 offset ???
-    //        return self[range]
-    //    }
-    //
-    //    func to(index: Int) -> String {
-    //        let range = Range(start: 0, end: index) // 1 offset ???
-    //        return self[range]
-    //    }
-    
-    //    func substringFromIndex(index: Int) -> String {
-    //        let range = Range(start: index, end: countElements(self)) // 1 offset ???
-    //        return self[range]
-    //    }
-    //
-    //    func substringToIndex(index: Int) -> String { // 1 offset ???
-    //        let range = Range(start: 0, end: index)
-    //        return self[range]
-    //    }
     
 }
 
