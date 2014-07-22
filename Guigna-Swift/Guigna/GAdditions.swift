@@ -69,6 +69,14 @@ extension String {
     func substring(location: Int, _ length: Int) -> String {
         return (self as NSString).substringWithRange(NSMakeRange(location, length))
     }
+    
+    func substringFromIndex(index: Int) -> String {
+        return (self as NSString).substringFromIndex(index)
+    }
+    
+    func substringToIndex(index: Int) -> String {
+        return (self as NSString).substringToIndex(index)
+    }
 }
 
 

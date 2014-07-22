@@ -395,7 +395,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     
     func application(sender: NSApplication!, openFile filename: String!) -> Bool {
         status("Ready.")
-        var history = shell.valueForKey("history") as NSString
+        var history = shell.valueForKey("history") as String
         if adminPassword {
             let sudoCommand = "echo \"\(adminPassword)\" | sudo -S"
             history = history.stringByReplacingOccurrencesOfString(sudoCommand, withString: "sudo")
