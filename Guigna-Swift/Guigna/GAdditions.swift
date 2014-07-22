@@ -77,6 +77,27 @@ extension String {
     func substringToIndex(index: Int) -> String {
         return (self as NSString).substringToIndex(index)
     }
+    
+    //    func from(index: Int) -> String {
+    //        let range = Range(start: index, end: countElements(self)) // 1 offset ???
+    //        return self[range]
+    //    }
+    //
+    //    func to(index: Int) -> String {
+    //        let range = Range(start: 0, end: index) // 1 offset ???
+    //        return self[range]
+    //    }
+    
+    //    func substringFromIndex(index: Int) -> String {
+    //        let range = Range(start: index, end: countElements(self)) // 1 offset ???
+    //        return self[range]
+    //    }
+    //
+    //    func substringToIndex(index: Int) -> String { // 1 offset ???
+    //        let range = Range(start: 0, end: index)
+    //        return self[range]
+    //    }
+    
 }
 
 

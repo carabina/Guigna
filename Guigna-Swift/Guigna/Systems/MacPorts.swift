@@ -122,7 +122,7 @@ class MacPorts: GSystem {
                     }
                     s.scanString(" ", intoString: nil)
                 }
-                var pkg = GPackage(name: name!, version: "\(version)_\(revision)", system: self, status: .Available)
+                var pkg = GPackage(name: name!, version: "\(version!)_\(revision!)", system: self, status: .Available)
                 pkg.categories = categories
                 pkg.description = description!
                 pkg.license = license
