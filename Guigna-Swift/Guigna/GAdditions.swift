@@ -44,7 +44,7 @@ extension String {
     
     func index(string: String) -> Int {
         if let range = self.rangeOfString(string) {
-            return toString(range.startIndex).toInt()! // ugly
+            return toString(range.startIndex).toInt()! // FIXME: ugly
         } else {
             return NSNotFound
         }
@@ -56,7 +56,7 @@ extension String {
     
     func rindex(string: String) -> Int {
         if let range = self.rangeOfString(string, options: .BackwardsSearch) {
-            return toString(range.startIndex).toInt()! // ugly
+            return toString(range.startIndex).toInt()! // FIXME: ugly
         } else {
             return NSNotFound
         }
@@ -87,7 +87,7 @@ extension String {
     //    }
     
     func substring(location: Int, _ length: Int) -> String {
-        return self[Range(start: location, end: location + length)]
+        return self[location..<(location + length)]
     }
     
     //    func substringFromIndex(index: Int) -> String {

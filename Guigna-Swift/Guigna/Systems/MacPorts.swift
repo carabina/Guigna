@@ -196,7 +196,7 @@ class MacPorts: GSystem {
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: status)
                 if status != .Inactive {
-                    self[name] = pkg
+                    self[name] = pkg // FIXME: slowdown with Swift B4
                 } else {
                     items += pkg
                     self.agent.appDelegate!.addItem(pkg)  // TODO: ugly
