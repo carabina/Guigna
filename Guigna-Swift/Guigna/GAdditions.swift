@@ -79,7 +79,8 @@ extension String {
     }
     
     subscript(range: Range<Int>) -> String {
-        return self[advance(startIndex, range.startIndex)..<advance(startIndex, range.endIndex)]
+        let rangeStartIndex = advance(startIndex, range.startIndex)
+            return self[rangeStartIndex..<advance(rangeStartIndex, range.endIndex - range.startIndex)]
     }
     
     //    func substring(location: Int, _ length: Int) -> String {
@@ -87,7 +88,8 @@ extension String {
     //    }
     
     func substring(location: Int, _ length: Int) -> String {
-        return self[advance(startIndex, location)..<advance(startIndex, location + length)]
+        let locationIndex = advance(startIndex, location)
+        return self[locationIndex..<advance(locationIndex, length)]
     }
     
     //    func substringFromIndex(index: Int) -> String {
@@ -100,11 +102,11 @@ extension String {
     
     
     func substringFromIndex(index: Int) -> String {
-        return self[advance(self.startIndex, index)..<self.endIndex]
+        return self[advance(startIndex, index)..<endIndex]
     }
     
     func substringToIndex(index: Int) -> String {
-        return self[self.startIndex..<advance(self.startIndex, index)]
+        return self[startIndex..<advance(startIndex, index)]
     }
     
     func split() -> Array<String> {
