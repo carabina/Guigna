@@ -44,7 +44,7 @@ extension String {
     
     func index(string: String) -> Int {
         if let range = self.rangeOfString(string) {
-            return toString(range.startIndex).toInt()! // FIXME: ugly
+            return distance(startIndex, range.startIndex)
         } else {
             return NSNotFound
         }
@@ -56,7 +56,7 @@ extension String {
     
     func rindex(string: String) -> Int {
         if let range = self.rangeOfString(string, options: .BackwardsSearch) {
-            return toString(range.startIndex).toInt()! // FIXME: ugly
+            return distance(startIndex, range.startIndex)
         } else {
             return NSNotFound
         }
@@ -79,7 +79,7 @@ extension String {
     }
     
     subscript(range: Range<Int>) -> String {
-        return self[Range(start: advance(startIndex, range.startIndex), end: advance(startIndex, range.endIndex))]
+        return self[advance(startIndex, range.startIndex)..<advance(startIndex, range.endIndex)]
     }
     
     //    func substring(location: Int, _ length: Int) -> String {
@@ -87,7 +87,7 @@ extension String {
     //    }
     
     func substring(location: Int, _ length: Int) -> String {
-        return self[location..<(location + length)]
+        return self[advance(startIndex, location)..<advance(startIndex, location + length)]
     }
     
     //    func substringFromIndex(index: Int) -> String {
@@ -100,11 +100,11 @@ extension String {
     
     
     func substringFromIndex(index: Int) -> String {
-        return self[Range(start: index, end: countElements(self))]
+        return self[advance(self.startIndex, index)..<self.endIndex]
     }
     
     func substringToIndex(index: Int) -> String {
-        return self[Range(start: 0, end: index)]
+        return self[self.startIndex..<advance(self.startIndex, index)]
     }
     
     func split() -> Array<String> {
