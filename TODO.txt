@@ -1,7 +1,6 @@
 FIXME
 
 * Swift:
-  - Slowdown in MacPorts.installed introduced by B4 when accessing self[name]
   - Slowness of String's substrings extensions
   - MacPorts.list() really slow because of the NString <-> String
     conversions in NSScanner

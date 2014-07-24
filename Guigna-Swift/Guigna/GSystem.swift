@@ -2,7 +2,7 @@ import Foundation
 
 class GSystem: GSource {
     var prefix: String
-    var index: [String: GPackage]
+    final var index: [String: GPackage]
     
     init(name: String, agent: GAgent!) {
         prefix = ""
