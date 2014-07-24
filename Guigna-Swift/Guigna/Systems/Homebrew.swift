@@ -16,7 +16,6 @@ class Homebrew: GSystem {
         
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
-        var idx = [String: GPackage](minimumCapacity: 50000)
         
         // /usr/bin/ruby -C /usr/local/Library/Homebrew -I. -e "require 'global'; require 'formula'; Formula.each {|f| puts \"#{f.name} #{f.pkg_version}\"}"
         
@@ -33,12 +32,10 @@ class Homebrew: GSystem {
             }
             // items += pkg // FIXME: slow
             pkgs += pkg
-            // self[name] = pkg // FIXME: slow
-            idx[pkg.key] = pkg
+            self[name] = pkg
         }
         // TODO HomebrewMainTaps
         items = pkgs
-        index = idx
         self.installed() // update status
         return pkgs
     }

@@ -16,7 +16,6 @@ class Fink: GSystem {
         
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
-        var idx = [String: GPackage](minimumCapacity: 50000)
         
         if mode == GMode.Online {
             let url = NSURL(string: "http://pdb.finkproject.org/pdb/browse.php")
@@ -34,8 +33,7 @@ class Fink: GSystem {
                 pkg.description = description
                 // items += pkg // FIXME: slow
                 pkgs += pkg
-                // self[name] = pkg // FIXME: slow
-                idx[pkg.key] = pkg
+                self[name] = pkg
             }
         } else {
             var outputLines = output("\(cmd) list --tab").split("\n")
@@ -62,12 +60,10 @@ class Fink: GSystem {
                 pkg.description = description
                 // items += pkg // FIXME: slow
                 pkgs += pkg
-                // self[name] = pkg // FIXME: slow
-                idx[pkg.key] = pkg
+                self[name] = pkg
             }
         }
         items = pkgs
-        index = idx
         self.installed() // update status
         return pkgs
     }

@@ -11,14 +11,11 @@ class MacPorts: GSystem {
     
     override func list() -> [GPackage] {
         
-        // FIXME: too slow even when not working directly on index and items properties
-        
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
-        var idx = [String: GPackage](minimumCapacity: 50000)
         
         if agent.appDelegate!.defaults["MacPortsParsePortIndex"] == false {
             var outputLines = output("\(cmd) list").split("\n")
@@ -41,8 +38,7 @@ class MacPorts: GSystem {
                 // }
                 // items += pkg // FIXME: slow
                 pkgs += pkg
-                // self[name] = pkg // FIXME: slow
-                idx[pkg.key] = pkg
+                self[name] = pkg
             }
         
         } else {
@@ -131,12 +127,10 @@ class MacPorts: GSystem {
                 // }
                 // items += pkg // FIXME: slow
                 pkgs += pkg
-                // self[name] = pkg // FIXME: slow
-                idx[pkg.key] = pkg
+                self[name!] = pkg
             }
         }
         items = pkgs
-        index = idx
         self.installed() // update status
         return pkgs
     }
@@ -196,7 +190,7 @@ class MacPorts: GSystem {
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: status)
                 if status != .Inactive {
-                    self[name] = pkg // FIXME: slowdown with Swift B4
+                    self[name] = pkg
                 } else {
                     items += pkg
                     self.agent.appDelegate!.addItem(pkg)  // TODO: ugly

@@ -20,7 +20,6 @@ class HomebrewCasks: GSystem {
         
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
-        var idx = [String: GPackage](minimumCapacity: 50000)
         
         var outputLines = output("/bin/sh -c /usr/bin/grep__\"version__'\"__-r__/\(prefix)/Library/Taps/caskroom/homebrew-cask/Casks").split("\n")
         outputLines.removeLast()
@@ -33,8 +32,8 @@ class HomebrewCasks: GSystem {
             version = version.substring(1, version.length - 2)
             var pkg = GPackage(name: name, version: version, system: self, status: .Available)
             // avoid duplicate entries (i.e. aquamacs, opensesame)
-            if idx[pkg.name] != nil {
-                let prevPackage = idx[pkg.name]
+            if self[pkg.name] != nil {
+                let prevPackage = self[pkg.name]
                 var found: Int?  // TODO: Array.find extension
                 for (i, pkg) in enumerate(pkgs) {
                     if pkg.name == name {
@@ -51,11 +50,9 @@ class HomebrewCasks: GSystem {
             }
             // items += pkg // FIXME: slow
             pkgs += pkg
-            // self[name] = pkg // FIXME: slow
-            idx[pkg.key] = pkg
+            self[name] = pkg
         }
         items = pkgs
-        index = idx
         self.installed() // update status
         return pkgs
     }

@@ -25,7 +25,6 @@ class Pkgsrc: GSystem {
         
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
-        var idx = [String: GPackage](minimumCapacity: 50000)
         
         let indexPath = "~/Library/Application Support/Guigna/pkgsrc/INDEX".stringByExpandingTildeInPath
         if NSFileManager.defaultManager().fileExistsAtPath(indexPath) {
@@ -52,8 +51,7 @@ class Pkgsrc: GSystem {
                 pkg.homepage = homepage
                 // items += pkg // FIXME: slow
                 pkgs += pkg
-                // self[name] = pkg // FIXME: slow
-                idx[pkg.key] = pkg
+                self[name] = pkg
             }
             
         } else {
@@ -86,12 +84,10 @@ class Pkgsrc: GSystem {
                 pkg.id = id
                 // items += pkg // FIXME: slow
                 pkgs += pkg
-                // self[name] = pkg // FIXME: slow
-                idx[pkg.key] = pkg
+                self[name] = pkg
             }
         }
         items = pkgs
-        index = idx
         self.installed() // update status
         return pkgs
     }
