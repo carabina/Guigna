@@ -87,16 +87,16 @@
                 BOOL nextIsBrace = [s scanString:@"{" intoString:nil];
                 [s setScanLocation:loc];
                 if (nextIsBrace) {
-                    [value setString:@""];
                     [s scanString:@"{" intoString:nil];
-                    do {
-                        NSRange range = [value rangeOfString:@"{"];
-                        if (range.location != NSNotFound)
-                            [value replaceCharactersInRange:range withString:@""];
+                    [value setString:@"{"];
+                    NSRange range = [value rangeOfString:@"{"];
+                    while (range.location != NSNotFound) {
+                        [value replaceCharactersInRange:range withString:@""];
                         if ([s scanUpToString:@"}" intoString:&str])
                             [value appendString:str];
                         [s scanString:@"}" intoString:nil];
-                    } while ([value rangeOfString:@"{"].location != NSNotFound);
+                        range = [value rangeOfString:@"{"];
+                    }
                 } else {
                     [s scanUpToCharactersFromSet:spaceOrReturn intoString:&str];
                     [value setString:str];

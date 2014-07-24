@@ -59,13 +59,13 @@ class MacPorts < GSystem
           next_is_brace = s.scanString('{', intoString:nil)
           s.setScanLocation loc
           if next_is_brace
-            value = ''
             s.scanString('{', intoString:nil)
-            begin
+            value = '{'
+            while value.include?('{')
               value.sub!('{', '')
               value << str[0] if s.scanUpToString('}', intoString:str)
               s.scanString('}', intoString:nil)
-            end while value.include?('{')
+            end
           else
             s.scanUpToCharactersFromSet(spaceOrReturn, intoString:str)
             value = str[0]

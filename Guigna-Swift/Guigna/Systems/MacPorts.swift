@@ -40,7 +40,7 @@ class MacPorts: GSystem {
                 pkgs += pkg
                 self[name] = pkg
             }
-        
+            
         } else {
             var portIndex = "" as NSString
             if mode == GMode.Online { // TODO: fetch PortIndex
@@ -75,18 +75,17 @@ class MacPorts: GSystem {
                     var nextIsBrace = s.scanString("{", intoString: nil)
                     s.scanLocation = loc
                     if nextIsBrace {
-                        value.setString("")
                         s.scanString("{", intoString: nil)
-                        do {
-                            var range = value.rangeOfString("{")
-                            if range.location != NSNotFound {
-                                value.replaceCharactersInRange(range, withString: "")
-                            }
+                        value.setString("{")
+                        var range = value.rangeOfString("{")
+                        while range.location != NSNotFound {
+                            value.replaceCharactersInRange(range, withString: "")
                             if s.scanUpToString("}", intoString: &str) {
                                 value.appendString(str)
                             }
                             s.scanString("}", intoString: nil)
-                        } while value.containsString("{")
+                            range = value.rangeOfString("{")
+                        }
                     } else {
                         s.scanUpToCharactersFromSet(spaceOrReturn, intoString: &str)
                         value.setString(str)
