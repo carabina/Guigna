@@ -75,8 +75,8 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     var shellColumns: Int {
     get {
         let attrs = [NSFontAttributeName: NSFont(name: "Andale Mono", size: 11.0)]
-        let charWidth = ("MMM".sizeWithAttributes(attrs).width - "M".sizeWithAttributes(attrs).width) / 2
-        let columns = Int(round((infoText.frame.size.width - 16) / charWidth + 0.5))
+        let charWidth = ("MMM".sizeWithAttributes(attrs).width - "M".sizeWithAttributes(attrs).width) / 2.0
+        let columns = Int(round((infoText.frame.size.width - 16.0) / charWidth + 0.5))
         return columns
     }
     }
