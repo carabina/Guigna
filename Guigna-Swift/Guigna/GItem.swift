@@ -61,7 +61,7 @@ class GItem: NSObject {
     }
     }
     
-    var installed: String?
+    var installed: String!
     var categories: String?
     var _description: String?
     override var description: String {

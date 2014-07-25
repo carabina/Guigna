@@ -1360,7 +1360,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             item.mark = mark
             var package: GPackage
             if item.status == .Inactive {
-                package = allPackages.filter { $0.name == item.name && $0.installed! == item.installed! }[0]
+                package = allPackages.filter { $0.name == item.name && $0.installed != nil && $0.installed == item.installed }[0]
             } else {
                 package = packagesIndex[(item as GPackage).key]!
                 package.version = item.version

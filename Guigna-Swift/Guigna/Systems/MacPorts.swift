@@ -368,7 +368,7 @@ class MacPorts: GSystem {
         if pkg.status == .Outdated || pkg.status == .Updated {
             return "sudo \(cmd) -f uninstall \(pkg.name) ; sudo \(cmd) clean --all \(pkg.name)"
         } else {
-            return "sudo \(cmd) -f uninstall \(pkg.name) @\(pkg.installed!)"
+            return "sudo \(cmd) -f uninstall \(pkg.name) @\(pkg.installed)"
         }
     }
     
