@@ -23,9 +23,6 @@ class Pkgsrc: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        var pkgs = [GPackage]()
-        pkgs.reserveCapacity(50000)
-        
         let indexPath = "~/Library/Application Support/Guigna/pkgsrc/INDEX".stringByExpandingTildeInPath
         if NSFileManager.defaultManager().fileExistsAtPath(indexPath) {
             var lines = (NSString(contentsOfFile: indexPath, encoding: NSUTF8StringEncoding, error: nil) as String).split("\n")
@@ -49,8 +46,7 @@ class Pkgsrc: GSystem {
                 pkg.categories = category
                 pkg.description = description
                 pkg.homepage = homepage
-                // items += pkg // FIXME: slow
-                pkgs += pkg
+                items += pkg
                 self[name] = pkg
             }
             
@@ -82,14 +78,12 @@ class Pkgsrc: GSystem {
                 pkg.description = description
                 let id = "\(category)/\(name)"
                 pkg.id = id
-                // items += pkg // FIXME: slow
-                pkgs += pkg
+                items += pkg
                 self[name] = pkg
             }
         }
-        items = pkgs
         self.installed() // update status
-        return pkgs
+        return items as [GPackage]
     }
     
     // TODO: outdated()
