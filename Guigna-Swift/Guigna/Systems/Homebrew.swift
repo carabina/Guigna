@@ -14,9 +14,6 @@ class Homebrew: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        var pkgs = [GPackage]()
-        pkgs.reserveCapacity(50000)
-        
         // /usr/bin/ruby -C /usr/local/Library/Homebrew -I. -e "require 'global'; require 'formula'; Formula.each {|f| puts \"#{f.name} #{f.pkg_version}\"}"
         
         var outputLines = output("/usr/bin/ruby -C \(prefix)/Library/Homebrew -I. -e require__'global';require__'formula';__Formula.each__{|f|__puts__\"#{f.name}__#{f.pkg_version}__#{f.bottle}\"}").split("\n")
@@ -30,14 +27,12 @@ class Homebrew: GSystem {
             if bottle != "" {
                 pkg.description = "Bottle"
             }
-            // items += pkg // FIXME: slow
-            pkgs += pkg
+            items += pkg
             self[name] = pkg
         }
         // TODO HomebrewMainTaps
-        items = pkgs
         self.installed() // update status
-        return pkgs
+        return items as [GPackage]
     }
     
     

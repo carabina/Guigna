@@ -14,8 +14,8 @@
     return self;
 }
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+- (void)refresh {
+    NSMutableArray *entries = [NSMutableArray array];
     NSString *url = [NSString stringWithFormat:@"http://pkgsrc.se/?page=%ld", self.pageNumber];
     id mainDiv = [self.agent nodesForURL:url XPath:@"//div[@id=\"main\"]"][0];
     NSArray *dates = mainDiv[@"h3"];
@@ -41,17 +41,17 @@
         NSString *description = [comments[i] stringValue];
         description = [description substringToIndex:([description rangeOfString:@"\n"].location)];
         description = [description substringFromIndex:([description rangeOfString:@": "].location)+2];
-        GItem *item = [[GItem alloc] initWithName:name
+        GItem *entry = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self
                                            status:GAvailableStatus];
-        item.ID = ID;
-        item.description = description;
-        item.categories = category;
-        [items addObject:item];
+        entry.ID = ID;
+        entry.description = description;
+        entry.categories = category;
+        [entries addObject:entry];
         i++;
     }
-    return items;
+    self.items = entries;
 }
 
 - (NSString *)home:(GItem *)item {

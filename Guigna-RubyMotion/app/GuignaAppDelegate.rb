@@ -945,6 +945,7 @@ class GuignaAppDelegate
     scrapes_count = defaults["ScrapesCount"]
     pages_to_scrape = (scrapes_count.to_f / scrape.items_per_page).ceil
     for i in 1..pages_to_scrape
+      scrape.refresh
       itemsController.addObjects scrape.items
       itemsTable.display
       scrape.page_number +=1 if i != pages_to_scrape

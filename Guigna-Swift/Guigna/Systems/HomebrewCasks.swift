@@ -18,9 +18,6 @@ class HomebrewCasks: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        var pkgs = [GPackage]()
-        pkgs.reserveCapacity(50000)
-        
         var outputLines = output("/bin/sh -c /usr/bin/grep__\"version__'\"__-r__/\(prefix)/Library/Taps/caskroom/homebrew-cask/Casks").split("\n")
         outputLines.removeLast()
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
@@ -34,27 +31,25 @@ class HomebrewCasks: GSystem {
             // avoid duplicate entries (i.e. aquamacs, opensesame)
             if self[pkg.name] != nil {
                 let prevPackage = self[pkg.name]
-                var found: Int?  // TODO: Array.find extension
-                for (i, pkg) in enumerate(pkgs) {
+                var found: Int?
+                for (i, pkg) in enumerate(items) {
                     if pkg.name == name {
                         found = i
                         break
                     }
                 }
                 if let idx = found {
-                    pkgs.removeAtIndex(idx)
+                    items.removeAtIndex(idx)
                 }
                 if prevPackage!.version > version {
                     pkg = prevPackage!
                 }
             }
-            // items += pkg // FIXME: slow
-            pkgs += pkg
+            items += pkg
             self[name] = pkg
         }
-        items = pkgs
         self.installed() // update status
-        return pkgs
+        return items as [GPackage]
     }
     
     // TODO: port from Homebrew

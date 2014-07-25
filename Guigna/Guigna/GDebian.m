@@ -15,8 +15,8 @@
 }
 
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+- (void)refresh {
+    NSMutableArray *pkgs = [NSMutableArray array];
     NSString *url = [NSString stringWithFormat:@"http://news.gmane.org/group/gmane.linux.debian.devel.changes.unstable/last="];
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//table[@class=\"threads\"]//table/tr"];
     for (id node in nodes) {
@@ -24,13 +24,13 @@
         NSArray *components = [link split];
         NSString *name = components[1];
         NSString *version = components[2];
-        GItem *item = [[GItem alloc] initWithName:name
+        GItem *pkg = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self
                                            status:GAvailableStatus];
-        [items addObject:item];
+        [pkgs addObject:pkg];
     }
-    return items;
+    self.items = pkgs;
 }
 
 - (NSString *)home:(GItem *)item {

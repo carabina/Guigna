@@ -14,9 +14,6 @@ class MacPorts: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        var pkgs = [GPackage]()
-        pkgs.reserveCapacity(50000)
-        
         if agent.appDelegate!.defaults["MacPortsParsePortIndex"] == false {
             var outputLines = output("\(cmd) list").split("\n")
             outputLines.removeLast()
@@ -32,12 +29,11 @@ class MacPorts: GSystem {
                 // var pkg = GPackage(name: name, version: "\(version)_\(revision)", system: self, status: .Available)
                 pkg.categories = categories
                 // pkg.description = description!
-                // pkg.license = license
+                // pkg.license = license!
                 // if (self.mode == GOnlineMode) {
                 //    pkg.homepage = homepage;
                 // }
-                // items += pkg // FIXME: slow
-                pkgs += pkg
+                items += pkg
                 self[name] = pkg
             }
             
@@ -118,20 +114,18 @@ class MacPorts: GSystem {
                     s.scanString(" ", intoString: nil)
                 }
                 var pkg = GPackage(name: name!, version: "\(version!)_\(revision!)", system: self, status: .Available)
-                pkg.categories = categories
+                pkg.categories = categories!
                 pkg.description = description!
-                pkg.license = license
+                pkg.license = license!
                 // if (self.mode == GOnlineMode) {
                 //    pkg.homepage = homepage;
                 // }
-                // items += pkg // FIXME: slow
-                pkgs += pkg
+                items += pkg
                 self[name!] = pkg
             }
         }
-        items = pkgs
         self.installed() // update status
-        return pkgs
+        return items as [GPackage]
     }
     
     

@@ -14,7 +14,7 @@
     return self;
 }
 
-- (NSArray *)items {
+- (void)refresh {
     NSMutableArray *gems = [NSMutableArray array];
     NSString *url = @"http://m.rubygems.org/";
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//li"];
@@ -36,7 +36,7 @@
         gem.description = info;
         [gems addObject:gem];
     }
-    return gems;
+    self.items = gems;
 }
 
 - (NSString *)home:(GItem *)item {

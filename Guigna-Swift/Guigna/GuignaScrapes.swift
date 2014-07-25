@@ -8,10 +8,13 @@ class GScrape: GSource {
         pageNumber = 1
         super.init(name: name, agent: agent)
     }
+    
+    func refresh() {};
 }
 
 
 class PkgsrcSE: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "Pkgsrc.se", agent: agent)
         homepage = "http://pkgsrc.se/"
@@ -19,9 +22,8 @@ class PkgsrcSE: GScrape {
         cmd = "pkgsrc"
     }
     
-    override var items: [GItem] {
-    get {
-        var items = [GItem]()
+    override func refresh() {
+        var entries = [GItem]()
         let url = NSURL(string: "http://pkgsrc.se/?page=\(pageNumber)")
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
         let mainDiv = xmlDoc.rootElement().nodesForXPath("//div[@id=\"main\"]", error: nil)[0] as NSXMLNode
@@ -48,15 +50,13 @@ class PkgsrcSE: GScrape {
             var description = comments[i].stringValue!
             description = description.substringToIndex(description.index("\n"))
             description = description.substringFromIndex(description.index(": ") + 2)
-            var item = GItem(name: name, version: version, source: self, status: .Available)
-            item.id = id
-            item.description = description
-            item.categories = category
-            items += item
+            var entry = GItem(name: name, version: version, source: self, status: .Available)
+            entry.id = id
+            entry.description = description
+            entry.categories = category
+            entries += entry
         }
-        return items
-    }
-    set {}
+        items = entries
     }
     
     override func home(item: GItem) -> String {
@@ -70,6 +70,7 @@ class PkgsrcSE: GScrape {
 
 
 class Debian: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "Debian", agent: agent)
         homepage = "http://packages.debian.org/unstable/"
@@ -77,9 +78,8 @@ class Debian: GScrape {
         cmd = "apt-get"
     }
     
-    override var items: [GItem] {
-    get {
-        var items = [GItem]()
+    override func refresh() {
+        var pkgs = [GItem]()
         let url = NSURL(string: "http://news.gmane.org/group/gmane.linux.debian.devel.changes.unstable/last=")
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
         var nodes = xmlDoc.rootElement().nodesForXPath("//table[@class=\"threads\"]//table/tr", error: nil) as [NSXMLNode]
@@ -88,13 +88,10 @@ class Debian: GScrape {
             let components = link.split()
             let name = components[1]
             let version = components[2]
-            var item = GItem(name: name, version: version, source: self, status: .Available)
-            
-            items += item
+            var pkg = GItem(name: name, version: version, source: self, status: .Available)
+            pkgs += pkg
         }
-        return items
-    }
-    set {}
+        items = pkgs
     }
     
     override func home(item: GItem) -> String {
@@ -113,6 +110,7 @@ class Debian: GScrape {
 
 
 class PyPI: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "PyPI", agent: agent)
         homepage = "http://pypi.python.org/pypi"
@@ -120,8 +118,7 @@ class PyPI: GScrape {
         cmd = "pip"
     }
     
-    override var items: [GItem] {
-    get {
+    override func refresh() {
         var eggs = [GItem]()
         let url = NSURL(string: homepage)
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
@@ -140,9 +137,7 @@ class PyPI: GScrape {
             egg.description = description
             eggs += egg
         }
-        return eggs
-    }
-    set {}
+        items = eggs
     }
     
     override func home(item: GItem) -> String {
@@ -157,6 +152,7 @@ class PyPI: GScrape {
 
 
 class RubyGems: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "RubyGems", agent: agent)
         homepage = "http://rubygems.org/"
@@ -164,8 +160,7 @@ class RubyGems: GScrape {
         cmd = "gem"
     }
     
-    override var items: [GItem] {
-    get {
+    override func refresh() {
         var gems = [GItem]()
         let url = NSURL(string: "http://m.rubygems.org/")
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
@@ -181,9 +176,7 @@ class RubyGems: GScrape {
             gem.description = info
             gems += gem
         }
-        return gems
-    }
-    set {}
+        items = gems
     }
     
     override func home(item: GItem) -> String {
@@ -207,6 +200,7 @@ class RubyGems: GScrape {
 
 
 class MacUpdate: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "MacUpdate", agent: agent)
         homepage = "http://www.macupdate.com/"
@@ -214,9 +208,8 @@ class MacUpdate: GScrape {
         cmd = "macupdate"
     }
     
-    override var items: [GItem] {
-    get {
-        var items = [GItem]()
+    override func refresh() {
+        var apps = [GItem]()
         let url = NSURL(string: "https://www.macupdate.com/apps/page/\(pageNumber - 1)")
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
         var nodes = xmlDoc.rootElement().nodesForXPath("//div[@class=\"appinfo\"]", error: nil) as [NSXMLNode]
@@ -230,14 +223,12 @@ class MacUpdate: GScrape {
             }
             let description = node["span"][0].stringValue!.substringFromIndex(2)
             let id = node["a"][0].attribute("href").split("/")[3]
-            let item = GItem(name: name, version: version, source: self, status: .Available)
-            item.id = id
-            item.description = description
-            items += item
+            let app = GItem(name: name, version: version, source: self, status: .Available)
+            app.id = id
+            app.description = description
+            apps += app
         }
-        return items
-    }
-    set {}
+        items = apps
     }
     
     override func home(item: GItem) -> String {
@@ -253,6 +244,7 @@ class MacUpdate: GScrape {
 
 
 class AppShopper: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "AppShopper", agent: agent)
         homepage = "http://appshopper.com/mac/all/"
@@ -260,8 +252,8 @@ class AppShopper: GScrape {
         cmd = "appstore"
     }
     
-    override var items: [GItem] {
-    get {
+    
+    override func refresh() {
         var apps = [GItem]()
         let url = NSURL(string: "http://appshopper.com/mac/all/\(pageNumber)")
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
@@ -291,9 +283,7 @@ class AppShopper: GScrape {
             app.description = "\(type) \(fixedPrice)"
             apps += app
         }
-        return apps
-    }
-    set {}
+        items = apps
     }
     
     override func home(item: GItem) -> String {
@@ -330,6 +320,7 @@ class AppShopper: GScrape {
 
 
 class AppShopperIOS: GScrape {
+    
     init(agent: GAgent) {
         super.init(name: "AppShopper iOS", agent: agent)
         homepage = "http://appshopper.com/all/"
@@ -337,8 +328,7 @@ class AppShopperIOS: GScrape {
         cmd = "appstore"
     }
     
-    override var items: [GItem] {
-    get {
+    override func refresh() {
         var apps = [GItem]()
         let url = NSURL(string: "http://appshopper.com/all/\(pageNumber)")
         let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
@@ -368,9 +358,7 @@ class AppShopperIOS: GScrape {
             app.description = "\(type) \(fixedPrice)"
             apps += app
         }
-        return apps
-    }
-    set {}
+        items = apps
     }
     
     override func home(item: GItem) -> String {

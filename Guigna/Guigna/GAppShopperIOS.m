@@ -13,8 +13,8 @@
     return self;
 }
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+- (void)refresh {
+    NSMutableArray *apps = [NSMutableArray array];
     NSString *url = [NSString stringWithFormat:@"http://appshopper.com/all/%ld", self.pageNumber];
     NSArray *nodes =[self.agent nodesForURL:url XPath:@"//ul[@class=\"appdetails\"]/li"];
     for (id node in nodes) {
@@ -36,17 +36,16 @@
         // TODO:NSXML UTF8 encoding
         NSMutableString *fixedPrice = [price mutableCopy];
         [fixedPrice replaceOccurrencesOfString:@"â‚¬" withString:@"€" options:0 range:NSMakeRange(0, [fixedPrice length])];
-        GItem *item = [[GItem alloc] initWithName:name
+        GItem *app = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self
                                            status:GAvailableStatus];
-        item.ID = ID;
-        item.categories = category;
-        item.description = [NSString stringWithFormat:@"%@ %@", type, fixedPrice];
-        [items addObject:item];
+        app.ID = ID;
+        app.categories = category;
+        app.description = [NSString stringWithFormat:@"%@ %@", type, fixedPrice];
+        [apps addObject:app];
     }
-    return items;
-    
+    self.items = apps;
 }
 
 - (NSString *)home:(GItem *)item {

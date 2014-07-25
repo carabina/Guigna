@@ -8,7 +8,7 @@ class GScrape < GSource
     super(name, agent)
     @page_number = 1
   end
-  def update
+  def refresh
   end
 end
 
@@ -21,7 +21,7 @@ class Freecode < GScrape
     @items_per_page = 25
     @cmd = "freecode"
   end
-  def items
+  def refresh
     projs = []
     url = "http://freecode.com/?page=#{page_number}"
     nodes = agent.nodes_for_url(url, xpath:"//div[contains(@class,\"release\")]")
@@ -51,7 +51,7 @@ class Freecode < GScrape
       proj.homepage = homepage
       projs << proj
     }
-    return projs
+    @items = projs
   end
   def home(item)
     item.homepage
@@ -70,7 +70,7 @@ class PkgsrcSE < GScrape
     @items_per_page = 15
     @cmd = "pkgsrc"
   end
-  def items
+  def refresh
     entries = []
     url = "http://pkgsrc.se/?page=#{page_number}"
     main_div = agent.nodes_for_url(url, xpath:"//div[@id=\"main\"]").first
@@ -99,7 +99,7 @@ class PkgsrcSE < GScrape
       entry.categories = category
       entries << entry
     end
-    entries
+    @items = entries
   end
   def home(item)
     links = agent.nodes_for_url("http://pkgsrc.se/#{item.id}", xpath:"//div[@id=\"main\"]//a")
@@ -119,7 +119,7 @@ class Debian < GScrape
     @items_per_page = 100
     @cmd = "apt-get"
   end
-  def items
+  def refresh
     pkgs = []
     url = "http://news.gmane.org/group/gmane.linux.debian.devel.changes.unstable/last="
     nodes = agent.nodes_for_url(url, xpath:"//table[@class=\"threads\"]//table/tr")
@@ -131,7 +131,7 @@ class Debian < GScrape
       # pkg.description
       pkgs << pkg
     end
-    pkgs
+    @items = pkgs
   end
   def home(item)
     page = log(item)
@@ -154,7 +154,7 @@ class MacUpdate < GScrape
     @items_per_page = 80
     @cmd = "macupdate"
   end
-  def items
+  def refresh
     apps = []
     url =  "https://www.macupdate.com/apps/page/#{page_number - 1}"
     nodes = agent.nodes_for_url(url, xpath:"//div[@class=\"appinfo\"]")
@@ -180,7 +180,7 @@ class MacUpdate < GScrape
       app.description = description
       apps << app
     end
-    apps
+    @items = apps
   end
   def home(item)
     nodes = agent.nodes_for_url(log(item), xpath:"//a[@target=\"devsite\"]")
@@ -201,7 +201,7 @@ class AppShopper < GScrape
     @cmd = "appstore"
   end
   
-  def items
+  def refresh
     apps = []
     url = "http://appshopper.com/mac/all/#{page_number}"
     nodes = agent.nodes_for_url(url, xpath:"//ul[@class=\"appdetails\"]/li")
@@ -228,7 +228,7 @@ class AppShopper < GScrape
       app.description = type + " " + fixed_price
       apps << app
     end
-    apps
+    @items = apps
   end
   def home(item)
     main_div = agent.nodes_for_url("http://itunes.apple.com/app/id" + item.id.split.first, xpath:"//div[@id=\"main\"]").first
@@ -257,7 +257,7 @@ class AppShopperIOS < GScrape
     @cmd = "appstore"
   end
   
-  def items
+  def refresh
     apps = []
     url = "http://appshopper.com/all/#{page_number}"
     nodes = agent.nodes_for_url(url, xpath:"//ul[@class=\"appdetails\"]/li")
@@ -284,7 +284,7 @@ class AppShopperIOS < GScrape
       app.description = type + " " + fixed_price
       apps << app
     end
-    apps
+    @items = apps
   end
   def home(item)
     main_div = agent.nodes_for_url("http://itunes.apple.com/app/id" + item.id.split.first, xpath:"//div[@id=\"main\"]").first
@@ -311,7 +311,7 @@ class PyPI < GScrape
     @items_per_page = 40
     @cmd = "pip"
   end
-  def items
+  def refresh
     eggs = []
     nodes = agent.nodes_for_url(homepage, xpath:"//table[@class=\"list\"]//tr")[1..-2]
     nodes.each do |node|
@@ -326,7 +326,7 @@ class PyPI < GScrape
       egg.description = description
       eggs << egg
     end
-    eggs
+    @items = eggs
   end
   def home(item)
     agent.nodes_for_url(self.log(item), xpath:"//ul[@class=\"nodot\"]/li/a").first.stringValue
@@ -345,7 +345,7 @@ class RubyGems < GScrape
     @items_per_page = 25
     @cmd = "gem"
   end
-  def items
+  def refresh
     gems = []
     url = "http://m.rubygems.org/"
     nodes = agent.nodes_for_url(url, xpath:"//li")
@@ -358,7 +358,7 @@ class RubyGems < GScrape
       gem.description = info
       gems << gem
     end
-    gems
+    @items = gems
   end
   def home(item) # TODO extract homepage
     page = log(item)
@@ -388,7 +388,7 @@ class CocoaPods < GScrape
       @xcode = SBApplication.applicationWithBundleIdentifier "com.apple.dt.Xcode"
     end
   end
-  def items
+  def refresh
     pods = []
     url = "http://feeds.cocoapods.org/new-pods.rss"
     nodes = agent.nodes_for_url(url, xpath:"//item")
@@ -404,7 +404,7 @@ class CocoaPods < GScrape
       pod.homepage = link
       pods << pod
     end
-    pods
+    @items = pods
   end
   def home(item)
     item.homepage

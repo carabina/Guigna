@@ -13,8 +13,8 @@
     return self;
 }
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+- (void) refresh {
+    NSMutableArray *pkgs = [NSMutableArray array];
     NSString *url = @"https://docs.google.com/spreadsheet/ccc?key=0AryutUy3rKnHdHp3MFdabGh6aFVnYnpnUi1mY2E2N0E";
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//table[@id=\"tblMain\"]//tr"];
     for (id node in nodes) {
@@ -25,16 +25,16 @@
         NSString *version = [columns[2] stringValue];
         NSString *homepage = [columns[4] stringValue];
         NSString *URL = [columns[5] stringValue];
-        GItem *item = [[GItem alloc] initWithName:name
+        GItem *pkg = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self
                                            status:GAvailableStatus];
-        item.homepage = homepage;
-        item.description = URL;
-        item.URL = URL;
-        [items addObject:item];
+        pkg.homepage = homepage;
+        pkg.description = URL;
+        pkg.URL = URL;
+        [pkgs addObject:pkg];
     }
-    return items;    
+    self.items = pkgs;
 }
 
 @end

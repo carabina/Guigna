@@ -6,27 +6,33 @@ enum GState: Int {
     case Hidden
 }
 
+
 enum GMode: Int {
     case Offline
     case Online
 }
 
+
 class GSource: NSObject {
+    
     var name: String
-    var categories: [AnyObject]?
-    var items = [GItem]()
+    final var categories: [AnyObject]?
+    final var items: [GItem]
     var agent: GAgent!
     var mode: GMode
     var status: GState
     var homepage: String!
     var cmd: String!
+    
     init(name: String, agent: GAgent?) {
         self.name = name
         self.agent = agent
+        items = [GItem]()
         items.reserveCapacity(50000)
         status = .On
         mode = .Offline
     }
+    
     convenience init(name: String) {
         self.init(name: name, agent: nil)
     }

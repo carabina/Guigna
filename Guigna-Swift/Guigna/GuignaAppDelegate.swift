@@ -48,15 +48,15 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     @IBOutlet var sourcesController: NSTreeController!
     @IBOutlet var itemsController: NSArrayController!
     
-    var sources = [GSource]()
-    var systems = [GSystem]()
-    var scrapes = [GScrape]()
-    var repos   = [GRepo]()
+    final var sources = [GSource]()
+    final var systems = [GSystem]()
+    final var scrapes = [GScrape]()
+    final var repos   = [GRepo]()
     
-    var items = [GItem]()
-    var allPackages = [GPackage]()
-    var packagesIndex = [String: GPackage](minimumCapacity: 150000)
-    var markedItems = [GItem]()
+    final var items = [GItem]()
+    final var allPackages = [GPackage]()
+    final var packagesIndex = [String: GPackage](minimumCapacity: 150000)
+    final var markedItems = [GItem]()
     var marksCount = 0
     var selectedSegment = "Info"
     var previousSegment = 0
@@ -1022,6 +1022,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         let scrapesCount: Int = (defaults["ScrapesCount"] as NSNumber).integerValue
         let pagesToScrape = Int(ceil(Double(scrapesCount) / Double(scrape.itemsPerPage)))
         for var i = 1; i <= pagesToScrape; ++i {
+            scrape.refresh()
             itemsController.addObjects(scrape.items)
             itemsTable.display()
             if i != pagesToScrape {

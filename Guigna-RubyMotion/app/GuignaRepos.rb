@@ -17,7 +17,7 @@ class Rudix < GRepo
     @cmd = "rudix"
   end
   
-  def items
+  def refresh
     pkgs = []
     url = "http://rudix.org/download/2014/10.9/"
     links = agent.nodes_for_url(url, xpath:"//tbody//tr//a")
@@ -38,7 +38,7 @@ class Rudix < GRepo
       pkg.homepage = "http://rudix.org/packages/#{pkg.name}.html"
       pkgs << pkg
     end
-    pkgs
+    @items = pkgs
   end
   def log(item)
     "https://github.com/rudix-mac/rudix/commits/master/Ports/#{item.name}"
@@ -56,7 +56,7 @@ class Native < GRepo
     @cmd = "installer"
   end
   
-  def items
+  def refresh
     pkgs = []
     url = "https://docs.google.com/spreadsheet/ccc?key=0AryutUy3rKnHdHp3MFdabGh6aFVnYnpnUi1mY2E2N0E"
     nodes = agent.nodes_for_url(url, xpath:"//table[@id=\"tblMain\"]//tr")
@@ -73,7 +73,7 @@ class Native < GRepo
       pkg.url = url
       pkgs << pkg
     end
-    pkgs
+    @items = pkgs
   end
   
 end

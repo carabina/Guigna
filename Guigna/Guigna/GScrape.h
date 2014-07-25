@@ -9,4 +9,6 @@
 @property(assign) NSInteger itemsPerPage;
 
 - (instancetype)initWithName:(NSString *)name agent:(GAgent *)agent;
+- (void)refresh;
+
 @end

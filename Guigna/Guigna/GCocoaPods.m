@@ -17,7 +17,7 @@
     return self;
 }
 
-- (NSArray *)items {
+- (void)refresh {
     NSMutableArray *pods = [NSMutableArray array];
     NSString *url = @"http://feeds.cocoapods.org/new-pods.rss";
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//item"];
@@ -45,7 +45,7 @@
         pod.homepage = link;
         [pods addObject:pod];
     }
-    return pods;
+    self.items = pods;
 }
 
 - (NSString *)home:(GItem *)item {

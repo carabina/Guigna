@@ -13,8 +13,8 @@
     return self;
 }
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+- (void)refresh {
+    NSMutableArray *pkgs = [NSMutableArray array];
     NSString *url = @"http://rudix.org/download/2014/10.9/";
     NSArray *links = [self.agent nodesForURL:url XPath:@"//tbody//tr//a"];
     NSCharacterSet *decimalCharSet = [NSCharacterSet decimalDigitCharacterSet];
@@ -31,14 +31,14 @@
             sep += sep2+1;
         }
         name = [name substringToIndex:sep];
-        GItem *item = [[GItem alloc] initWithName:name
+        GItem *pkg = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self
                                            status:GAvailableStatus];
-        item.homepage = [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", item.name];
-        [items addObject:item];
+        pkg.homepage = [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", pkg.name];
+        [pkgs addObject:pkg];
     }
-    return items;
+    self.items = pkgs;
 }
 
 - (NSString *)log:(GItem *)item {

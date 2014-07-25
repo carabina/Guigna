@@ -1014,6 +1014,7 @@
     NSInteger scrapesCount = [defaults[@"ScrapesCount"] integerValue];
     NSInteger pagesToScrape = ceil(scrapesCount / 1.0 / scrape.itemsPerPage);
     for (int i = 1; i <= pagesToScrape; i++) {
+        [scrape refresh];
         [itemsController addObjects:scrape.items];
         [itemsTable display];
         if (i != pagesToScrape)

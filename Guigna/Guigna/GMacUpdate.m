@@ -13,8 +13,9 @@
     return self;
 }
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+
+- (void)refresh {
+    NSMutableArray *entries = [NSMutableArray array];
     NSString *url = [NSString stringWithFormat:@"https://www.macupdate.com/apps/page/%ld", self.pageNumber - 1];
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//div[@class=\"appinfo\"]"];
     for (id node in nodes) {
@@ -27,17 +28,17 @@
         }
         NSString *description = [[node[@"span"][0] stringValue] substringFromIndex:2];
         NSString *ID = [[node[@"a"][0] href] split:@"/"][3];
-        // NSString *category = 
-        GItem *item = [[GItem alloc] initWithName:name
-                                          version:version
-                                           source:self
-                                           status:GAvailableStatus];
-        item.ID = ID;
+        // NSString *category =
+        GItem *entry = [[GItem alloc] initWithName:name
+                                           version:version
+                                            source:self
+                                            status:GAvailableStatus];
+        entry.ID = ID;
         // item.categories = category;
-        item.description = description;
-        [items addObject:item];
+        entry.description = description;
+        [entries addObject:entry];
     }
-    return items;    
+    self.items = entries;
 }
 
 - (NSString *)home:(GItem *)item {

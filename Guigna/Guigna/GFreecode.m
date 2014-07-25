@@ -15,8 +15,8 @@
 
 // TODO: 
 
-- (NSArray *)items {
-    NSMutableArray *items = [NSMutableArray array];
+- (void)refresh {
+    NSMutableArray *projs = [NSMutableArray array];
     NSString *url = [NSString stringWithFormat:@"http://freecode.com/?page=%ld", self.pageNumber];
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//div[contains(@class,\"release\")]"];
     for (id node in nodes) {
@@ -42,16 +42,16 @@
             [tags addObject:[node stringValue]];
         }
         // NSString *category = 
-        GItem *item = [[GItem alloc] initWithName:name
+        GItem *proj = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self
                                            status:GAvailableStatus];
-        item.ID = ID;
-        item.description = [tags join];
-        item.homepage = homepage;
-        [items addObject:item];
+        proj.ID = ID;
+        proj.description = [tags join];
+        proj.homepage = homepage;
+        [projs addObject:proj];
     }
-    return items;
+    self.items = projs;
 }
 
 // TODO: parse log page

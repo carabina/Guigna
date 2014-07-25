@@ -9,4 +9,7 @@
     return self;
 }
 
+- (void)refresh {
+}
+
 @end

@@ -14,9 +14,6 @@ class Fink: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        var pkgs = [GPackage]()
-        pkgs.reserveCapacity(50000)
-        
         if mode == GMode.Online {
             let url = NSURL(string: "http://pdb.finkproject.org/pdb/browse.php")
             let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
@@ -31,8 +28,7 @@ class Fink: GSystem {
                 let version = dataRows[1].stringValue!
                 let pkg = GPackage(name: name, version: version, system: self, status: .Available)
                 pkg.description = description
-                // items += pkg // FIXME: slow
-                pkgs += pkg
+                items += pkg
                 self[name] = pkg
             }
         } else {
@@ -58,14 +54,12 @@ class Fink: GSystem {
                 }
                 let pkg = GPackage(name: name, version: version, system: self, status: status)
                 pkg.description = description
-                // items += pkg // FIXME: slow
-                pkgs += pkg
+                items += pkg
                 self[name] = pkg
             }
         }
-        items = pkgs
         self.installed() // update status
-        return pkgs
+        return items as [GPackage]
     }
     
     

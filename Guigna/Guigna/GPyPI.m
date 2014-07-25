@@ -14,7 +14,7 @@
     return self;
 }
 
-- (NSArray *)items {
+- (void)refresh {
     NSMutableArray *eggs = [NSMutableArray array];
     NSMutableArray *nodes = [[self.agent nodesForURL:self.homepage XPath:@"//table[@class=\"list\"]//tr"] mutableCopy];
     [nodes removeObjectAtIndex:0];
@@ -39,7 +39,7 @@
         egg.description = description;
         [eggs addObject:egg];
     }
-    return eggs;
+    self.items = eggs;
 }
 
 - (NSString *)home:(GItem *)item {
