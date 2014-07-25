@@ -130,7 +130,7 @@ class Homebrew: GSystem {
             var pkg = self[name]
             var latestVersion: String = (pkg == nil) ? "" : pkg.version
             // let version = components[1] // TODO: strangely, output contains only name
-            let version = (pkg == nil) ? "..." : pkg.installed
+            let version = (pkg == nil) ? "..." : pkg.installed!
             if pkg == nil {
                 pkg = GPackage(name: name, version: latestVersion, system: self, status: .Outdated)
                 self[name] = pkg
