@@ -20,7 +20,7 @@
     NSCharacterSet *decimalCharSet = [NSCharacterSet decimalDigitCharacterSet];
     for (id link in links) {
         NSString *name = [link stringValue];
-        if ([name hasPrefix:@"Parent Dir"] || [name contains:@"MANIFEST"])
+        if ([name hasPrefix:@"Parent Dir"] || [name contains:@"MANIFEST"] || [name contains:@"ALIASES"])
             continue;
         NSUInteger sep = [name rangeOfString:@"-"].location;
         NSString *version = [name substringFromIndex:sep+1];

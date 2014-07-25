@@ -24,7 +24,7 @@ class Rudix < GRepo
     decimalCharSet = NSCharacterSet.decimalDigitCharacterSet
     links.each do |link|
       name = link.stringValue
-      next if name.start_with? 'Parent Dir' or name.include?("MANIFEST")
+      next if name.start_with? 'Parent Dir' or name.include?("MANIFEST") or name.include?("ALIASES")
       sep = name.index "-"
       version = name[sep+1..-1]
       version = version[0...-4]
