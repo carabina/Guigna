@@ -47,7 +47,7 @@ class Pkgsrc: GSystem {
                 pkg.description = description
                 pkg.homepage = homepage
                 items += pkg
-                self[name] = pkg
+                self[id] = pkg
             }
             
         } else {
@@ -79,7 +79,7 @@ class Pkgsrc: GSystem {
                 let id = "\(category)/\(name)"
                 pkg.id = id
                 items += pkg
-                self[name] = pkg
+                self[id] = pkg
             }
         }
         self.installed() // update status
