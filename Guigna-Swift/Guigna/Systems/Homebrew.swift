@@ -252,11 +252,11 @@ class Homebrew: GSystem {
     
     
     override func installCmd(pkg: GPackage) -> String {
-        var options: String? = pkg.markedOptions
+        var options: String! = pkg.markedOptions
         if options == nil {
             options = ""
         } else {
-            options = "--" + options!.stringByReplacingOccurrencesOfString(" ", withString: " --")
+            options = "--" + options.stringByReplacingOccurrencesOfString(" ", withString: " --")
         }
         return "\(cmd) install \(options) \(pkg.name)"
     }

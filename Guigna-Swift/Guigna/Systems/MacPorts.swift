@@ -355,11 +355,11 @@ class MacPorts: GSystem {
     }
     
     override func installCmd(pkg: GPackage) -> String {
-        var variants: String? = pkg.markedOptions
+        var variants: String! = pkg.markedOptions
         if variants == nil {
             variants = ""
         } else {
-            variants = "+" + variants!.stringByReplacingOccurrencesOfString(" ", withString: "+")
+            variants = "+" + variants.stringByReplacingOccurrencesOfString(" ", withString: "+")
         }
         return "sudo \(cmd) install \(pkg.name) \(variants)"
     }
