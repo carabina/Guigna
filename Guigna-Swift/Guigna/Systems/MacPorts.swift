@@ -86,23 +86,21 @@ class MacPorts: GSystem {
                         s.scanUpToCharactersFromSet(spaceOrReturn, intoString: &str)
                         value.setString(str)
                     }
-                    if key == "version" {
+                    switch key! {
+                    case "version":
                         version = value
-                    }
-                    if key == "revision" {
+                    case "revision":
                         revision = value
-                    }
-                    if key == "categories" {
+                    case "categories":
                         categories = value
-                    }
-                    if key == "description" {
+                    case "description":
                         description = value
-                    }
-                    if key == "homepage" {
+                    case "homepage":
                         homepage = value
-                    }
-                    if key == "license" {
+                    case "license":
                         license = value
+                    default:
+                        break
                     }
                     loc = s.scanLocation
                     var nextIsReturn = s.scanString("\n", intoString: nil)

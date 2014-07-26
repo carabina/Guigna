@@ -103,15 +103,15 @@
                 }
                 if ([key is:@"version"])
                     version = [value copy];
-                if ([key is:@"revision"])
+                else if ([key is:@"revision"])
                     revision = [value copy];
-                if ([key is:@"categories"])
+                else if ([key is:@"categories"])
                     categories = [value copy];
-                if ([key is:@"description"])
+                else if ([key is:@"description"])
                     description = [value copy];
-                if ([key is:@"homepage"])
+                else if ([key is:@"homepage"])
                     homepage = [value copy];
-                if ([key is:@"license"])
+                else if ([key is:@"license"])
                     license = [value copy];
                 loc = [s scanLocation];
                 BOOL nextIsReturn = [s scanString:@"\n" intoString:nil];
