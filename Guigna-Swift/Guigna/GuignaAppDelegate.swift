@@ -1716,6 +1716,10 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                         status = source.status
                         if status == GState.On {
                             itemsController.removeObjects(items.filter { $0.system.name == title })
+                            allPackages = allPackages.filter { $0.system.name != title }
+                            for pkg in source.items as [GPackage] {
+                                packagesIndex.removeValueForKey(pkg.key())
+                            }
                             source.items.removeAll()
                             systemsMutableArray.removeObject(source)
                             systems.removeAtIndex(find(systems, source)!)

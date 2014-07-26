@@ -285,7 +285,7 @@
     
     if (defaults[@"ScrapesCount"] == nil)
         defaults[@"ScrapesCount"] = @15;
-
+    
     GRepo *native = [[GNative alloc] initWithAgent:self.agent];
     [repos addObject:native];
     GRepo *rudix = [[GRudix alloc] initWithAgent:self.agent];
@@ -1651,6 +1651,10 @@
                 status = source.status;
                 if (status == GOnState) {
                     [itemsController removeObjects:[items filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"system.name == %@", title]]];
+                    [allPackages filterUsingPredicate:[NSPredicate predicateWithFormat:@"system.name != %@", title]];
+                    for (GPackage *pkg in source.items) {
+                        [packagesIndex removeObjectForKey:[pkg key]];
+                    }
                     [source.items removeAllObjects];
                     [[[sourcesController content][0] mutableArrayValueForKey:@"categories"] removeObject:source];
                     [systems removeObject:source];

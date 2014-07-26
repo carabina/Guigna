@@ -1506,6 +1506,10 @@ class GuignaAppDelegate
           status = source.status
           if status == :on
             itemsController.removeObjects(@items.filteredArrayUsingPredicate(NSPredicate.predicateWithFormat("system.name == '#{title}'")))
+            all_packages.filterUsingPredicate(NSPredicate.predicateWithFormat("system.name != '#{title}'"))
+            for pkg in source.items
+              packages_index.delete(pkg.key)
+            end
             source.items.clear
             sourcesController.content.first.mutableArrayValueForKey("categories").removeObject(source)
             systems.removeObject(source)
