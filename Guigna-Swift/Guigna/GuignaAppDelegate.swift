@@ -1148,10 +1148,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     
     
     func execute(cmd: String, baton: String) {
-        // TODO:test
-        status("Executing '\(cmd)' in the shell...")
-        let cleanCmd = cmd.split(" ; ").filter { !($0.hasPrefix("sudo mv")) }.join(" ; ")
-        log("😺===> \(cleanCmd)\n")
+        let briefCmd = cmd.split(" ; ").filter { !($0.hasPrefix("sudo mv")) }.join(" ; ")
+        status("Executing '\(briefCmd)' in the shell...")
+        log("😺===> \(briefCmd)\n")
         var command: String
         if baton == "relaunch" {
             self.ready = false

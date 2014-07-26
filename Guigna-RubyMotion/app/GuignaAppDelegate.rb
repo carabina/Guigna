@@ -1049,8 +1049,9 @@ class GuignaAppDelegate
   end
   
   def execute(cmd, with_baton:baton)
-    status "Executing '#{cmd}' in the shell..."
-    log "😺===> #{cmd.split(" ; ").reject {|line| line.start_with?("sudo mv") || line.start_with?("export")}.join(" ; ")}\n"
+    brief_cmd = cmd.split(" ; ").reject {|line| line.start_with?("sudo mv") || line.start_with?("export")}.join(" ; ")
+    status "Executing '#{brief_cmd}' in the shell..."
+    log "😺===> #{brief_cmd}\n"
     if baton == "relaunch"
       self.ready = false
       command = "#{cmd} ; osascript -e 'tell app \"Guigna-RubyMotion\"' -e 'quit' -e 'end' &>/dev/null ; osascript -e 'tell app \"Guigna-RubyMotion\"' -e 'activate' -e 'end' &>/dev/null &"

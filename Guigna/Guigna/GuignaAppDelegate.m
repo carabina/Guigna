@@ -1133,9 +1133,9 @@
 
 
 - (void)execute:(NSString *)cmd withBaton:(NSString *)baton {
-    // TODO:test
-    [self status:[NSString stringWithFormat:@"Executing '%@' in the shell...", cmd]];
-    [self log:[NSString stringWithFormat:@"😺===> %@\n", [[[cmd split:@" ; "] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT SELF BEGINSWITH 'sudo mv'"]] join:@" ; "]]];
+    NSString *briefCmd = [[[cmd split:@" ; "] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"NOT SELF BEGINSWITH 'sudo mv'"]] join:@" ; "];
+    [self status:[NSString stringWithFormat:@"Executing '%@' in the shell...", briefCmd]];
+    [self log:[NSString stringWithFormat:@"😺===> %@\n", briefCmd]];
     NSString *command;
     if ([baton is:@"relaunch"]) {
         self.ready = NO;
