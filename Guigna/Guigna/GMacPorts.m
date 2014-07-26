@@ -63,7 +63,8 @@
             portIndex = [NSString stringWithContentsOfFile:[self.prefix stringByAppendingString:@"/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex"] encoding:NSUTF8StringEncoding error:nil];
         NSScanner *s =  [NSScanner scannerWithString:portIndex];
         [s setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@""]];
-        NSCharacterSet *spaceOrReturn = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSMutableCharacterSet *endsCharaterSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+        [endsCharaterSet addCharactersInString:@"}"];
         NSString *str = [[NSString alloc] init];
         NSUInteger loc;
         NSString *name = [[NSString alloc] init];
@@ -83,23 +84,15 @@
             while (1) {
                 [s scanUpToString:@" " intoString: &key];
                 [s scanString:@" " intoString: nil];
-                loc = [s scanLocation];
-                BOOL nextIsBrace = [s scanString:@"{" intoString:nil];
-                [s setScanLocation:loc];
-                if (nextIsBrace) {
-                    [s scanString:@"{" intoString:nil];
-                    [value setString:@"{"];
-                    NSRange range = [value rangeOfString:@"{"];
-                    while (range.location != NSNotFound) {
-                        [value replaceCharactersInRange:range withString:@""];
-                        if ([s scanUpToString:@"}" intoString:&str])
-                            [value appendString:str];
-                        [s scanString:@"}" intoString:nil];
-                        range = [value rangeOfString:@"{"];
-                    }
-                } else {
-                    [s scanUpToCharactersFromSet:spaceOrReturn intoString:&str];
-                    [value setString:str];
+                [s scanUpToCharactersFromSet:endsCharaterSet intoString:&str];
+                [value setString:str];
+                NSRange range = [value rangeOfString:@"{"];
+                while (range.location != NSNotFound) {
+                    [value replaceCharactersInRange:range withString:@""];
+                    if ([s scanUpToString:@"}" intoString:&str])
+                        [value appendString:str];
+                    [s scanString:@"}" intoString:nil];
+                    range = [value rangeOfString:@"{"];
                 }
                 if ([key is:@"version"])
                     version = [value copy];
@@ -114,10 +107,7 @@
                 else if ([key is:@"license"])
                     license = [value copy];
                 loc = [s scanLocation];
-                BOOL nextIsReturn = [s scanString:@"\n" intoString:nil];
-                [s setScanLocation:loc];
-                if (nextIsReturn) {
-                    [s scanString:@"\n" intoString:nil];
+                if ([s scanString:@"\n" intoString:nil]) {
                     break;
                 }
                 [s scanString:@" " intoString: nil];

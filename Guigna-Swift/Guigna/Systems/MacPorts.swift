@@ -46,7 +46,8 @@ class MacPorts: GSystem {
             }
             let s =  NSScanner(string: portIndex)
             s.charactersToBeSkipped = NSCharacterSet(charactersInString: "")
-            let spaceOrReturn = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+            var endsCharacterSet = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet()
+            endsCharacterSet.addCharactersInString("}")
             var str: NSString? = nil
             var loc: Int
             var name: NSString? = nil
@@ -67,24 +68,16 @@ class MacPorts: GSystem {
                 while true {
                     s.scanUpToString(" ", intoString: &key)
                     s.scanString(" ", intoString: nil)
-                    loc = s.scanLocation
-                    var nextIsBrace = s.scanString("{", intoString: nil)
-                    s.scanLocation = loc
-                    if nextIsBrace {
-                        s.scanString("{", intoString: nil)
-                        value.setString("{")
-                        var range = value.rangeOfString("{")
-                        while range.location != NSNotFound {
-                            value.replaceCharactersInRange(range, withString: "")
-                            if s.scanUpToString("}", intoString: &str) {
-                                value.appendString(str)
-                            }
-                            s.scanString("}", intoString: nil)
-                            range = value.rangeOfString("{")
+                    s.scanUpToCharactersFromSet(endsCharacterSet, intoString: &str)
+                    value.setString(str)
+                    var range = value.rangeOfString("{")
+                    while range.location != NSNotFound {
+                        value.replaceCharactersInRange(range, withString: "")
+                        if s.scanUpToString("}", intoString: &str) {
+                            value.appendString(str)
                         }
-                    } else {
-                        s.scanUpToCharactersFromSet(spaceOrReturn, intoString: &str)
-                        value.setString(str)
+                        s.scanString("}", intoString: nil)
+                        range = value.rangeOfString("{")
                     }
                     switch key! {
                     case "version":
@@ -102,11 +95,7 @@ class MacPorts: GSystem {
                     default:
                         break
                     }
-                    loc = s.scanLocation
-                    var nextIsReturn = s.scanString("\n", intoString: nil)
-                    s.scanLocation = loc
-                    if nextIsReturn {
-                        s.scanString("\n", intoString: nil)
+                    if s.scanString("\n", intoString: nil) {
                         break
                     }
                     s.scanString(" ", intoString: nil)

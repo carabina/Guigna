@@ -44,7 +44,8 @@ class MacPorts < GSystem
       end
       s = NSScanner.scannerWithString(portindex) # MacRuby's StringScanner too slow
       s.setCharactersToBeSkipped NSCharacterSet.characterSetWithCharactersInString("")
-      spaceOrReturn = NSCharacterSet.whitespaceAndNewlineCharacterSet
+      endsCharacterSet = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet
+      endsCharacterSet.addCharactersInString "}"
       str = Pointer.new(:id)
       loop do
         break if !s.scanUpToString(" ", intoString:str)
@@ -55,20 +56,12 @@ class MacPorts < GSystem
           s.scanUpToString(' ', intoString:str)
           key = str[0]
           s.scanString(' ', intoString:nil)
-          loc = s.scanLocation # portindex[s.scanLocation] too slow
-          next_is_brace = s.scanString('{', intoString:nil)
-          s.setScanLocation loc
-          if next_is_brace
-            s.scanString('{', intoString:nil)
-            value = '{'
-            while value.include?('{')
-              value.sub!('{', '')
-              value << str[0] if s.scanUpToString('}', intoString:str)
-              s.scanString('}', intoString:nil)
-            end
-          else
-            s.scanUpToCharactersFromSet(spaceOrReturn, intoString:str)
-            value = str[0]
+          s.scanUpToCharactersFromSet(endsCharacterSet, intoString:str)
+          value = str[0].mutableCopy
+          while value.include?('{')
+            value.sub!('{', '')
+            value << str[0] if s.scanUpToString('}', intoString:str)
+            s.scanString('}', intoString:nil)
           end
           case key
           when 'version'
@@ -84,11 +77,7 @@ class MacPorts < GSystem
           when 'license'
             license = value
           end
-          loc = s.scanLocation
-          next_is_return = s.scanString("\n", intoString:nil)
-          s.setScanLocation loc
-          if next_is_return
-            s.scanString("\n", intoString:nil)
+          if s.scanString("\n", intoString:nil)
             break
           end
           s.scanString(' ', intoString:nil)
