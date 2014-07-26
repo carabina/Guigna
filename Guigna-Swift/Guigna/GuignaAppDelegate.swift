@@ -248,7 +248,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if defaults["MacPortsStatus"] != nil && defaults["MacPortsStatus"] == GState.On.toRaw() {
             var macports = MacPorts(agent: agent)
             if !fileManager.fileExistsAtPath(portPath) {
-                macports.mode = GMode.Online
+                macports.mode = GMode.Online  // FIXME: compilers requires expilicit enum the first time it is seen
             }
             if !(macports.mode == GMode.Online && !fileManager.fileExistsAtPath("\(APPDIR)/MacPorts/PortIndex")) {
                 systems += macports
@@ -289,7 +289,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if defaults["FinkStatus"] != nil && defaults["FinkStatus"] == GState.On.toRaw() {
             var fink = Fink(agent: agent)
             if !fileManager.fileExistsAtPath("/sw/bin/fink") {
-                fink.mode = GMode.Online
+                fink.mode = .Online
             }
             systems += fink
         }
@@ -304,7 +304,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if defaults["pkgsrcStatus"] != nil && defaults["pkgsrcStatus"] == GState.On.toRaw() {
             var pkgsrc = Pkgsrc(agent: agent)
             if !fileManager.fileExistsAtPath("/usr/pkg/sbin/pkg_info") {
-                pkgsrc.mode = GMode.Online
+                pkgsrc.mode = .Online
             }
             systems += pkgsrc
         }

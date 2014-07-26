@@ -24,14 +24,10 @@ class MacPorts < GSystem
         name = components.first.strip
         components = components[1].split
         version = components[0]
-        # revision = "..."
         categories = components.last.split("/").first
         pkg = GPackage.new(name, version, self, :available)
         # pkg = GPackage.new(name, "#{version}_#{revision}", self, :available)
         pkg.categories = categories
-        # pkg.description = description
-        # pkg.license = license
-        # pkg.homepage = homepage if self.mode == :online
         pkgs << pkg
         @items << pkg
         self[name] = pkg

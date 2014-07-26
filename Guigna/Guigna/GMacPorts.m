@@ -40,16 +40,7 @@
                                                    version:version
                                                     system:self
                                                     status:GAvailableStatus];
-            //            GPackage *pkg = [[GPackage alloc] initWithName:name
-            //                                                   version:[NSString stringWithFormat:@"%@_%@", version, revision]
-            //                                                    system:self
-            //                                                    status:GAvailableStatus];
             pkg.categories = categories;
-            // pkg.description = description;
-            // pkg.license = license;
-            // if (self.mode == GOnlineMode) {
-            //     pkg.homepage = homepage;
-            // }
             [pkgs addObject:pkg];
             [self.items addObject:pkg];
             self[name] = pkg;

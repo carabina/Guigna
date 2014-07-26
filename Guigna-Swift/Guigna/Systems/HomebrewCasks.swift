@@ -63,7 +63,7 @@ class HomebrewCasks: GSystem {
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
         
-        if mode == GMode.Online { // workaround otherwise enum value not recognized the first time it is encountered
+        if mode == GMode.Online { // FIXME: compilers requires expilicit enum the first time it is seen
             return pkgs
         }
         

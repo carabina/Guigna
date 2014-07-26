@@ -14,7 +14,7 @@ class Fink: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        if mode == GMode.Online {
+        if mode == GMode.Online { // FIXME: compilers requires expilicit enum the first time it is seen
             let url = NSURL(string: "http://pdb.finkproject.org/pdb/browse.php")
             let xmlDoc = NSXMLDocument(contentsOfURL: url, options: Int(NSXMLDocumentTidyHTML), error: nil)
             var nodes = xmlDoc.rootElement().nodesForXPath("//tr[@class=\"package\"]", error: nil) as [NSXMLNode]
@@ -71,7 +71,7 @@ class Fink: GSystem {
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
         
-        if mode == GMode.Online { // workaround otherwise enum value not recognized the first time it is encountered
+        if mode == .Online {
             return pkgs
         }
         
@@ -114,7 +114,7 @@ class Fink: GSystem {
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
         
-        if mode == GMode.Online { // workaround otherwise enum value not recognized the first time it is encountered
+        if mode == .Online {
             return pkgs
         }
         

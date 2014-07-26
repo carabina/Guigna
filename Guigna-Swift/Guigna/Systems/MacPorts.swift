@@ -26,20 +26,15 @@ class MacPorts: GSystem {
                 // let revision = "..."
                 let categories = components[components.count - 1].split("/")[0]
                 var pkg = GPackage(name: name, version: version, system: self, status: .Available)
-                // var pkg = GPackage(name: name, version: "\(version)_\(revision)", system: self, status: .Available)
                 pkg.categories = categories
-                // pkg.description = description!
-                // pkg.license = license!
-                // if (self.mode == GOnlineMode) {
-                //    pkg.homepage = homepage;
-                // }
                 items += pkg
                 self[name] = pkg
             }
             
         } else {
             var portIndex = "" as NSString
-            if mode == GMode.Online { // TODO: fetch PortIndex
+            if mode == GMode.Online {  // FIXME: compilers requires expilicit enum the first time it is seen
+                // TODO: fetch PortIndex
                 portIndex = NSString(contentsOfFile: "~/Library/Application Support/Guigna/MacPorts/PortIndex".stringByExpandingTildeInPath, encoding: NSUTF8StringEncoding, error: nil)
             } else {
                 portIndex = NSString(contentsOfFile: "\(prefix)/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding: NSUTF8StringEncoding, error: nil)
@@ -124,7 +119,7 @@ class MacPorts: GSystem {
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
         
-        if mode == GMode.Online { // workaround otherwise enum value not recognized the first time it is encountered
+        if mode == .Online {
             return pkgs
         }
         
