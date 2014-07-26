@@ -1692,18 +1692,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                         itemsController.addObjects(system.list())
                         itemsTable.display()
                         allPackages +=  system.items as [GPackage]
-                        // FIXME: slow
-                        //                        for (key, value) in system.index {
-                        //                            println("\(key)")
-                        //                            packagesIndex[key] = value
-                        //                        }
-                        var newIndex = [String: GPackage](minimumCapacity: 150000)
-                        for system in systems {
-                            for (key, value) in system.index {
-                                newIndex[key] = value
-                            }
+                        for (key, value) in system.index {
+                            packagesIndex[key] = value
                         }
-                        
                         // duplicate code from reloalAllPackages
                         source.categories = []
                         var categories = source.mutableArrayValueForKey("categories")
