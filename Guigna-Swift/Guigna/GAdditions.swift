@@ -14,11 +14,11 @@ protocol GAppDelegate {
 extension Array {
     
     func join() -> String {
-        return self.bridgeToObjectiveC().componentsJoinedByString(" ")
+        return " ".join(self)
     }
     
     func join(separator: String) -> String {
-        return self.bridgeToObjectiveC().componentsJoinedByString(separator)
+        return separator.join(self)
     }
     
 }
