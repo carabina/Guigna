@@ -170,11 +170,11 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         
         allPackages.reserveCapacity(150000)
         
-        system("mkdir -p '\(APPDIR)'".bridgeToObjectiveC().UTF8String)
-        system("touch '\(APPDIR)/output'".bridgeToObjectiveC().UTF8String)
-        system("touch '\(APPDIR)/sync'".bridgeToObjectiveC().UTF8String)
+        system("mkdir -p '\(APPDIR)'")
+        system("touch '\(APPDIR)/output'")
+        system("touch '\(APPDIR)/sync'")
         for dir in ["MacPorts", "Homebrew", "Fink", "pkgsrc", "FreeBSD", "Gentoo"] {
-            system("mkdir -p '\(APPDIR)/\(dir)'".bridgeToObjectiveC().UTF8String)
+            system("mkdir -p '\(APPDIR)/\(dir)'")
         }
         
         let fileManager = NSFileManager.defaultManager()
@@ -1182,7 +1182,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     }
     
     func executeAsRoot(cmd: String) {
-        var command = "osascript -e 'do shell script \"\(cmd)\" with administrator privileges'".bridgeToObjectiveC().UTF8String
+        var command = "osascript -e 'do shell script \"\(cmd)\" with administrator privileges'"
         system(command)
     }
     
