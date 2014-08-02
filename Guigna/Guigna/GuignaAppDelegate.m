@@ -1677,21 +1677,26 @@
 
 -(void)applyTheme:(NSString *)theme {
     if ([theme is:@"Retro"]) {
-        [_window setBackgroundColor:[NSColor blackColor]];
+        [_window setBackgroundColor:[NSColor greenColor]];
+        [[segmentedControl superview] setWantsLayer:YES];
+        [segmentedControl superview].layer.backgroundColor = [NSColor blackColor].CGColor;
         [itemsTable setBackgroundColor:[NSColor blackColor]];
         [itemsTable setUsesAlternatingRowBackgroundColors:NO];
         self.tableFont = [NSFont fontWithName:@"Andale Mono" size:11.0];
         self.tableTextColor = [NSColor greenColor];
         [itemsTable setGridColor:[NSColor greenColor]];
         [itemsTable setGridStyleMask:NSTableViewDashedHorizontalGridLineMask];
+        [(NSScrollView *)[[sourcesOutline superview] superview] setBorderType:NSLineBorder];
         [sourcesOutline setBackgroundColor:[NSColor blackColor]];
         [segmentedControl setSegmentStyle:NSSegmentStyleSmallSquare];
         [commandsPopUp setBezelStyle:NSSmallSquareBezelStyle];
+        [(NSScrollView *)[[infoText superview] superview] setBorderType:NSLineBorder];
         [infoText setBackgroundColor:[NSColor blackColor]];
         [infoText setTextColor:[NSColor greenColor]];
         NSMutableDictionary *cyanLinkAttributes = linkTextAttributes.mutableCopy;
         cyanLinkAttributes[NSForegroundColorAttributeName] = [NSColor cyanColor];
         infoText.linkTextAttributes = cyanLinkAttributes;
+        [(NSScrollView *)[[logText superview] superview] setBorderType:NSLineBorder];
         [logText setBackgroundColor:[NSColor blueColor]];
         [logText setTextColor:[NSColor whiteColor]];
         self.logTextColor = [NSColor whiteColor];
@@ -1709,18 +1714,22 @@
         
     } else { // Default theme
         [_window setBackgroundColor:[NSColor windowBackgroundColor]];
+        [segmentedControl superview].layer.backgroundColor = [NSColor windowBackgroundColor].CGColor;
         [itemsTable setBackgroundColor:[NSColor whiteColor]];
         [itemsTable setUsesAlternatingRowBackgroundColors:YES];
         self.tableFont = [NSFont controlContentFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
         self.tableTextColor = [NSColor blackColor];
         [itemsTable setGridStyleMask:NSTableViewGridNone];
         [itemsTable setGridColor:[NSColor gridColor]];
+        [(NSScrollView *)[[sourcesOutline superview] superview] setBorderType:NSGrooveBorder];
         [sourcesOutline setBackgroundColor:self.sourceListBackgroundColor];
         [segmentedControl setSegmentStyle:NSSegmentStyleTexturedRounded];
         [commandsPopUp setBezelStyle:NSTexturedRoundedBezelStyle];
+        [(NSScrollView *)[[infoText superview] superview] setBorderType:NSGrooveBorder];
         [infoText setBackgroundColor:[NSColor colorWithCalibratedRed:0.82290249429999995 green:0.97448979589999996 blue:0.67131519269999995 alpha:1.0]]; // light green
         [infoText setTextColor:[NSColor blackColor]];
         infoText.linkTextAttributes = linkTextAttributes;
+        [(NSScrollView *)[[logText superview] superview] setBorderType:NSGrooveBorder];
         [logText setBackgroundColor:[NSColor colorWithCalibratedRed:1.0 green:1.0 blue:0.8 alpha:1.0]]; // light yellow
         [logText setTextColor:[NSColor blackColor]];
         self.logTextColor = [NSColor blackColor];

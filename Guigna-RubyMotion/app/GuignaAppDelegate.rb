@@ -1532,21 +1532,26 @@ class GuignaAppDelegate
   
   def apply_theme(theme)
     if theme == "Retro"
-      self.window.setBackgroundColor NSColor.blackColor
+      self.window.setBackgroundColor NSColor.greenColor
+      segmentedControl.superview.wantsLayer = true
+      segmentedControl.superview.layer.backgroundColor = NSColor.blackColor.CGColor
       itemsTable.setBackgroundColor NSColor.blackColor
       itemsTable.setUsesAlternatingRowBackgroundColors false
       self.tableFont = NSFont.fontWithName "Andale Mono", size:11.0
       self.tableTextColor = NSColor.greenColor
       itemsTable.setGridColor NSColor.greenColor
       itemsTable.setGridStyleMask NSTableViewDashedHorizontalGridLineMask
+      sourcesOutline.superview.superview.borderType = NSLineBorder # scroll view
       sourcesOutline.setBackgroundColor NSColor.blackColor
       segmentedControl.setSegmentStyle NSSegmentStyleSmallSquare
       commandsPopUp.setBezelStyle NSSmallSquareBezelStyle
+      infoText.superview.superview.borderType = NSLineBorder
       infoText.setBackgroundColor NSColor.blackColor
       infoText.setTextColor NSColor.greenColor
       cyanLinkAttributes = linkTextAttributes.mutableCopy
       cyanLinkAttributes[NSForegroundColorAttributeName] = NSColor.cyanColor
       infoText.linkTextAttributes = cyanLinkAttributes
+      logText.superview.superview.borderType = NSLineBorder
       logText.setBackgroundColor NSColor.blueColor
       logText.setTextColor NSColor.whiteColor
       self.logTextColor = NSColor.whiteColor
@@ -1565,19 +1570,23 @@ class GuignaAppDelegate
       end
       
     else  # Default theme
-      self.window.setBackgroundColor NSColor.windowBackgroundColor 
+      self.window.setBackgroundColor NSColor.windowBackgroundColor
+      segmentedControl.superview.layer.backgroundColor = NSColor.windowBackgroundColor.CGColor
       itemsTable.setBackgroundColor NSColor.whiteColor
       itemsTable.setUsesAlternatingRowBackgroundColors true
       self.tableFont = NSFont.controlContentFontOfSize(NSFont.systemFontSizeForControlSize NSSmallControlSize)
       self.tableTextColor = NSColor.blackColor
       itemsTable.setGridStyleMask NSTableViewGridNone
       itemsTable.setGridColor NSColor.gridColor
+      sourcesOutline.superview.superview.borderType = NSGrooveBorder # scroll view
       sourcesOutline.setBackgroundColor self.sourceListBackgroundColor
       segmentedControl.setSegmentStyle NSSegmentStyleTexturedRounded
       commandsPopUp.setBezelStyle NSTexturedRoundedBezelStyle
+      infoText.superview.superview.borderType = NSGrooveBorder
       infoText.setBackgroundColor(NSColor.colorWithCalibratedRed 0.82290249429999995, green:0.97448979589999996, blue:0.67131519269999995, alpha:1.0) # light green
       infoText.setTextColor NSColor.blackColor
       infoText.linkTextAttributes = linkTextAttributes
+      logText.superview.superview.borderType = NSGrooveBorder
       logText.setBackgroundColor NSColor.colorWithCalibratedRed 1.0, green:1.0, blue:0.8, alpha:1.0 # light yellow
       logText.setTextColor NSColor.blackColor
       self.logTextColor = NSColor.blackColor

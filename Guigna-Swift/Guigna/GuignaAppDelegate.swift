@@ -1747,21 +1747,26 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     
     func applyTheme(theme: String) {
         if theme == "Retro" {
-            window.backgroundColor = NSColor.blackColor()
+            window.backgroundColor = NSColor.greenColor()
+            segmentedControl.superview.wantsLayer = true
+            segmentedControl.superview.layer.backgroundColor = NSColor.blackColor().CGColor
             itemsTable.backgroundColor = NSColor.blackColor()
             itemsTable.usesAlternatingRowBackgroundColors = false
             tableFont = NSFont(name: "Andale Mono", size: 11.0)
             tableTextColor = NSColor.greenColor()
             itemsTable.gridColor = NSColor.greenColor()
             itemsTable.gridStyleMask = .DashedHorizontalGridLineMask
+            (sourcesOutline.superview.superview as NSScrollView).borderType = .LineBorder
             sourcesOutline.backgroundColor = NSColor.blackColor()
             segmentedControl.segmentStyle = .SmallSquare
             commandsPopUp.bezelStyle = .SmallSquareBezelStyle
+            (infoText.superview.superview as NSScrollView).borderType = .LineBorder
             infoText.backgroundColor = NSColor.blackColor()
             infoText.textColor = NSColor.greenColor()
             var cyanLinkAttribute = NSMutableDictionary(dictionary: linkTextAttributes)
             cyanLinkAttribute[NSForegroundColorAttributeName] = NSColor.cyanColor()
             infoText.linkTextAttributes = cyanLinkAttribute
+            (logText.superview.superview as NSScrollView).borderType = .LineBorder
             logText.backgroundColor = NSColor.blueColor()
             logText.textColor = NSColor.whiteColor()
             logTextColor = NSColor.whiteColor()
@@ -1779,18 +1784,22 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             
         } else { // Default theme
             window.backgroundColor = NSColor.windowBackgroundColor()
+            segmentedControl.superview.layer.backgroundColor = NSColor.windowBackgroundColor().CGColor
             itemsTable.backgroundColor = NSColor.whiteColor()
             itemsTable.usesAlternatingRowBackgroundColors = true
             tableFont = NSFont.controlContentFontOfSize(NSFont.systemFontSizeForControlSize(.SmallControlSize))
             tableTextColor = NSColor.blackColor()
             itemsTable.gridStyleMask = .GridNone
             itemsTable.gridColor = NSColor.gridColor()
+            (sourcesOutline.superview.superview as NSScrollView).borderType = .GrooveBorder
             sourcesOutline.backgroundColor = sourceListBackgroundColor
             segmentedControl.segmentStyle = .Rounded
             commandsPopUp.bezelStyle = .RoundRectBezelStyle // TODO: Round in Mavericks
+            (infoText.superview.superview as NSScrollView).borderType = .GrooveBorder
             infoText.backgroundColor = NSColor(calibratedRed: 0.82290249429999995, green: 0.97448979589999996, blue: 0.67131519269999995, alpha: 1.0) // light green
             infoText.textColor = NSColor.blackColor()
             infoText.linkTextAttributes = linkTextAttributes
+            (logText.superview.superview as NSScrollView).borderType = .GrooveBorder
             logText.backgroundColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 0.8, alpha: 1.0) // lioght yellow
             logText.textColor = NSColor.blackColor()
             logTextColor = NSColor.blackColor()
