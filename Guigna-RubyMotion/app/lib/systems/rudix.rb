@@ -72,6 +72,10 @@ class Rudix < GSystem
     @items = pkgs
   end
   
+  def home(item)
+    "http://rudix.org/packages/#{item.name}.html"
+  end
+  
   def log(item)
     if !item.nil?
       "https://github.com/rudix-mac/rudix/commits/master/Ports/#{item.name}"

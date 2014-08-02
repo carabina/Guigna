@@ -142,6 +142,12 @@
     return makeFile;
 }
 
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
+}
+
+
 //# TODO:deps => parse requirements:
 // http://www.FreeBSD.org/cgi/ports.cgi?query=%5E' + '%@-%@' item.name-item.version
 

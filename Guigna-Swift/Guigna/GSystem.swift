@@ -58,6 +58,9 @@ class GSystem: GSource {
         return categoriesArray
     }
     
+    func availableCommands() -> [[String]] {
+        return [["help", "CMD help"], ["man", "man CMD"]]
+    }
     
     func installCmd(pkg: GPackage) -> String {
         return "\(cmd) install \(pkg.name)"
@@ -106,10 +109,10 @@ class GSystem: GSource {
         return nil
     }
     }
-
+    
     func verbosifiedCmd(command: String) -> String {
-	    return command.stringByReplacingOccurrencesOfString("\(cmd)", withString: "\(cmd) -d")
-	}
+        return command.stringByReplacingOccurrencesOfString("\(cmd)", withString: "\(cmd) -d")
+    }
     
     func output(command: String) -> String {
         return agent.output(command)

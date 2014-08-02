@@ -23,6 +23,12 @@
     return @"http://git.gnome.org/browse/gtk-osx/";
 }
 
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
+}
+
+
 // TODO: test
 
 + (NSString *)setupCmd {

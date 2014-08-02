@@ -102,7 +102,8 @@ class GSystem < GSource
   end
 
   def available_commands #TODO
-    ["clean"]
+    [["help", "CMD help"],
+    ["man", "man CMD"]]
   end
   
   def install_cmd(pkg)

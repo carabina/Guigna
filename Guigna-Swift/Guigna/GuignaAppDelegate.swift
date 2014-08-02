@@ -1155,8 +1155,22 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     }
     
     
-    @IBAction func executeCommandsMenu(sender: AnyObject) {
-        // TODO
+    @IBAction func executeCommandsMenu(sender: NSPopUpButton) {
+        let selectedItems = itemsController.selectedObjects
+        var item: GItem! = nil
+        if selectedItems.count > 0 {
+            item = selectedItems[0] as GItem
+        }
+        var title = sender.titleOfSelectedItem!
+        if let system = item.system {
+            var idx = find(system.availableCommands().map {$0[0]}, title)
+            var command = system.availableCommands()[idx!][1]
+            if title == "help" {
+                command = command.stringByReplacingOccurrencesOfString("CMD", withString: system.cmd.lastPathComponent)
+                updateCmdLine(command)
+                executeCmdLine(sender)
+            }
+        }
     }
     
     
@@ -1274,15 +1288,18 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 status("OK.")
                 
             } else if title == "Commands" {
-                for (var i = 1; i < commandsPopUp.numberOfItems; i++) {
+                while commandsPopUp.numberOfItems > 1 {
                     commandsPopUp.removeItemAtIndex(1)
                 }
-                if selectedItems.count > 0 {
-                    // let package: GPackage = selectedItems[0] // TODO
-                    // commandsPopUp.addItemsWithTitles(package.system.availableCommands())
-                    commandsPopUp.addItemWithTitle("[TODO]")
-                } else {
+                if selectedItems.count == 0 {
                     commandsPopUp.addItemWithTitle("[no package selected]")
+                } else {
+                    let item = selectedItems[0] // TODO
+                    if item.system {
+                        for commandArray in item.system.availableCommands() {
+                            commandsPopUp.addItemWithTitle(commandArray[0])
+                        }
+                    }
                 }
             }
         }

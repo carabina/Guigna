@@ -237,6 +237,12 @@
         return @"[Not available]";
 }
 
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
+}
+
+
 - (NSString *) installCmd:(GPackage *)pkg {
     if (pkg.ID != nil)
         return [NSString stringWithFormat:@"cd /usr/pkgsrc/%@ ; sudo /usr/pkg/bin/bmake install clean clean-depends", pkg.ID];

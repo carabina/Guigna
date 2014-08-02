@@ -200,6 +200,11 @@
 }
 
 
+- (NSArray *)availableCommands {
+    return [super availableCommands];
+}
+
+
 - (NSString *) installCmd:(GPackage *)pkg {
     return [NSString stringWithFormat:@"sudo %@ install %@", self.cmd, pkg.name];
 }

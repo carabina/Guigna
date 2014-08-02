@@ -79,7 +79,10 @@
 }
 
 - (NSArray *)availableCommands { // TODO
-    return @[@"clean"];
+    return @[
+             @[@"help", @"CMD help"],
+             @[@"man",  @"man CMD"]
+             ];
 }
 
 - (NSString *)installCmd:(GPackage *)pkg {

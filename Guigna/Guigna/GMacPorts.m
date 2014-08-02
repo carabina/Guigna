@@ -229,11 +229,6 @@
 }
 
 
-- (NSArray *)availableCommands {
-    return @[@"sudo install -y"];
-}
-
-
 - (NSString *)info:(GItem *)item {
     if (self.isHidden)
         return [super info:item];
@@ -327,6 +322,11 @@
         variants = [[[output substringFromIndex:10] split:@", "] join];
     }
     return variants;
+}
+
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
 }
 
 

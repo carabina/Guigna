@@ -167,6 +167,7 @@
     return pkgs;
 }
 
+
 - (NSString *)info:(GItem *)item {
     if (!self.isHidden)
         return [self outputFor:@"%@ info %@", self.cmd, item.name];
@@ -246,6 +247,12 @@
     }
     return options;
 }
+
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
+}
+
 
 - (NSString *) installCmd:(GPackage *)pkg {
     NSString *options = pkg.markedOptions;

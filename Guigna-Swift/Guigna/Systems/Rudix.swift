@@ -54,6 +54,11 @@ class Rudix: GSystem {
         }
     }
     
+    override func home(item: GItem!) -> String {
+        return "http://rudix.org/packages/\(item.name).html"
+    }
+    
+    
     override func log(item: GItem!) -> String {
         if item != nil {
             return "https://github.com/rudix-mac/rudix/commits/master/Ports/\(item.name)"

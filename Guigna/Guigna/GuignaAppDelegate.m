@@ -1137,7 +1137,26 @@
 
 
 - (IBAction)executeCommandsMenu:(id)sender {
-    ;
+    NSArray *selectedItems = [itemsController selectedObjects];
+    GItem *item = nil;
+    if ([selectedItems count] > 0)
+        item = selectedItems[0];
+    NSString *title = [sender titleOfSelectedItem];
+    GSystem *system = item.system;
+    NSString *command;
+    if (system != nil) {
+        for (NSArray *commandArray in [system availableCommands]) {
+            if ([commandArray[0] is:title]) {
+                command = commandArray[1];
+                break;
+            }
+        }
+        if ([title is:@"help"]) {
+            command = [command stringByReplacingOccurrencesOfString:@"CMD" withString:[system.cmd lastPathComponent]];
+            [self updateCmdLine:command];
+            [self executeCmdLine:sender];
+        }
+    }
 }
 
 
@@ -1236,15 +1255,18 @@
             [self status:@"OK."];
             
         } else if ([title is:@"Commands"]) {
-            for (int i = 1; i < [commandsPopUp numberOfItems]; i++) {
+            while ([commandsPopUp numberOfItems] > 1) {
                 [commandsPopUp removeItemAtIndex:1];
             }
-            if ([selectedItems count] > 0) {
-                // GPackage *package = [selectedItems objectAtIndex:0]; // TODO
-                // [commandsPopUp addItemsWithTitles:[package.system availableCommands]];
-                [commandsPopUp addItemWithTitle:@"[TODO]"];
-            } else {
+            if ([selectedItems count] == 0) {
                 [commandsPopUp addItemWithTitle:@"[no package selected]"];
+            } else {
+                GItem *item = selectedItems[0]; // TODO
+                if (item.system != nil) {
+                    for (NSArray *commandArray in [item.system availableCommands]) {
+                        [commandsPopUp addItemWithTitle:commandArray[0]];
+                    }
+                }
             }
         }
     }

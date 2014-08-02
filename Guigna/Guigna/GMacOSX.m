@@ -80,10 +80,6 @@
     return pkgs;
 }
 
-- (NSArray *)availableCommands {
-    return @[@"forget"];
-}
-
 
 - (NSString *)info:(GItem *)item {
     NSMutableString *output = [NSMutableString string];
@@ -157,6 +153,11 @@
 
 - (NSString *)cat:(GItem *)item {
     return @"TODO";
+}
+
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
 }
 
 

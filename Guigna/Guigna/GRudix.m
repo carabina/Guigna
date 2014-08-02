@@ -85,12 +85,21 @@
     self.items = pkgs;
 }
 
+- (NSString *)home:(GItem *)item {
+	return [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", item.name];
+}
+
 - (NSString *)log:(GItem *)item {
     if (item != nil ) {
         return [NSString stringWithFormat:@"https://github.com/rudix-mac/rudix/commits/master/Ports/%@", item.name];
     } else {
         return @"https://github.com/rudix-mac/rudix/commits";
     }
+}
+
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
 }
 
 

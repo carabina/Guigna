@@ -181,6 +181,12 @@
     return @"";
 }
 
+
+- (NSArray *)availableCommands {
+    return [super availableCommands];
+}
+
+
 - (NSString *) installCmd:(GPackage *)pkg {
     NSString *options = pkg.markedOptions;
     if (options == nil)

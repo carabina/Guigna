@@ -1055,6 +1055,19 @@ class GuignaAppDelegate
   end
   
   def executeCommandsMenu(sender)
+    selected_items = itemsController.selectedObjects
+    item = nil
+    item = selected_items.first if selected_items.count > 0
+    title = sender.titleOfSelectedItem
+    system = item.system
+    if system != nil
+      command = system.available_commands.detect {|cmd_array| cmd_array[0] = title}[1]
+      if title == "help"
+        command.gsub!("CMD", system.cmd.lastPathComponent)
+        update_cmdline command
+        executeCmdLine sender
+      end
+    end
   end
   
   def execute(cmd, with_baton:baton)
@@ -1153,15 +1166,18 @@ class GuignaAppDelegate
         status "OK."
       
       elsif title == "Commands"
-        for i in (0..commandsPopUp.numberOfItems)
+        while commandsPopUp.numberOfItems > 1
           commandsPopUp.removeItemAtIndex 1
         end
-        if selected_items.size > 0
-          # package = selected_items.first // TODO
-          # commandsPopUp.addItemsWithTitles package.system.availableCommands
-          commandsPopUp.addItemWithTitle "[TODO]"
-        else
+        if selected_items.size == 0
           commandsPopUp.addItemWithTitle "[no package selected]"
+        else
+          item = selected_items.first # TODO
+          if item.system != nil
+            for cmd_array in item.system.available_commands
+              commandsPopUp.addItemWithTitle(cmd_array[0])
+            end
+          end
         end
       end
     end
