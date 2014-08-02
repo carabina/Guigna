@@ -1,7 +1,6 @@
 FIXME
 
 * Swift:
-  - Slowness of String's substrings extensions
   - MacPorts.list() really slow because of the NString <-> String
     conversions in NSScanner
   - Erratic visibility of enum values causing compiling errors
@@ -18,6 +17,7 @@ TODO
 * Swift port:
     - port remaining systems and scrapes
     - line-by-line review compared to RubyMotion
+* Rudix commands
 * mdfind 'kMDItemContentType==com.apple.application-bundle'
 * Manage --force flags
 * itemsTable date column

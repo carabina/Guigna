@@ -470,8 +470,8 @@
                                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                                     </textFieldCell>
                                                                                     <connections>
-                                                                                        <binding destination="386" name="font" keyPath="tableFont" id="ESN-Wn-f12"/>
                                                                                         <binding destination="WHQ-ke-92u" name="value" keyPath="objectValue.license" id="7ug-nQ-alg"/>
+                                                                                        <binding destination="386" name="font" keyPath="tableFont" id="ESN-Wn-f12"/>
                                                                                         <binding destination="386" name="textColor" keyPath="tableTextColor" id="rZs-4X-CWB"/>
                                                                                     </connections>
                                                                                 </textField>
@@ -1286,10 +1286,17 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="1398"/>
-                                        <menuItem title="Install Gentoo" id="1449">
+                                        <menuItem title="Install Rudix" id="1449">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="tools:" target="386" id="1451"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="pIt-uE-Tsa"/>
+                                        <menuItem title="Install Gentoo" id="N2v-jo-IGp">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="tools:" target="386" id="jUz-Vp-1ME"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="1450"/>
@@ -1877,10 +1884,17 @@ DQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="1393"/>
-                            <menuItem title="Install Gentoo" id="1446">
+                            <menuItem title="Install Rudix" id="1446">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="tools:" target="386" id="1448"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="24N-HA-fZ4"/>
+                            <menuItem title="Install Gentoo" id="X7k-9o-1aH">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="tools:" target="386" id="4wj-3u-8mW"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="1447"/>

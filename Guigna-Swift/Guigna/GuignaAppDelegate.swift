@@ -1839,6 +1839,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         } else if  title == "Remove Fink" {
             execute(Fink.removeCmd, baton: "relaunch")
             
+        } else if  title == "Install Rudix" {
+            execute(Rudix.setupCmd, baton: "relaunch")
+            
         } else {
             execute("echo TODO")
         }

@@ -1631,7 +1631,10 @@ class GuignaAppDelegate
       
     when "Fetch FreeBSD INDEX"
       self.execute("cd ~/Library/Application\\ Support/Guigna/FreeBSD ; curl -L -O ftp://ftp.freebsd.org/pub/FreeBSD/ports/packages/INDEX")
-      
+    
+    when "Install Rudix"
+      self.execute(Rudix.setup_cmd, with_baton:"relaunch")
+        
     when "Fetch MacPorts PortIndex"
       self.execute("cd ~/Library/Application\\ Support/Guigna/Macports ; /usr/bin/rsync -rtzv rsync://rsync.macports.org/release/tarballs/PortIndex_darwin_12_i386/PortIndex PortIndex")
       
