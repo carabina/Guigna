@@ -35,6 +35,7 @@
 		C5391B2B18B345D70022C37F /* GHomebrewCasks.m in Sources */ = {isa = PBXBuildFile; fileRef = C5391B2A18B345D70022C37F /* GHomebrewCasks.m */; };
 		C540E8F318F2C76600B5149F /* status-marked.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C540E8F218F2C76600B5149F /* status-marked.tiff */; };
 		C55C199F1955941C00F6A931 /* GAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = C55C199E1955941C00F6A931 /* GAgent.m */; };
+		C56062D8198CCF83001F0F93 /* GLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = C56062D7198CCF83001F0F93 /* GLibrary.m */; };
 		C5657D3114BC9A4500B6D621 /* system-macosx.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C5657D3014BC9A4500B6D621 /* system-macosx.tiff */; };
 		C56792D9148614BC000D347D /* GItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C56792D8148614BC000D347D /* GItem.m */; };
 		C56792DD148614E1000D347D /* GPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = C56792DC148614E1000D347D /* GPackage.m */; };
@@ -119,6 +120,8 @@
 		C540E8F218F2C76600B5149F /* status-marked.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "status-marked.tiff"; sourceTree = "<group>"; };
 		C55C199D1955941C00F6A931 /* GAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAgent.h; sourceTree = "<group>"; };
 		C55C199E1955941C00F6A931 /* GAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAgent.m; sourceTree = "<group>"; };
+		C56062D6198CCF83001F0F93 /* GLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLibrary.h; sourceTree = "<group>"; };
+		C56062D7198CCF83001F0F93 /* GLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLibrary.m; sourceTree = "<group>"; };
 		C5657D3014BC9A4500B6D621 /* system-macosx.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "system-macosx.tiff"; sourceTree = "<group>"; };
 		C56792D7148614BC000D347D /* GItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GItem.h; sourceTree = "<group>"; };
 		C56792D8148614BC000D347D /* GItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GItem.m; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 				C515C6EE1477942200B526BD /* GuignaAppDelegate.m */,
 				C5FD168A17159378004A3549 /* GAdditions.h */,
 				C5FD168B17159378004A3549 /* GAdditions.m */,
+				C56062D6198CCF83001F0F93 /* GLibrary.h */,
+				C56062D7198CCF83001F0F93 /* GLibrary.m */,
 				C55C199D1955941C00F6A931 /* GAgent.h */,
 				C55C199E1955941C00F6A931 /* GAgent.m */,
 				C56792D7148614BC000D347D /* GItem.h */,
@@ -333,8 +338,6 @@
 			children = (
 				C5F9255218DEE7A60022EF85 /* GNative.h */,
 				C5F9255318DEE7A60022EF85 /* GNative.m */,
-				C51C1B4814D14D0E00EC7D47 /* GRudix.h */,
-				C51C1B4914D14D0E00EC7D47 /* GRudix.m */,
 			);
 			name = Repos;
 			sourceTree = "<group>";
@@ -381,6 +384,8 @@
 				C5AC59F914B63B2500A6128D /* GFink.m */,
 				C5AC59FB14B63B4200A6128D /* GPkgsrc.h */,
 				C5AC59FC14B63B4200A6128D /* GPkgsrc.m */,
+				C51C1B4814D14D0E00EC7D47 /* GRudix.h */,
+				C51C1B4914D14D0E00EC7D47 /* GRudix.m */,
 				C5AC59FE14B63B5D00A6128D /* GFreeBSD.h */,
 				C5AC59FF14B63B5D00A6128D /* GFreeBSD.m */,
 				C584457A14F7EC1400834EEA /* GGtkOSX.h */,
@@ -485,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C515C6E81477942200B526BD /* main.m in Sources */,
+				C56062D8198CCF83001F0F93 /* GLibrary.m in Sources */,
 				C515C6EF1477942200B526BD /* GuignaAppDelegate.m in Sources */,
 				C5F9255418DEE7A60022EF85 /* GNative.m in Sources */,
 				C515C6F51477942200B526BD /* Guigna.xcdatamodeld in Sources */,

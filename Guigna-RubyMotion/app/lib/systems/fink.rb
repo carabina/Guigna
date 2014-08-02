@@ -30,10 +30,10 @@ class Fink < GSystem
         self[name] = pkg
       end
     else
-      output = `#{cmd} list --tab`.split("\n")
+      output = `#{cmd} list --tab`
       state = nil
       status = nil
-      output.each do |line|
+      output.split("\n").each do |line|
         components = line.split("\t")
         description = components[3]
         next if description.start_with? "[virtual"

@@ -33,7 +33,7 @@ class MacPorts: GSystem {
             
         } else {
             var portIndex = "" as NSString
-            if mode == GMode.Online {  // FIXME: compilers requires expilicit enum the first time it is seen
+            if mode == GMode.Online {  // FIXME: the compiler requires expilicit enum the first time it is seen
                 // TODO: fetch PortIndex
                 portIndex = NSString(contentsOfFile: "~/Library/Application Support/Guigna/MacPorts/PortIndex".stringByExpandingTildeInPath, encoding: NSUTF8StringEncoding, error: nil)
             } else {
@@ -44,7 +44,6 @@ class MacPorts: GSystem {
             var endsCharacterSet = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet()
             endsCharacterSet.addCharactersInString("}")
             var str: NSString? = nil
-            var loc: Int
             var name: NSString? = nil
             var key: NSString? = nil
             var value: NSMutableString = ""

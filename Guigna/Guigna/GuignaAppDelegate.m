@@ -272,6 +272,17 @@
         [systems addObject:freebsd];
     }
     
+    if ([fileManager fileExistsAtPath:@"/usr/local/bin/rudix"]) {
+        if (defaults[@"RudixStatus"] == nil)
+            defaults[@"RudixStatus"] = @(GOnState);
+    }
+    if ([defaults[@"RudixStatus"] isEqual:@(GOnState)]) {
+        GSystem *rudix = [[GRudix alloc] initWithAgent:self.agent];
+        if (![fileManager fileExistsAtPath:@"/usr/local/bin/rudix"])
+            rudix.mode = GOnlineMode;
+        [systems addObject:rudix];
+    }
+    
     GSystem *macosx = [[GMacOSX alloc] initWithAgent:self.agent];
     [systems addObject:macosx];
     
@@ -288,8 +299,6 @@
     
     GRepo *native = [[GNative alloc] initWithAgent:self.agent];
     [repos addObject:native];
-    GRepo *rudix = [[GRudix alloc] initWithAgent:self.agent];
-    [repos addObject:rudix];
     
     GScrape *pkgsrcse = [[GPkgsrcSE alloc] initWithAgent:self.agent];
     GScrape *freecode = [[GFreecode alloc] initWithAgent:self.agent];

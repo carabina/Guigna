@@ -259,6 +259,15 @@ class GuignaAppDelegate
       @systems << freebsd
     end
     
+    if File.exist?("/usr/local/bin/rudix")
+      defaults["RudixStatus"] = ON if defaults["RudixStatus"] == nil
+    end
+    if defaults["RudixStatus"] == ON
+      rudix = Rudix.new(agent)
+      rudix.mode = :online if !File.exist?("/usr/local/bin/rudix")
+      @systems << rudix
+    end
+    
     @systems << MacOSX.new(agent)
     
     defaults["iTunesStatus"] = ON if defaults["iTunesStatus"] == nil
@@ -268,7 +277,7 @@ class GuignaAppDelegate
     end
     
     defaults["ScrapesCount"] = 15 if defaults["ScrapesCount"] == nil
-    @repos = [Native.new(agent), Rudix.new(agent)]
+    @repos = [Native.new(agent)]
     @scrapes = [PkgsrcSE.new(agent), Freecode.new(agent), Debian.new(agent), CocoaPods.new(agent), PyPI.new(agent), RubyGems.new(agent), MacUpdate.new(agent), AppShopper.new(agent), AppShopperIOS.new(agent)]
     
     source1 = GSource.new("SYSTEMS")

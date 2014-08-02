@@ -309,6 +309,19 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             systems += pkgsrc
         }
         
+        if fileManager.fileExistsAtPath("/usr/local/bin/rudix") {
+            if !defaults["RudixStatus"] {
+                defaults["RudixStatus"] = GState.On.toRaw()
+            }
+        }
+        if defaults["RudixStatus"] != nil && defaults["RudixStatus"] == GState.On.toRaw() {
+            var rudix = Rudix(agent: agent)
+            if !fileManager.fileExistsAtPath("/usr/local/bin/rudix") {
+                rudix.mode = .Online
+            }
+            systems += rudix
+        }
+        
         systems += MacOSX(agent: agent)
         
         if !defaults["DebugMode"] {

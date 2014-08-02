@@ -18,13 +18,13 @@
 }
 
 - (NSArray *)list {
+    [self.index removeAllObjects];
+    [self.items removeAllObjects];
     
     // /usr/bin/ruby -C /usr/local/Library/Homebrew -I. -e "require 'global'; require 'formula'; Formula.each {|f| puts \"#{f.name} #{f.pkg_version}\"}"
     
     NSMutableArray *output = [NSMutableArray arrayWithArray:[[self outputFor:@"/usr/bin/ruby -C %@/Library/Homebrew -I. -e require__'global';require__'formula';__Formula.each__{|f|__puts__\"#{f.name}__#{f.pkg_version}__#{f.bottle}\"}", self.prefix] split:@"\n"]];
     [output removeLastObject];
-    [self.index removeAllObjects];
-    [self.items removeAllObjects];
     for (NSString *line in output) {
         NSArray *components = [line split];
         NSString *name = components[0];

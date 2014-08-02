@@ -16,6 +16,8 @@
 		C51ED07219458CB0000B582A /* GuignaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C51ED07119458CB0000B582A /* GuignaTests.swift */; };
 		C5264CA0197D710F00562D94 /* GuignaRepos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5264C9F197D710F00562D94 /* GuignaRepos.swift */; };
 		C554334C1972EE060080B0BD /* Fink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554334B1972EE060080B0BD /* Fink.swift */; };
+		C56062DA198D0704001F0F93 /* Rudix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56062D9198D0704001F0F93 /* Rudix.swift */; };
+		C56062DC198D0833001F0F93 /* GLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56062DB198D0833001F0F93 /* GLibrary.swift */; };
 		C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5635BEA1952F53F007424E2 /* MacPorts.swift */; };
 		C5779CAA1969922B00755926 /* HomebrewCasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5779CA91969922B00755926 /* HomebrewCasks.swift */; };
 		C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1214E1945D91800A351A8 /* GAgent.swift */; };
@@ -85,6 +87,8 @@
 		C51ED07119458CB0000B582A /* GuignaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuignaTests.swift; sourceTree = "<group>"; };
 		C5264C9F197D710F00562D94 /* GuignaRepos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuignaRepos.swift; sourceTree = "<group>"; };
 		C554334B1972EE060080B0BD /* Fink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fink.swift; sourceTree = "<group>"; };
+		C56062D9198D0704001F0F93 /* Rudix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rudix.swift; sourceTree = "<group>"; };
+		C56062DB198D0833001F0F93 /* GLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLibrary.swift; sourceTree = "<group>"; };
 		C5635BEA1952F53F007424E2 /* MacPorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacPorts.swift; sourceTree = "<group>"; };
 		C5779CA91969922B00755926 /* HomebrewCasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomebrewCasks.swift; sourceTree = "<group>"; };
 		C5A1214E1945D91800A351A8 /* GAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAgent.swift; sourceTree = "<group>"; };
@@ -179,6 +183,7 @@
 				C51ED05D19458CB0000B582A /* GuignaAppDelegate.swift */,
 				C5A1214E1945D91800A351A8 /* GAgent.swift */,
 				C5B736FE194732C80046B2E2 /* GAdditions.swift */,
+				C56062DB198D0833001F0F93 /* GLibrary.swift */,
 				C5A1215C1945EB2700A351A8 /* GItem.swift */,
 				C5AD0FB5196287360001FB53 /* GSource.swift */,
 				C5AD0FB4196287360001FB53 /* GPackage.swift */,
@@ -234,6 +239,7 @@
 				C5635BEA1952F53F007424E2 /* MacPorts.swift */,
 				C554334B1972EE060080B0BD /* Fink.swift */,
 				C5E07BBB1972779400DA3CD3 /* Pkgsrc.swift */,
+				C56062D9198D0704001F0F93 /* Rudix.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -411,12 +417,14 @@
 				C5E9D8A51966AA6000E5291C /* MacOSX.swift in Sources */,
 				C5AD0FB7196287360001FB53 /* GSource.swift in Sources */,
 				C5779CAA1969922B00755926 /* HomebrewCasks.swift in Sources */,
+				C56062DC198D0833001F0F93 /* GLibrary.swift in Sources */,
 				C5D04FBB195D853300D968E5 /* GuignaScrapes.swift in Sources */,
 				C5A121621945EB4300A351A8 /* Homebrew.swift in Sources */,
 				C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */,
 				C5264CA0197D710F00562D94 /* GuignaRepos.swift in Sources */,
 				C5A1215E1945EB2700A351A8 /* GItem.swift in Sources */,
 				C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */,
+				C56062DA198D0704001F0F93 /* Rudix.swift in Sources */,
 				C554334C1972EE060080B0BD /* Fink.swift in Sources */,
 				C5AD0FB6196287360001FB53 /* GPackage.swift in Sources */,
 				C51ED05C19458CB0000B582A /* main.swift in Sources */,

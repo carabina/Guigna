@@ -1,5 +1,5 @@
-#import "GRepo.h"
+#import "GSystem.h"
 
-@interface GRudix : GRepo
+@interface GRudix : GSystem
 
 @end
