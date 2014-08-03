@@ -25,8 +25,8 @@ class Homebrew < GSystem
     
     formula_each = 'Formula.each {|f| puts \"#{f.name} #{f.pkg_version} #{f.bottle}\"}'
     output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ; /usr/bin/ruby -C #{prefix}/Library/Homebrew -I. -e "require 'global'; require 'formula'; #{formula_each}"`
-    output.split("\n").each do |pkg| # TODO @prefix
-      name, version, bottle = pkg.split
+    output.split("\n").each do |line| # TODO @prefix
+      name, version, bottle = line.split
       pkg = GPackage.new(name, version, self, :available)
       pkg.description = "Bottle" unless bottle.nil?
       @items << pkg
@@ -34,9 +34,9 @@ class Homebrew < GSystem
     end
     if self.agent.app_delegate.defaults['HomebrewMainTaps'] == true
       output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ; #{cmd} search ""`
-      output.split.each do |pkg| # TODO
-        next if not pkg.include? "/"
-        tokens = pkg.split "/"
+      output.split.each do |line| # TODO
+        next if not line.include? "/"
+        tokens = line.split "/"
         name = tokens.last
         repo = tokens[0...-1].join("/")
         pkg = GPackage.new(name, "", self, :available)
@@ -67,8 +67,8 @@ class Homebrew < GSystem
     end
     self.outdated # update status of outdated packages
     output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ; #{cmd} list --versions`
-    output.split("\n").each do |pkg|
-      components = pkg.split
+    output.split("\n").each do |line|
+      components = line.split
       name = components.shift
       version_count = components.size
       return [] if name == "Error"
@@ -104,9 +104,9 @@ class Homebrew < GSystem
     end
     pkgs = []
     return pkgs if self.mode == :online
-    list = `export HOME=~ ; export PATH=#{ENV["PATH"]} ; #{cmd} outdated`.split("\n")
-    list.each do |pkg|
-      name, version = pkg.split # TODO: strangely, output contains only name
+    output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ; #{cmd} outdated`
+    output.split("\n").each do |line|
+      name, version = line.split # TODO: strangely, output contains only name
       return pkgs if name == "Error:"
       pkg = self[name]
       latest_version = (pkg.nil? || pkg.version.nil?) ? nil : pkg.version.dup

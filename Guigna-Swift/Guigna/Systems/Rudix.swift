@@ -60,6 +60,49 @@ class Rudix: GSystem {
     }
     
     
+    override func installed() -> [GPackage] {
+        
+        if self.isHidden {
+            return items.filter { $0.status != .Available} as [GPackage]
+        }
+        
+        var pkgs = [GPackage]()
+        pkgs.reserveCapacity(50000)
+        
+        if mode == GMode.Online { // FIXME: compilers requires expilicit enum the first time it is seen
+            return pkgs
+        }
+        
+        var outputLines = output("\(cmd)").split("\n")
+        outputLines.removeLast()
+        var status: GStatus
+        for pkg in items as [GPackage] {
+            status = pkg.status
+            pkg.installed = nil
+            if status != .Updated && status != .New {
+                pkg.status = .Available
+            }
+        }
+        // self.outdated() // update status
+        for line in outputLines {
+            let name = line.substringFromIndex(line.rindex(".") + 1)
+            var pkg: GPackage! = self[name]
+            var latestVersion: String = (pkg == nil) ? "" : pkg.version
+            if pkg == nil {
+                pkg = GPackage(name: name, version: latestVersion, system: self, status: .UpToDate)
+                self[name] = pkg
+            } else {
+                if pkg.status == .Available {
+                    pkg.status = .UpToDate
+                }
+            }
+            pkg.installed = "" // TODO
+            pkgs += pkg
+        }
+        return pkgs
+    }
+    
+    
     override func home(item: GItem!) -> String {
         return "http://rudix.org/packages/\(item.name).html"
     }

@@ -50,6 +50,36 @@ class Rudix < GSystem
     @items
   end
     
+  def installed
+    if self.hidden?
+      return @items.select {|pkg| pkg.status != :available}
+    end
+    pkgs = []
+    return pkgs if self.mode == :online
+    @items.each do |pkg|
+      status = pkg.status
+      pkg.installed = nil
+      pkg.status = :available if status != :updated and status != :new
+    end
+    # self.outdated # update status of outdated packages
+    output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ;#{cmd}`
+    output.split("\n").each do |line|
+      name = line[line.rindex(".")+1..-1]
+      pkg = self[name]
+      latest_version = (pkg.nil? || pkg.version.nil?) ? nil : pkg.version.dup
+      if pkg.nil?
+        pkg = GPackage.new(name, latest_version, self, :uptodate)
+        self[name] = pkg
+      else
+        if pkg.status == :available
+          pkg.status = :uptodate
+        end
+      end
+      pkg.installed = ""  # TODO
+      pkgs << pkg
+    end
+    return pkgs
+  end
       
   def refresh
     pkgs = []

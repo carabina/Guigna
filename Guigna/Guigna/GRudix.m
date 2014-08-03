@@ -61,6 +61,46 @@
 }
 
 
+- (NSArray *)installed {
+    if (self.isHidden)
+        return [self.items filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"status != %@", @(GAvailableStatus)]];
+    NSMutableArray *pkgs = [NSMutableArray array];
+    if (self.mode == GOnlineMode)
+        return pkgs;
+    NSMutableArray *output = [NSMutableArray arrayWithArray:[[self outputFor:@"%@", self.cmd] split:@"\n"]];
+    [output removeLastObject];
+    GStatus status;
+    for (GPackage *pkg in self.items) {
+        status = pkg.status;
+        pkg.installed = nil;
+        if (status != GUpdatedStatus && status != GNewStatus)
+            pkg.status = GAvailableStatus;
+    }
+    // [self outdated]; // update status
+    NSString *name;
+    for (NSString *line in output) {
+        name = [line substringFromIndex:[line rangeOfString:@"." options:NSBackwardsSearch].location + 1];
+        GPackage *pkg = self[name];
+        NSString *latestVersion = (pkg == nil) ? nil : [pkg.version copy];
+        if (pkg == nil) {
+            pkg = [[GPackage alloc] initWithName:name
+                                         version:latestVersion
+                                          system:self
+                                          status:GUpToDateStatus];
+            self[name] = pkg;
+        } else {
+            if (pkg.status == GAvailableStatus) {
+                pkg.status = GUpToDateStatus;
+            }
+        }
+        pkg.installed = @""; // TODO
+        [pkgs addObject:pkg];
+    }
+    return pkgs;
+}
+
+
+
 - (void)refresh { // TODO: convert from GRepo to GOnlineMode GSystem
     NSMutableArray *pkgs = [NSMutableArray array];
     NSString *url = @"http://rudix.org/download/2014/10.9/";
