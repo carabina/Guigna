@@ -81,7 +81,7 @@
 - (NSArray *)availableCommands { // TODO
     return @[
              @[@"help", @"CMD help"],
-             @[@"man",  @"man CMD"]
+             @[@"man",  @"man CMD | col -b"]
              ];
 }
 

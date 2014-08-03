@@ -59,7 +59,7 @@ class GSystem: GSource {
     }
     
     func availableCommands() -> [[String]] {
-        return [["help", "CMD help"], ["man", "man CMD"]]
+        return [["help", "CMD help"], ["man", "man CMD | col -b"]]
     }
     
     func installCmd(pkg: GPackage) -> String {

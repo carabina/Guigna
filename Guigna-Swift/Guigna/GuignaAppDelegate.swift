@@ -1138,16 +1138,15 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     output = agent.output("/bin/bash -l -c which__\(cmd)")
                     if output.length != 0 {
                         tokens[0] = output.substringToIndex(output.length - 1)
-                    }
-                    else {
-                        tokens[0] = agent.output("/bin/sh -c \(cmd)")
-                        // TODO:show stderr
+                        // } else // TODO:show stderr
                     }
                 }
-                input = tokens.join()
-                log("😺===> \(input)\n")
-                status("Executing '\(input)'...")
-                output = agent.output(input)
+                cmd = tokens.join()
+                log("😺===> \(cmd)\n")
+                status("Executing '\(cmd)'...")
+                cmd = cmd.stringByReplacingOccurrencesOfString(" ", withString: "__")
+                cmd = "/bin/bash -l -c \(cmd)"
+                output = agent.output(cmd)
                 status("OK.")
                 log(output)
             }
@@ -1165,11 +1164,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if let system = item.system {
             var idx = find(system.availableCommands().map {$0[0]}, title)
             var command = system.availableCommands()[idx!][1]
-            if title == "help" {
-                command = command.stringByReplacingOccurrencesOfString("CMD", withString: system.cmd.lastPathComponent)
-                updateCmdLine(command)
-                executeCmdLine(sender)
-            }
+            command = command.stringByReplacingOccurrencesOfString("CMD", withString: system.cmd.lastPathComponent)
+            updateCmdLine(command)
+            executeCmdLine(sender)
         }
     }
     

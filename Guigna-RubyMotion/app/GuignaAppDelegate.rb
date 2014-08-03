@@ -1039,15 +1039,13 @@ class GuignaAppDelegate
           which = `/bin/bash -l -c "which #{cmd}"`
           if which.length != 0
             tokens[0] = which[0...-1]
-          else
-            tokens[0] = "/bin/sh -c #{cmd}"
-            # TODO:show stderr
+            # else # TODO:show stderr
           end
         end
-        input = tokens.join(" ")
-        log("😺===> " + input + "\n")
-        status "Executing '#{input}'..."
-        output = `#{input}`
+        cmd = tokens.join(" ")
+        log("😺===> #{cmd}\n")
+        status "Executing '#{cmd}'..."
+        output = `/bin/bash -l -c "#{cmd}"`
         status "OK."
         log output
       end
@@ -1059,14 +1057,14 @@ class GuignaAppDelegate
     item = nil
     item = selected_items.first if selected_items.count > 0
     title = sender.titleOfSelectedItem
+    puts title
     system = item.system
     if system != nil
-      command = system.available_commands.detect {|cmd_array| cmd_array[0] = title}[1]
-      if title == "help"
-        command.gsub!("CMD", system.cmd.lastPathComponent)
-        update_cmdline command
-        executeCmdLine sender
-      end
+      command = system.available_commands.detect {|cmd_array| cmd_array[0] == title}[1]
+      puts command
+      command.gsub!("CMD", system.cmd.lastPathComponent)
+      update_cmdline command
+      executeCmdLine sender
     end
   end
   

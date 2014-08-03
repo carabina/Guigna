@@ -1121,14 +1121,13 @@
                 NSString *output = [agent outputForCommand:[NSString stringWithFormat:@"/bin/bash -l -c which__%@", cmd]];
                 if ([output length] != 0)
                     tokens[0] = [output substringToIndex:[output length]-1];
-                else
-                    tokens[0] = [NSString stringWithFormat:@"/bin/sh -c %@", cmd];
-                // TODO:show stderr
+                // else // TODO: show stderr
             }
-            input = [tokens join];
-            [self log:[NSString stringWithFormat:@"😺===> %@\n", input]];
-            [self status:[NSString stringWithFormat:@"Executing '%@'...", input]];
-            output = [agent outputForCommand:input];
+            cmd = [tokens join];
+            [self log:[NSString stringWithFormat:@"😺===> %@\n", cmd]];
+            [self status:[NSString stringWithFormat:@"Executing '%@'...", cmd]];
+            cmd = [NSString stringWithFormat:@"/bin/bash -l -c %@", [cmd stringByReplacingOccurrencesOfString:@" " withString:@"__"]];
+            output = [agent outputForCommand:cmd];
             [self status:@"OK."];
             [self log:output];
         }
@@ -1151,11 +1150,9 @@
                 break;
             }
         }
-        if ([title is:@"help"]) {
-            command = [command stringByReplacingOccurrencesOfString:@"CMD" withString:[system.cmd lastPathComponent]];
-            [self updateCmdLine:command];
-            [self executeCmdLine:sender];
-        }
+        command = [command stringByReplacingOccurrencesOfString:@"CMD" withString:[system.cmd lastPathComponent]];
+        [self updateCmdLine:command];
+        [self executeCmdLine:sender];
     }
 }
 
