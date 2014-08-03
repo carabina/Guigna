@@ -1045,6 +1045,7 @@ class GuignaAppDelegate
         cmd = tokens.join(" ")
         log("😺===> #{cmd}\n")
         status "Executing '#{cmd}'..."
+        cmd = "export HOME=~ ; #{cmd}"
         output = `/bin/bash -l -c "#{cmd}"`
         status "OK."
         log output

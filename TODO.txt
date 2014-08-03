@@ -6,7 +6,6 @@ FIXME
   - Erratic visibility of enum values causing compiling errors
   - Inactive packages are filtered for systems other than MacPorts and Homebrew
 * RubyMotion huge memory leaks
-* RubyMotion: 'port' and 'brew' need setting ENV for execute_cmdline to work
 * Help doesn't always open the wiki page
 * The password to sudo is echoed in clear text
 * Old uninstalled Mac OS X packages shouldn't be shown
