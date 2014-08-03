@@ -148,6 +148,10 @@
         return @"";
 }
 
+- (NSString *)cat:(GItem *)item {
+    return [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://raw.githubusercontent.com/rudix-mac/rudix/master/Ports/%@/Makefile", item.name]] encoding:NSUTF8StringEncoding error:nil];
+}
+
 
 - (NSArray *)availableCommands {
     return [super availableCommands];

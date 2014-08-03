@@ -124,6 +124,11 @@ class Rudix: GSystem {
         }
     }
     
+    override func cat(item: GItem) -> String {
+        return NSString(contentsOfURL: NSURL(string: "https://raw.githubusercontent.com/rudix-mac/rudix/master/Ports/\(item.name)/Makefile"), encoding: NSUTF8StringEncoding, error: nil)
+    }
+    
+    
     override func installCmd(pkg: GPackage) -> String {
         var command = "\(cmd) install \(pkg.name)"
         let osxVersion = clampedOSVersion()

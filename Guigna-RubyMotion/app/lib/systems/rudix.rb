@@ -125,6 +125,10 @@ class Rudix < GSystem
     end
   end
   
+  def cat(pkg)
+    return NSString.stringWithContentsOfURL(NSURL.URLWithString("https://raw.githubusercontent.com/rudix-mac/rudix/master/Ports/#{pkg.name}/Makefile", encoding:NSUTF8StringEncoding, error:nil))
+  end
+  
   def install_cmd(pkg)
     command = "#{cmd} install #{pkg.name}"
     osx_version = clamped_os_version()
