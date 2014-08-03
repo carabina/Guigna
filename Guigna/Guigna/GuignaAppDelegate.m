@@ -1643,6 +1643,11 @@
             } else if ([title is:@"FreeBSD"]) {
                 system = [[GFreeBSD alloc] initWithAgent:self.agent]; system.mode = GOnlineMode;
                 
+            } else if ([title is:@"Rudix"]) {
+                command = @"/usr/local/bin/rudix";
+                system = [[GRudix alloc] initWithAgent:self.agent];
+                system.mode = ([[NSFileManager defaultManager] fileExistsAtPath:command]) ? GOfflineMode : GOnlineMode;
+                
             } else if ([title is:@"iTunes"]) {
                 system = [[GITunes alloc] initWithAgent:self.agent];
             }
