@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="6185.11"/>
     </dependencies>
@@ -1625,6 +1624,14 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.pkgsrcStatus" previousBinding="1421" id="mCa-Lt-AKW">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1421"/>
                             <binding destination="440" name="value" keyPath="values.pkgsrcIndex" id="fpO-mq-E1o">
                                 <dictionary key="options">
@@ -1642,6 +1649,14 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.pkgsrcStatus" previousBinding="1422" id="hiz-Ze-xqz">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1422"/>
                             <binding destination="440" name="value" keyPath="values.pkgsrcCVS" id="MKd-RP-p9A">
                                 <dictionary key="options">
@@ -1659,6 +1674,14 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.FreeBSDStatus" previousBinding="1423" id="Orc-lQ-npN">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1423"/>
                             <binding destination="440" name="value" keyPath="values.FreeBSDIndex" id="mrs-DI-wBq">
                                 <dictionary key="options">
@@ -1764,6 +1787,14 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.HomebrewStatus" previousBinding="1438" id="Xdk-wY-uNa">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1438"/>
                             <binding destination="440" name="value" keyPath="values.HomebrewMainTaps" id="kbs-oc-u8b">
                                 <dictionary key="options">
@@ -1836,6 +1867,14 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.MacPortsStatus" previousBinding="Bgm-9P-g8R" id="bRw-Uc-51g">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="Bgm-9P-g8R"/>
                             <binding destination="440" name="value" keyPath="values.MacPortsParsePortIndex" id="uza-A9-9EJ">
                                 <dictionary key="options">

@@ -1621,6 +1621,15 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.pkgsrcStatus" previousBinding="1421" id="b85-Pn-qLH">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1421"/>
                             <binding destination="440" name="value" keyPath="values.pkgsrcIndex" id="1356"/>
                         </connections>
@@ -1633,6 +1642,16 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.pkgsrcStatus" previousBinding="1422" id="CaO-1C-KtF">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1422"/>
                             <binding destination="440" name="value" keyPath="values.pkgsrcCVS" id="1407"/>
                         </connections>
@@ -1645,6 +1664,16 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.FreeBSDStatus" previousBinding="1423" id="585-qg-jHc">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1423"/>
                             <binding destination="440" name="value" keyPath="values.FreeBSDIndex" id="1358"/>
                         </connections>
@@ -1740,6 +1769,16 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.HomebrewStatus" previousBinding="1438" id="Ugz-7Y-3Uf">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="1438"/>
                             <binding destination="440" name="value" keyPath="values.HomebrewMainTaps" id="50t-Wx-c21"/>
                         </connections>
@@ -1752,6 +1791,16 @@ DQ
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="440" name="enabled2" keyPath="values.MacPortsStatus" previousBinding="oSh-Om-14i" id="hcf-hM-UrH">
+                                <dictionary key="options">
+                                    <integer key="NSMultipleValuesPlaceholder" value="-1"/>
+                                    <integer key="NSNoSelectionPlaceholder" value="-1"/>
+                                    <integer key="NSNotApplicablePlaceholder" value="-1"/>
+                                    <integer key="NSNullPlaceholder" value="-1"/>
+                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="386" name="enabled" keyPath="ready" id="oSh-Om-14i"/>
                             <binding destination="440" name="value" keyPath="values.MacPortsParsePortIndex" id="ZRX-lE-0sH"/>
                         </connections>
