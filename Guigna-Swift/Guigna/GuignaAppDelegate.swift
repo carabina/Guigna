@@ -1086,12 +1086,16 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         let line = storageString.substringWithRange(storageString.paragraphRangeForRange(selectedRange))
         
         if selectedSegment == "Contents" {
-            let file = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            var file: String = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             // TODO detect types
+            if file.contains(" -> ") { // Homebrew Casks
+                file = file.split(" -> ")[1].stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "'"))
+            }
+            file = file.split(" (")[0].stringByExpandingTildeInPath
             if file.hasSuffix(".nib") {
                 execute("/usr/bin/plutil -convert xml1 -o - \(file)")
             } else {
-                NSWorkspace.sharedWorkspace().openFile(file.split()[0])
+                NSWorkspace.sharedWorkspace().openFile(file)
             }
             
         } else if selectedSegment == "Deps" {

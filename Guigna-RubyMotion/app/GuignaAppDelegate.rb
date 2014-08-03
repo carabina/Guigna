@@ -1000,10 +1000,14 @@ class GuignaAppDelegate
     if selected_segment == "Contents"
       file = line.strip
       # TODO: detect types
+      if file.index(" -> ")  # Homebrew Casks
+        file = file.split(" -> ")[1].stringByTrimmingCharactersInSet(NSCharacterSet.characterSetWithCharactersInString("'"))
+      end
+      file = file.split(" (")[0].stringByExpandingTildeInPath
       if file.end_with? ".nib"
         self.execute "/usr/bin/plutil -convert xml1 -o - #{file}"
       else
-        NSWorkspace.sharedWorkspace.openFile file.split.first
+        NSWorkspace.sharedWorkspace.openFile file
       end
       
     elsif selected_segment == "Deps"

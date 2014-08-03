@@ -46,13 +46,6 @@ class Rudix: GSystem {
         return items as [GPackage]
     }
     
-    override func info(item: GItem) -> String {
-        if !self.isHidden {
-            return output("\(cmd) info \(item.name)")
-        } else {
-            return super.info(item)
-        }
-    }
     
     override func home(item: GItem!) -> String {
         return "http://rudix.org/packages/\(item.name).html"

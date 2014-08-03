@@ -1073,11 +1073,14 @@
     if ([selectedSegment is:@"Contents"]) {
         NSString *file = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         // TODO detect types
+        if ([file contains:@" -> "]) // Homebrew Casks
+            file = [[file split:@" -> "][1] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'"]];
+        file = [[file split:@" ("][0] stringByExpandingTildeInPath];
         if ([file hasSuffix:@".nib"]) {
             [self execute:[NSString stringWithFormat:@"/usr/bin/plutil -convert xml1 -o - %@", file]];
             
         } else {
-            [[NSWorkspace sharedWorkspace] openFile:[file split][0]];
+            [[NSWorkspace sharedWorkspace] openFile:file];
         }
         
     } else if ([selectedSegment is:@"Deps"]) {
