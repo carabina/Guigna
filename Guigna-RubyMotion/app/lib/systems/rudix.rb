@@ -40,6 +40,9 @@ class Rudix < GSystem
       version = components[1]
       version = version + "-" + components[2].split(".").first
       pkg = GPackage.new(name, version, self, :available)
+      if !self[name].nil?
+        prev_pkg = @items.delete self[name]
+      end
       @items << pkg
       self[name] = pkg
     end
@@ -84,6 +87,24 @@ class Rudix < GSystem
     end
   end
   
+  def install_cmd(pkg)
+    command = "#{cmd} install #{pkg.name}"
+    osx_version = clamped_os_version()
+    if G.os_version != osx_version
+      command = "OSX_VERSION=#{osx_version} #{command}"
+    end
+    "sudo #{command}"
+  end
+  def uninstall_cmd(pkg)
+    "sudo #{cmd} remove #{pkg.name}"
+  end
+  
+  def hide_cmd
+    "sudo mv #{prefix} #{prefix}_off"
+  end
+  def unhide_cmd
+    "sudo mv #{prefix}_off #{prefix}"
+  end
   def self.setup_cmd
     "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"
   end

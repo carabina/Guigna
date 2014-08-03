@@ -49,6 +49,10 @@
                                                version:version
                                                 system:self
                                                 status:GAvailableStatus];
+        if (self[name] != nil) {
+            GPackage *prevPackage = self[name];
+            [self.items removeObjectIdenticalTo:prevPackage];
+        }
         [self.items addObject:pkg];
         self[name] = pkg;
     }
@@ -86,7 +90,7 @@
 }
 
 - (NSString *)home:(GItem *)item {
-	return [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", item.name];
+    return [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", item.name];
 }
 
 - (NSString *)log:(GItem *)item {
@@ -103,7 +107,28 @@
 }
 
 
-// TODO:
+- (NSString *)installCmd:(GPackage *)pkg {
+    NSString *command = [NSString stringWithFormat: @"%@ install %@", self.cmd, pkg.name];
+    NSString *osxVersion = [self clampedOSVersion];
+    if (![[G OSVersion] is:osxVersion]) {
+        command = [NSString stringWithFormat:@"OSX_VERSION=%@ %@", osxVersion,  command];
+    }
+    return [NSString stringWithFormat:@"sudo %@", command];
+}
+
+- (NSString *)uninstallCmd:(GPackage *)pkg {
+    return [NSString stringWithFormat:@"sudo %@ remove %@", self.cmd, pkg.name];
+}
+
+
+- (NSString *)hideCmd {
+    return [NSString stringWithFormat:@"sudo mv %@ %@_off", self.prefix, self.prefix];
+}
+
+- (NSString *)unhideCmd {
+    return [NSString stringWithFormat:@"sudo mv %@_off %@", self.prefix, self.prefix];
+}
+
 + (NSString *)setupCmd {
     return @"curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix";
 }

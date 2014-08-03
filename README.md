@@ -12,8 +12,8 @@ at the same time.
 
 Guigna tries to abstract several package managers by creating generalized classes
 (GSystem and GPackage) while keeping a minimalist approach and using screen
-scraping. The implementations both in Objective-C and Ruby are being kept in
-sync. An attempt to rewrite it in Swift is in progress.
+scraping. The implementations in Objective-C, Ruby and Swift are being kept in
+sync.
 
 Guigna doesn't hide the complexity of compiling open source software: it launches
 the shell commands in a Terminal window you can monitor and interrupt. When

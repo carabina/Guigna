@@ -39,6 +39,19 @@ class Rudix: GSystem {
             var version = components[1]
             version += "-" + components[2].split(".")[0]
             let pkg = GPackage(name: name, version: version, system: self, status: .Available)
+            if self[pkg.name] != nil {
+                let prevPackage = self[pkg.name]
+                var found: Int?
+                for (i, pkg) in enumerate(items) {
+                    if pkg.name == name {
+                        found = i
+                        break
+                    }
+                }
+                if let idx = found {
+                    items.removeAtIndex(idx)
+                }
+            }
             items += pkg
             self[name] = pkg
         }
@@ -60,6 +73,32 @@ class Rudix: GSystem {
         }
     }
     
+    
+    override func installCmd(pkg: GPackage) -> String {
+        var command = "\(cmd) install \(pkg.name)"
+        let osxVersion = clampedOSVersion()
+        if G.OSVersion() != osxVersion {
+            command = "OSX_VERSION=\(osxVersion) \(command)"
+        }
+        return "sudo \(command)"
+    }
+    
+    override func uninstallCmd(pkg: GPackage) -> String {
+        return "sudo \(cmd) remove \(pkg.name)"
+    }
+    
+    
+    override var hideCmd: String! {
+    get {
+        return "sudo mv \(prefix) \(prefix)_off"
+    }
+    }
+    
+    override var unhideCmd: String! {
+    get {
+        return "sudo mv \(prefix)_off \(prefix)"
+    }
+    }
     
     class var setupCmd: String! {
         get {
