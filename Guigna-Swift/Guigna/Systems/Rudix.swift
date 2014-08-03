@@ -116,6 +116,13 @@ class Rudix: GSystem {
         }
     }
     
+    override func contents(item: GItem) -> String {
+        if item.installed {
+            return output("\(cmd) --files \(item.name)")
+        } else {
+            return "" // TODO: parse http://rudix.org/packages/%@.html
+        }
+    }
     
     override func installCmd(pkg: GPackage) -> String {
         var command = "\(cmd) install \(pkg.name)"

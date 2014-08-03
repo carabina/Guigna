@@ -62,7 +62,7 @@ class Rudix < GSystem
       pkg.status = :available if status != :updated and status != :new
     end
     # self.outdated # update status of outdated packages
-    output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ;#{cmd}`
+    output = `export HOME=~ ; export PATH=#{ENV["PATH"]} ; #{cmd}`
     output.split("\n").each do |line|
       name = line[line.rindex(".")+1..-1]
       pkg = self[name]
@@ -114,6 +114,14 @@ class Rudix < GSystem
       "https://github.com/rudix-mac/rudix/commits/master/Ports/#{item.name}"
     else
       "https://github.com/rudix-mac/rudix/commits/"
+    end
+  end
+  
+  def contents(pkg)
+    if !pkg.installed.nil?
+      `export HOME=~ ; export PATH=#{ENV["PATH"]} ;  #{cmd} --files #{pkg.name}`
+    else
+      ""
     end
   end
   

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="14A298i" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
+        <deployment defaultVersion="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="6185.11"/>
     </dependencies>
@@ -1468,14 +1469,14 @@
         <window title="Options" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" visibleAtLaunch="NO" animationBehavior="default" id="746" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="446" y="435" width="426" height="244"/>
+            <rect key="contentRect" x="446" y="435" width="426" height="265"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="747">
-                <rect key="frame" x="0.0" y="0.0" width="426" height="244"/>
+                <rect key="frame" x="0.0" y="0.0" width="426" height="265"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button id="764">
-                        <rect key="frame" x="75" y="208" width="80" height="18"/>
+                        <rect key="frame" x="75" y="229" width="80" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Homebrew" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="765">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1493,7 +1494,7 @@
                         </connections>
                     </button>
                     <button id="766">
-                        <rect key="frame" x="75" y="188" width="75" height="18"/>
+                        <rect key="frame" x="75" y="209" width="75" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="MacPorts" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="767">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1511,7 +1512,7 @@
                         </connections>
                     </button>
                     <button id="768">
-                        <rect key="frame" x="75" y="168" width="63" height="18"/>
+                        <rect key="frame" x="75" y="189" width="63" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Fink" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="769">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1529,7 +1530,7 @@
                         </connections>
                     </button>
                     <button id="770">
-                        <rect key="frame" x="75" y="148" width="63" height="18"/>
+                        <rect key="frame" x="75" y="169" width="63" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="pkgsrc" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="771">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1547,7 +1548,7 @@
                         </connections>
                     </button>
                     <button id="772">
-                        <rect key="frame" x="75" y="128" width="72" height="18"/>
+                        <rect key="frame" x="75" y="149" width="72" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="FreeBSD" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="773">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1565,29 +1566,52 @@
                         </connections>
                     </button>
                     <imageView id="774">
-                        <rect key="frame" x="20" y="213" width="40" height="8"/>
+                        <rect key="frame" x="20" y="234" width="40" height="8"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="system-homebrew" id="775"/>
                     </imageView>
                     <imageView id="776">
-                        <rect key="frame" x="28" y="194" width="32" height="8"/>
+                        <rect key="frame" x="28" y="215" width="32" height="8"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="system-macports" id="777"/>
                     </imageView>
                     <imageView id="778">
-                        <rect key="frame" x="28" y="170" width="32" height="16"/>
+                        <rect key="frame" x="28" y="191" width="32" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="system-fink" id="779"/>
                     </imageView>
                     <imageView id="780">
-                        <rect key="frame" x="44" y="149" width="16" height="16"/>
+                        <rect key="frame" x="44" y="170" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="system-pkgsrc" id="781"/>
                     </imageView>
                     <imageView id="782">
-                        <rect key="frame" x="44" y="130" width="16" height="16"/>
+                        <rect key="frame" x="44" y="151" width="16" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="source-freebsd" id="783"/>
+                    </imageView>
+                    <button id="AL4-Hx-zgx">
+                        <rect key="frame" x="75" y="129" width="72" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Rudix" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="o0k-Qa-IlX">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="preferences:" target="386" id="DVe-M7-R1R"/>
+                            <binding destination="386" name="enabled" keyPath="ready" id="FXY-mL-aUr"/>
+                            <binding destination="440" name="value" keyPath="values.RudixStatus" id="UQe-cr-ymV">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
+                        </connections>
+                    </button>
+                    <imageView id="SUG-mB-niv">
+                        <rect key="frame" x="44" y="129" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="system-rudix" id="uIM-Wg-j5A"/>
                     </imageView>
                     <button verticalHuggingPriority="750" id="784">
                         <rect key="frame" x="357" y="13" width="54" height="28"/>
@@ -1617,13 +1641,20 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button id="1331">
-                        <rect key="frame" x="144" y="148" width="61" height="18"/>
+                        <rect key="frame" x="144" y="169" width="61" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Index" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1332">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="1421"/>
+                            <binding destination="440" name="value" keyPath="values.pkgsrcIndex" id="fpO-mq-E1o">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="440" name="enabled2" keyPath="values.pkgsrcStatus" previousBinding="1421" id="mCa-Lt-AKW">
                                 <dictionary key="options">
                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -1632,23 +1663,23 @@ DQ
                                     <integer key="NSNullPlaceholder" value="-1"/>
                                 </dictionary>
                             </binding>
-                            <binding destination="386" name="enabled" keyPath="ready" id="1421"/>
-                            <binding destination="440" name="value" keyPath="values.pkgsrcIndex" id="fpO-mq-E1o">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
-                                </dictionary>
-                            </binding>
                         </connections>
                     </button>
                     <button id="1404">
-                        <rect key="frame" x="199" y="148" width="61" height="18"/>
+                        <rect key="frame" x="199" y="169" width="61" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="CVS" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1405">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="1422"/>
+                            <binding destination="440" name="value" keyPath="values.pkgsrcCVS" id="MKd-RP-p9A">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="440" name="enabled2" keyPath="values.pkgsrcStatus" previousBinding="1422" id="hiz-Ze-xqz">
                                 <dictionary key="options">
                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -1657,23 +1688,23 @@ DQ
                                     <integer key="NSNullPlaceholder" value="-1"/>
                                 </dictionary>
                             </binding>
-                            <binding destination="386" name="enabled" keyPath="ready" id="1422"/>
-                            <binding destination="440" name="value" keyPath="values.pkgsrcCVS" id="MKd-RP-p9A">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
-                                </dictionary>
-                            </binding>
                         </connections>
                     </button>
                     <button id="1333">
-                        <rect key="frame" x="144" y="128" width="61" height="18"/>
+                        <rect key="frame" x="144" y="149" width="61" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Index" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1334">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="1423"/>
+                            <binding destination="440" name="value" keyPath="values.FreeBSDIndex" id="mrs-DI-wBq">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="440" name="enabled2" keyPath="values.FreeBSDStatus" previousBinding="1423" id="Orc-lQ-npN">
                                 <dictionary key="options">
                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -1682,18 +1713,11 @@ DQ
                                     <integer key="NSNullPlaceholder" value="-1"/>
                                 </dictionary>
                             </binding>
-                            <binding destination="386" name="enabled" keyPath="ready" id="1423"/>
-                            <binding destination="440" name="value" keyPath="values.FreeBSDIndex" id="mrs-DI-wBq">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
-                                </dictionary>
-                            </binding>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="1376">
                         <rect key="frame" x="367" y="94" width="26" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" refusesFirstResponder="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="50" drawsBackground="YES" id="1377">
                             <font key="font" metaFont="miniSystem"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1709,7 +1733,7 @@ DQ
                     </textField>
                     <textField verticalHuggingPriority="750" id="1378">
                         <rect key="frame" x="272" y="95" width="90" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Items to scrape:" id="1379">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1717,7 +1741,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="s8Z-PB-cbj">
-                        <rect key="frame" x="342" y="168" width="44" height="15"/>
+                        <rect key="frame" x="342" y="189" width="44" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Theme:" id="ZFW-Q5-FxZ">
                             <font key="font" metaFont="smallSystem"/>
@@ -1727,7 +1751,7 @@ DQ
                     </textField>
                     <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" id="1380">
                         <rect key="frame" x="395" y="95" width="13" height="15"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <stepperCell key="cell" controlSize="mini" continuous="YES" alignment="left" increment="25" maxValue="500" id="1381">
                             <font key="font" metaFont="miniSystem"/>
                             <connections>
@@ -1737,7 +1761,7 @@ DQ
                     </stepper>
                     <secureTextField verticalHuggingPriority="750" id="1408">
                         <rect key="frame" x="214" y="64" width="96" height="16"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <secureTextFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="1411">
                             <font key="font" metaFont="miniSystem"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1756,7 +1780,7 @@ DQ
                     </secureTextField>
                     <textField verticalHuggingPriority="750" id="1409">
                         <rect key="frame" x="113" y="64" width="96" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Admin Password:" id="1410">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1765,7 +1789,7 @@ DQ
                     </textField>
                     <button id="1424">
                         <rect key="frame" x="75" y="93" width="57" height="18"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="check" title="Debug" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="1425">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -1780,13 +1804,20 @@ DQ
                         </connections>
                     </button>
                     <button id="1435">
-                        <rect key="frame" x="158" y="208" width="80" height="18"/>
+                        <rect key="frame" x="158" y="229" width="80" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Main Taps" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1436">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="1438"/>
+                            <binding destination="440" name="value" keyPath="values.HomebrewMainTaps" id="kbs-oc-u8b">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
+                                </dictionary>
+                            </binding>
                             <binding destination="440" name="enabled2" keyPath="values.HomebrewStatus" previousBinding="1438" id="Xdk-wY-uNa">
                                 <dictionary key="options">
                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
@@ -1795,18 +1826,11 @@ DQ
                                     <integer key="NSNullPlaceholder" value="-1"/>
                                 </dictionary>
                             </binding>
-                            <binding destination="386" name="enabled" keyPath="ready" id="1438"/>
-                            <binding destination="440" name="value" keyPath="values.HomebrewMainTaps" id="kbs-oc-u8b">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                    <string key="NSValueTransformerName">GDefaultsTransformer</string>
-                                </dictionary>
-                            </binding>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="1453">
                         <rect key="frame" x="30" y="95" width="45" height="14"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Output:" id="1454">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1814,7 +1838,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <button id="1548">
-                        <rect key="frame" x="345" y="208" width="63" height="18"/>
+                        <rect key="frame" x="345" y="229" width="63" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="iTunes" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="1551">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1832,13 +1856,13 @@ DQ
                         </connections>
                     </button>
                     <imageView id="1549">
-                        <rect key="frame" x="315" y="209" width="32" height="16"/>
+                        <rect key="frame" x="315" y="230" width="32" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="system-itunes" id="1550"/>
                     </imageView>
                     <textField verticalHuggingPriority="750" id="1556">
                         <rect key="frame" x="91" y="50" width="244" height="11"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="If not left empty, it will be piped to the sudo command" id="1557">
                             <font key="font" metaFont="miniSystem"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1846,7 +1870,7 @@ DQ
                         </textFieldCell>
                     </textField>
                     <segmentedControl verticalHuggingPriority="750" id="crH-J2-o2R">
-                        <rect key="frame" x="323" y="150" width="83" height="17"/>
+                        <rect key="frame" x="323" y="171" width="83" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <segmentedCell key="cell" controlSize="mini" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="MLg-Eu-Iqm">
                             <font key="font" metaFont="miniSystem"/>
@@ -1860,25 +1884,25 @@ DQ
                         </connections>
                     </segmentedControl>
                     <button id="k80-fv-nFQ">
-                        <rect key="frame" x="158" y="188" width="108" height="18"/>
+                        <rect key="frame" x="158" y="209" width="108" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="PortIndex (slow)" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="LrH-OJ-PaI">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="smallSystem"/>
                         </buttonCell>
                         <connections>
+                            <binding destination="386" name="enabled" keyPath="ready" id="Bgm-9P-g8R"/>
+                            <binding destination="440" name="value" keyPath="values.MacPortsParsePortIndex" id="uza-A9-9EJ">
+                                <dictionary key="options">
+                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                </dictionary>
+                            </binding>
                             <binding destination="440" name="enabled2" keyPath="values.MacPortsStatus" previousBinding="Bgm-9P-g8R" id="bRw-Uc-51g">
                                 <dictionary key="options">
                                     <integer key="NSMultipleValuesPlaceholder" value="-1"/>
                                     <integer key="NSNoSelectionPlaceholder" value="-1"/>
                                     <integer key="NSNotApplicablePlaceholder" value="-1"/>
                                     <integer key="NSNullPlaceholder" value="-1"/>
-                                </dictionary>
-                            </binding>
-                            <binding destination="386" name="enabled" keyPath="ready" id="Bgm-9P-g8R"/>
-                            <binding destination="440" name="value" keyPath="values.MacPortsParsePortIndex" id="uza-A9-9EJ">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                 </dictionary>
                             </binding>
                         </connections>
@@ -2029,6 +2053,7 @@ DQ
         <image name="system-itunes" width="16" height="16"/>
         <image name="system-macports" width="32" height="8"/>
         <image name="system-pkgsrc" width="16" height="16"/>
+        <image name="system-rudix" width="16" height="16"/>
         <image name="toolbar-apply" width="32" height="32"/>
         <image name="toolbar-mark" width="32" height="32"/>
         <image name="toolbar-shell" width="32" height="32"/>

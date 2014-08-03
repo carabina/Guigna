@@ -1323,7 +1323,7 @@ class GuignaAppDelegate
         command = nil
         if mark == :install
           command = item.install_cmd
-          hides_others = true unless item.system.name == "Homebrew Casks"
+          hides_others = true unless (item.system.name == "Homebrew Casks" or item.system.name == "Rudix")
           
         elsif mark == :uninstall
           command = item.uninstall_cmd
@@ -1495,6 +1495,11 @@ class GuignaAppDelegate
         elsif title == "FreeBSD"
           system = FreeBSD.new(agent)
           system.mode = :online
+          
+        elsif title == "Rudix"
+          command = "/usr/local/bin/rudix"
+          system = Rudix.new(agent)
+          system.mode = File.exists?(command) ? :offline : :online
         
         elsif title == "iTunes"
           system = ITunes.new(agent)

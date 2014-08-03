@@ -1487,7 +1487,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 if mark == .Install {
                     command = item.installCmd
                     
-                    if item.system.name != "Homebrew Casks" {
+                    if item.system.name != "Homebrew Casks" && item.system.name != "Rudix" {
                         hidesOthers = true
                     }
                     
@@ -1707,6 +1707,11 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     } else if title == "pkgsrc" {
                         command = "/usr/pkg/sbin/pkg_info"
                         system = Pkgsrc(agent: agent)
+                        system.mode = (NSFileManager.defaultManager().fileExistsAtPath(command)) ? .Offline : .Online
+                        
+                    } else if title == "Rudix" {
+                        command = "/usr/local/bin/rudix"
+                        system = Rudix(agent: agent)
                         system.mode = (NSFileManager.defaultManager().fileExistsAtPath(command)) ? .Offline : .Online
                     }
                     

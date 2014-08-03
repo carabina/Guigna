@@ -141,6 +141,13 @@
     }
 }
 
+- (NSString *)contents:(GItem *)item {
+    if (item.installed != nil)
+        return [self outputFor:@"%@ --files %@", self.cmd, item.name];
+    else // TODO: parse http://rudix.org/packages/%@.html
+        return @"";
+}
+
 
 - (NSArray *)availableCommands {
     return [super availableCommands];

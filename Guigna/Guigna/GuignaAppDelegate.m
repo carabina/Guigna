@@ -1430,7 +1430,7 @@
             if (mark == GInstallMark) {
                 command = [item installCmd];
                 
-                if (![item.system.name is:@"Homebrew Casks"])
+                if (!([item.system.name is:@"Homebrew Casks"] || [item.system.name is:@"Rudix"]))
                     hidesOthers = YES;
                 
             } else if (mark == GUninstallMark) {
