@@ -97,16 +97,18 @@ class GSourceTransformer: NSValueTransformer {
             return NSImage(named: "system-homebrew.tiff")
         case "Homebrew Casks":
             return NSImage(named: "system-homebrewcasks.tiff")
+        case "Mac OS X":
+            return NSImage(named: "system-macosx.tiff")
         case "Fink":
             return NSImage(named: "system-fink.tiff")
         case "pkgsrc":
             return NSImage(named: "system-pkgsrc.tiff")
-        case "Mac OS X":
-            return NSImage(named: "system-macosx.tiff")
+        case "FreeBSD":
+            return NSImage(named: "source-freebsd.tiff")
         case "Rudix":
             return NSImage(named: "system-rudix.tiff")
         case "Native Installers":
-            return NSImage(named: "source-native")
+            return NSImage(named: "source-native.tiff")
         case "Pkgsrc.se":
             return NSImage(named: "source-pkgsrc.se.tiff")
         case "Debian":

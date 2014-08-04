@@ -25,6 +25,7 @@
 		C5A1215E1945EB2700A351A8 /* GItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1215C1945EB2700A351A8 /* GItem.swift */; };
 		C5A1215F1945EB2700A351A8 /* GSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1215D1945EB2700A351A8 /* GSystem.swift */; };
 		C5A121621945EB4300A351A8 /* Homebrew.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A121611945EB4300A351A8 /* Homebrew.swift */; };
+		C5A5B207198FD9E7000CB3FD /* FreeBSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A5B206198FD9E7000CB3FD /* FreeBSD.swift */; };
 		C5AD0FB6196287360001FB53 /* GPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD0FB4196287360001FB53 /* GPackage.swift */; };
 		C5AD0FB7196287360001FB53 /* GSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AD0FB5196287360001FB53 /* GSource.swift */; };
 		C5B736FF194732C90046B2E2 /* GAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5B736FE194732C80046B2E2 /* GAdditions.swift */; };
@@ -99,6 +100,7 @@
 		C5A1215C1945EB2700A351A8 /* GItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GItem.swift; sourceTree = "<group>"; };
 		C5A1215D1945EB2700A351A8 /* GSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSystem.swift; sourceTree = "<group>"; };
 		C5A121611945EB4300A351A8 /* Homebrew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Homebrew.swift; sourceTree = "<group>"; };
+		C5A5B206198FD9E7000CB3FD /* FreeBSD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeBSD.swift; sourceTree = "<group>"; };
 		C5AD0FB4196287360001FB53 /* GPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GPackage.swift; sourceTree = "<group>"; };
 		C5AD0FB5196287360001FB53 /* GSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSource.swift; sourceTree = "<group>"; };
 		C5B736FE194732C80046B2E2 /* GAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAdditions.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				C5635BEA1952F53F007424E2 /* MacPorts.swift */,
 				C554334B1972EE060080B0BD /* Fink.swift */,
 				C5E07BBB1972779400DA3CD3 /* Pkgsrc.swift */,
+				C5A5B206198FD9E7000CB3FD /* FreeBSD.swift */,
 				C56062D9198D0704001F0F93 /* Rudix.swift */,
 			);
 			path = Systems;
@@ -424,6 +427,7 @@
 				C5264CA0197D710F00562D94 /* GuignaRepos.swift in Sources */,
 				C5A1215E1945EB2700A351A8 /* GItem.swift in Sources */,
 				C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */,
+				C5A5B207198FD9E7000CB3FD /* FreeBSD.swift in Sources */,
 				C56062DA198D0704001F0F93 /* Rudix.swift in Sources */,
 				C554334C1972EE060080B0BD /* Fink.swift in Sources */,
 				C5AD0FB6196287360001FB53 /* GPackage.swift in Sources */,

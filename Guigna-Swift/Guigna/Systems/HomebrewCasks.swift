@@ -63,7 +63,7 @@ class HomebrewCasks: GSystem {
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
         
-        if mode == GMode.Online { // FIXME: compilers requires expilicit enum the first time it is seen
+        if mode == GMode.Online { // FIXME: the compiler requires expilicit enum the first time it is seen
             return pkgs
         }
         
@@ -149,9 +149,9 @@ class HomebrewCasks: GSystem {
         if self.isHidden {
             var homepage = ""
             for line in cat(item).split("\n") {
-                let loc = (line as NSString).rangeOfString("homepage").location
-                if loc != NSNotFound {
-                    homepage = line.substringFromIndex(loc + 8).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                let idx = line.index("homepage")
+                if idx != NSNotFound {
+                    homepage = line.substringFromIndex(idx + 8).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     if homepage.contains("http") {
                         return homepage.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "'\""))
                     }

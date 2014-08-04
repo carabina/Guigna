@@ -77,32 +77,35 @@
 }
 
 - (NSString *)info:(GItem *)item { // TODO: Offline mode
-    NSString *category = [item.categories split][0]; // use first category when using INDEX
-    NSArray *nodes = [self.agent nodesForURL:[NSString stringWithFormat: @"http://www.FreeBSD.org/cgi/url.cgi?ports/%@/%@/pkg-descr", category, item.name] XPath:@"//pre"];
-    if ([nodes count] == 0) {
-        nodes = [self.agent nodesForURL:[NSString stringWithFormat: @"http://www.FreeBSD.org/cgi/url.cgi?ports/%@/%@/pkg-descr", category, [item.name lowercaseString]] XPath:@"//pre"];
+    NSString *category = [item.categories split][0];
+    NSString *itemName = item.name;
+    NSString *pkgDescr = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://svnweb.freebsd.org/ports/head/%@/%@/pkg-descr?view=co", category, itemName]] encoding:NSUTF8StringEncoding error:nil];
+    if ([pkgDescr hasPrefix:@"<!DOCTYPE"]) { // 404 File Not Found
+        itemName = [itemName lowercaseString];
+        pkgDescr = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://svnweb.freebsd.org/ports/head/%@/%@/pkg-descr?view=co", category, itemName]] encoding:NSUTF8StringEncoding error:nil];
     }
-    if ([nodes count] == 0 )
-        return @"[Info not reachable]";
-    else
-        return [nodes[0] stringValue];
+    if ([pkgDescr hasPrefix:@"<!DOCTYPE"]) { // 404 File Not Found
+        pkgDescr = @"[Info not reachable]";
+    }
+    return pkgDescr;
 }
 
 
 - (NSString *)home:(GItem *)item {
-    if (item.homepage != nil) // already available from INDEX
+    if (item.homepage != nil) { // already available from INDEX
         return item.homepage;
-    else {
-        NSString *category = [item.categories split][0];
-        NSArray *nodes = [self.agent nodesForURL:[NSString stringWithFormat:@"http://www.FreeBSD.org/cgi/url.cgi?ports/%@/%@/pkg-descr", category, item.name] XPath:@"//pre/a"];
-        if ([nodes count] == 0) {
-            nodes = [self.agent nodesForURL:[NSString stringWithFormat: @"http://www.FreeBSD.org/cgi/url.cgi?ports/%@/%@/pkg-descr", category, [item.name lowercaseString]] XPath:@"//pre/a"];
+    } else {
+        NSString *pkgDescr = [self info:item];
+        if (![pkgDescr is:@"[Info not reachable]"]) {
+            for (NSString *line in [pkgDescr split:@"\n"]) {
+                NSUInteger idx = [line index:@"WWW:"];
+                if (idx != NSNotFound) {
+                    return [[line substringFromIndex:idx + 4] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                }
+            }
         }
-        if ([nodes count] == 0 )
-            return self.homepage;
-        else
-            return [nodes[0] stringValue];
     }
+    return [self log:item]; // TODO
 }
 
 // TODO:
@@ -148,7 +151,7 @@
 }
 
 
-//# TODO:deps => parse requirements:
+// TODO:deps => parse requirements:
 // http://www.FreeBSD.org/cgi/ports.cgi?query=%5E' + '%@-%@' item.name-item.version
 
 @end

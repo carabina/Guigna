@@ -52,8 +52,8 @@ class GuignaAppDelegate
   end
   
   
-  def info(msg)
-    infoText.string = msg
+  def info(text)
+    infoText.string = text
     infoText.scrollRangeToVisible [0,0]
     infoText.display
     tabView.display

@@ -61,29 +61,32 @@ class FreeBSD < GSystem
   end
   
   def info(pkg) # TODO: Offline mode
-    category = pkg.categories.split.first # use first category when using INDEX
-    nodes = agent.nodes_for_url("http://www.FreeBSD.org/cgi/url.cgi?ports/#{category}/#{pkg.name}/pkg-descr", xpath:"//pre")
-    if nodes.size == 0
-      nodes = agent.nodes_for_url("http://www.FreeBSD.org/cgi/url.cgi?ports/#{category}/#{pkg.name.downcase}/pkg-descr", xpath:"//pre")
+    category = pkg.categories.split.first
+    pkg_name = pkg.name
+    pkg_descr = NSString.stringWithContentsOfURL(NSURL.URLWithString("http://svnweb.freebsd.org/ports/head/#{category}/#{pkg_name}/pkg-descr?view=co"), encoding:NSUTF8StringEncoding, error:nil)
+    if pkg_descr.start_with? "<!DOCTYPE" # 404 File Not Found
+      pkg_name = pkg_name.downcase
+      pkg_descr = NSString.stringWithContentsOfURL(NSURL.URLWithString("http://svnweb.freebsd.org/ports/head/#{category}/#{pkg_name}/pkg-descr?view=co"), encoding:NSUTF8StringEncoding, error:nil)
     end
-    if nodes.size == 0
-      return "[Info not reachable]"
-    else
-      return nodes[0].stringValue
-    end
+    pkg_descr = "[Info not reachable]" if pkg_descr.start_with? "<!DOCTYPE"
+    return pkg_descr
   end
   
   def home(pkg)
     if !pkg.homepage.nil? # already available from INDEX
       return pkg.homepage
     else
-      category = pkg.categories.split.first
-      nodes = agent.nodes_for_url("http://www.FreeBSD.org/cgi/url.cgi?ports/#{category}/#{pkg.name}/pkg-descr", xpath:"//pre/a")
-      if nodes.size == 0
-        nodes = agent.nodes_for_url("http://www.FreeBSD.org/cgi/url.cgi?ports/#{category}/#{pkg.name.downcase}/pkg-descr", xpath:"//pre/a")
+      pkg_descr = info(pkg)
+      if pkg_descr != "[Info not reachable]"
+        pkg_descr.split("\n").reverse_each do |line|
+          idx = line.index("WWW:")
+          if idx != nil
+            return line[4..-1].strip
+          end
+        end
       end
-      return nodes.size == 0 ? @homepage : nodes[0].stringValue
     end
+    log(pkg)
   end
   
   def log(pkg)
@@ -117,5 +120,8 @@ class FreeBSD < GSystem
     makefile = '[Makefile not reachable]' if makefile.start_with? "<!DOCTYPE"
     return makefile
   end
-
+  
+  # TODO:deps => parse requirements:
+  # http://www.FreeBSD.org/cgi/ports.cgi?query=%5E' + '%@-%@' item.name-item.version
+  
 end

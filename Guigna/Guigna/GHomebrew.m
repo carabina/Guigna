@@ -179,9 +179,9 @@
     if (self.isHidden) {
         NSString *homepage;
         for (NSString *line in [[self cat:item] split:@"\n"]) {
-            NSUInteger loc = [line index:@"homepage"];
-            if (loc != NSNotFound) {
-                homepage = [[line substringFromIndex:loc+8] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSUInteger idx = [line index:@"homepage"];
+            if (idx != NSNotFound) {
+                homepage = [[line substringFromIndex:idx + 8] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 if ([homepage contains:@"http"])
                     return [homepage stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"'\""]];
             }

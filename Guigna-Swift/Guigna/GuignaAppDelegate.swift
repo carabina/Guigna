@@ -103,8 +103,8 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         statusItem.toolTip = msg
     }
     
-    func info(msg: String) {
-        infoText.string = msg
+    func info(text: String) {
+        infoText.string = text
         infoText.scrollRangeToVisible(NSMakeRange(0, 0))
         infoText.display()
         tabView.display()
@@ -248,7 +248,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if defaults["MacPortsStatus"] != nil && defaults["MacPortsStatus"] == GState.On.toRaw() {
             var macports = MacPorts(agent: agent)
             if !fileManager.fileExistsAtPath(portPath) {
-                macports.mode = GMode.Online  // FIXME: compilers requires expilicit enum the first time it is seen
+                macports.mode = GMode.Online  // FIXME: the compiler requires expilicit enum the first time it is seen
             }
             if !(macports.mode == GMode.Online && !fileManager.fileExistsAtPath("\(APPDIR)/MacPorts/PortIndex")) {
                 systems += macports
@@ -307,6 +307,17 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 pkgsrc.mode = .Online
             }
             systems += pkgsrc
+        }
+        
+        if fileManager.fileExistsAtPath("\(APPDIR)/FreeBSD/INDEX") {
+            if !defaults["FreeBSDStatus"] {
+                defaults["FreeBSDStatus"] = GState.On.toRaw()
+            }
+        }
+        if defaults["FreeBSDStatus"] != nil && defaults["FreeBSDStatus"] == GState.On.toRaw() {
+            var freebsd = FreeBSD(agent: agent)
+            freebsd.mode = .Online
+            systems += freebsd
         }
         
         if fileManager.fileExistsAtPath("/usr/local/bin/rudix") {
@@ -1709,6 +1720,11 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                         system = Pkgsrc(agent: agent)
                         system.mode = (NSFileManager.defaultManager().fileExistsAtPath(command)) ? .Offline : .Online
                         
+                    } else if title == "FreeBSD" {
+                        system = FreeBSD(agent: agent)
+                        system.mode = .Online
+                        
+                        
                     } else if title == "Rudix" {
                         command = "/usr/local/bin/rudix"
                         system = Rudix(agent: agent)
@@ -1864,6 +1880,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             
         } else if title == "Remove pkgsrc" {
             execute(Pkgsrc.removeCmd, baton: "relaunch")
+            
+        } else if title == "Fetch FreeBSD INDEX" {
+            execute("cd ~/Library/Application\\ Support/Guigna/FreeBSD ; curl -L -O ftp://ftp.freebsd.org/pub/FreeBSD/ports/packages/INDEX", baton: "relaunch")
             
         } else if  title == "Install Fink" {
             execute(Fink.setupCmd, baton: "relaunch")

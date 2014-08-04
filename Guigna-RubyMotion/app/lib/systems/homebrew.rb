@@ -144,9 +144,9 @@ class Homebrew < GSystem
   def home(pkg)
     if self.hidden?
       cat(pkg).split("\n").each do |line|
-        loc = line.index('homepage')
-        if !loc.nil?
-          homepage = line[loc+8..-1].strip
+        idx = line.index('homepage')
+        if !idx.nil?
+          homepage = line[idx+8..-1].strip
           if homepage.include?('http')
             return homepage.tr('\'"', '')
           end

@@ -95,7 +95,7 @@ class Pkgsrc: GSystem {
         var pkgs = [GPackage]()
         pkgs.reserveCapacity(50000)
         
-        if mode == GMode.Online { // FIXME: compilers requires expilicit enum the first time it is seen
+        if mode == GMode.Online { // FIXME: the compiler requires expilicit enum the first time it is seen
             return pkgs
         }
         

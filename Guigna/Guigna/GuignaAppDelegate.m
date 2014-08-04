@@ -49,8 +49,8 @@
 }
 
 
-- (void)info:(NSString *)msg {
-    infoText.string = msg;
+- (void)info:(NSString *)text {
+    infoText.string = text;
     [infoText scrollRangeToVisible:NSMakeRange(0,0)];
     [infoText display];
     [tabView display];
@@ -1641,7 +1641,8 @@
                 system.mode = ([[NSFileManager defaultManager] fileExistsAtPath:command]) ? GOfflineMode : GOnlineMode;
                 
             } else if ([title is:@"FreeBSD"]) {
-                system = [[GFreeBSD alloc] initWithAgent:self.agent]; system.mode = GOnlineMode;
+                system = [[GFreeBSD alloc] initWithAgent:self.agent];
+                system.mode = GOnlineMode;
                 
             } else if ([title is:@"Rudix"]) {
                 command = @"/usr/local/bin/rudix";
