@@ -89,15 +89,15 @@ class Rudix < GSystem
     links.each do |link|
       name = link.stringValue
       next if name.start_with? 'Parent Dir' or name.include?("MANIFEST") or name.include?("ALIASES")
-      sep = name.index "-"
-      version = name[sep+1..-1]
+      idx = name.index "-"
+      version = name[idx+1..-1]
       version = version[0...-4]
       if not decimalCharSet.characterIsMember(version[0].ord)
-        sep2 = version.index("-")
-        version = version[sep2+1..-1]
-        sep += sep2+1
+        idx2 = version.index("-")
+        version = version[idx2+1..-1]
+        idx += idx2+1
       end
-      name = name[0...sep]
+      name = name[0...idx]
       pkg = GItem.new(name, version, self, :available)
       pkg.homepage = "http://rudix.org/packages/#{pkg.name}.html"
       pkgs << pkg

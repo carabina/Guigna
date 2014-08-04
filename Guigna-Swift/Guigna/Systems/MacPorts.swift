@@ -146,10 +146,10 @@ class MacPorts: GSystem {
             var name = components[0]
             var version = components[1].substringFromIndex(1)
             var variants: String! = nil
-            let sep = version.index("+")
-            if sep != NSNotFound {
-                variants = version.substringFromIndex(sep + 1).split("+").join()
-                version = version.substringToIndex(sep)
+            let idx = version.index("+")
+            if idx != NSNotFound {
+                variants = version.substringFromIndex(idx + 1).split("+").join()
+                version = version.substringToIndex(idx)
             }
             if variants != nil {
                 variants = variants.stringByReplacingOccurrencesOfString(" ", withString: "+")

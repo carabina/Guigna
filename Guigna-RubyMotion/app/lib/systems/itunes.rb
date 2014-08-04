@@ -21,10 +21,10 @@ class ITunes < GSystem
     pkgs = []
     ipas = Dir[File.expand_path("~/Music/iTunes/iTunes Media/Mobile Applications/*")]
     ipas.each do |ipa|
-      sep = ipa.rindex " "
-      next if sep == nil
+      idx = ipa.rindex " "
+      next if idx == nil
       filename = ipa[(ipa.rindex("/") + 1)...-4]
-      version = ipa[sep+1...-4]
+      version = ipa[idx+1...-4]
       metadata = load_plist `/usr/bin/unzip -p "#{ipa}" iTunesMetadata.plist`
       name = metadata["itemName"]
       pkg = GPackage.new(name, "", self, :installed)

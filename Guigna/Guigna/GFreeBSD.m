@@ -24,15 +24,15 @@
     [self.items removeAllObjects];
     NSString *indexPath = [@"~/Library/Application Support/Guigna/FreeBSD/INDEX" stringByExpandingTildeInPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:indexPath]) {
-        NSArray *lines = [[NSString stringWithContentsOfFile:indexPath encoding:NSUTF8StringEncoding error:nil]split:@"\n"];
+        NSArray *lines = [[NSString stringWithContentsOfFile:indexPath encoding:NSUTF8StringEncoding error:nil] split:@"\n"];
         for (NSString *line in lines) {
             NSArray *components = [line split:@"|"];
             NSString *name = components[0];
-            NSUInteger sep = [name rangeOfString:@"-" options:NSBackwardsSearch].location;
-            if (sep == NSNotFound)
+            NSUInteger idx = [name rindex:@"-"];
+            if (idx == NSNotFound)
                 continue;
-            NSString *version = [name substringFromIndex:sep+1];
-            name = [name substringToIndex:sep];
+            NSString *version = [name substringFromIndex:idx + 1];
+            name = [name substringToIndex:idx];
             NSString *description = components[3];
             NSString *category = components[6];
             NSString *homepage = components[9];
@@ -53,11 +53,11 @@
         int i = 0;
         for (id node in names) {
             NSString *name = [node stringValue];
-            NSUInteger sep = [name rangeOfString:@"-" options:NSBackwardsSearch].location;
-            NSString *version = [name substringFromIndex:sep+1];
-            name = [name substringToIndex:sep];
+            NSUInteger idx = [name rindex:@"-"];
+            NSString *version = [name substringFromIndex:idx + 1];
+            name = [name substringToIndex:idx];
             NSString *category = [node href];
-            category = [category substringToIndex:[category rangeOfString:@".html"].location];
+            category = [category substringToIndex:[category index:@".html"]];
             NSString *description = [descriptions[i] stringValue];
             GPackage *pkg = [[GPackage alloc] initWithName:name
                                                    version:version

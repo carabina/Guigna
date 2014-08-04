@@ -27,20 +27,20 @@
     int i = 0;
     for (id node in names) {
         NSString *ID = [node[@"a"][0] stringValue];
-        NSUInteger sep = [ID rangeOfString:@"/" options:NSBackwardsSearch].location;
-        NSString *name = [ID substringFromIndex:sep+1];
-        NSString *category = [ID substringToIndex:sep];
+        NSUInteger idx = [ID rindex:@"/"];
+        NSString *name = [ID substringFromIndex:idx + 1];
+        NSString *category = [ID substringToIndex:idx];
         NSString *version = [dates[i] stringValue];
-        sep = [version rangeOfString:@" ("].location;
-        if (sep != NSNotFound) {
-            version = [version substringFromIndex:sep+2];
-            version = [version substringToIndex:([version rangeOfString:@")"].location)];
+        idx = [version index:@" ("];
+        if (idx != NSNotFound) {
+            version = [version substringFromIndex:idx + 2];
+            version = [version substringToIndex:([version index:@")"])];
         } else {
             version = [[version split] lastObject];
         }
         NSString *description = [comments[i] stringValue];
-        description = [description substringToIndex:([description rangeOfString:@"\n"].location)];
-        description = [description substringFromIndex:([description rangeOfString:@": "].location)+2];
+        description = [description substringToIndex:([description index:@"\n"])];
+        description = [description substringFromIndex:([description index:@": "]) + 2];
         GItem *entry = [[GItem alloc] initWithName:name
                                           version:version
                                            source:self

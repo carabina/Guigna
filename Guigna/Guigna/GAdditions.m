@@ -26,6 +26,14 @@
     return [self rangeOfString:string].location != NSNotFound;
 }
 
+- (NSUInteger)index:(NSString *)string {
+    return [self rangeOfString:string].location;
+}
+
+- (NSUInteger)rindex:(NSString *)string {
+    return [self rangeOfString:string options:NSBackwardsSearch].location;
+}
+
 - (NSArray *)split {
     return [self componentsSeparatedByString:@" "];
 }

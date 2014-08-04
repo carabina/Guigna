@@ -371,13 +371,13 @@ class GuignaAppDelegate
     end
     # workaround for "this operation cannot be performed with encoding `UTF-8' because Apple's ICU does not support it"
     history = String.new(history).force_encoding("ASCII")
-    sep = history.rindex("--->") # MacPorts
-    sep2 = history.rindex("==>") # Homebrew # TODO ===> pkgsrc
-    sep = sep2 if !sep2.nil? && !sep.nil? && sep2 > sep # most recent system
-    sep2 = history.rindex("guigna --baton")
-    sep = nil if !sep2.nil? && !sep.nil? && sep2 > sep # the last was a shell command
-    sep = history.rindex("\n") if sep.nil?
-    last_lines = history[sep..-1].split"\n"
+    idx = history.rindex("--->") # MacPorts
+    idx2 = history.rindex("==>") # Homebrew # TODO ===> pkgsrc
+    idx = idx2 if !idx2.nil? && !idx.nil? && idx2 > idx # most recent system
+    idx2 = history.rindex("guigna --baton")
+    idx = nil if !idx2.nil? && !idx.nil? && idx2 > idx # the last was a shell command
+    idx = history.rindex("\n") if idx.nil?
+    last_lines = history[idx..-1].split"\n"
     if last_lines.size > 1
       if last_lines[1].start_with? "Error"
         segmentedControl.setSelectedSegment -1

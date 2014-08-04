@@ -79,7 +79,7 @@
     // [self outdated]; // update status
     NSString *name;
     for (NSString *line in output) {
-        name = [line substringFromIndex:[line rangeOfString:@"." options:NSBackwardsSearch].location + 1];
+        name = [line substringFromIndex:[line rindex:@"."] + 1];
         GPackage *pkg = self[name];
         NSString *latestVersion = (pkg == nil) ? nil : [pkg.version copy];
         if (pkg == nil) {
@@ -110,15 +110,15 @@
         NSString *name = [link stringValue];
         if ([name hasPrefix:@"Parent Dir"] || [name contains:@"MANIFEST"] || [name contains:@"ALIASES"])
             continue;
-        NSUInteger sep = [name rangeOfString:@"-"].location;
-        NSString *version = [name substringFromIndex:sep+1];
+        NSUInteger idx = [name index:@"-"];
+        NSString *version = [name substringFromIndex:idx + 1];
         version = [version substringToIndex:[version length]-4];
         if (![decimalCharSet characterIsMember:[version characterAtIndex:0]]) {
-            NSUInteger sep2 = [version rangeOfString:@"-"].location;
-            version = [version substringFromIndex:sep2+1];
-            sep += sep2+1;
+            NSUInteger idx2 = [version index:@"-"];
+            version = [version substringFromIndex:idx2 + 1];
+            idx += idx2 + 1;
         }
-        name = [name substringToIndex:sep];
+        name = [name substringToIndex:idx];
         GItem *pkg = [[GItem alloc] initWithName:name
                                          version:version
                                           source:self

@@ -22,10 +22,10 @@ class FreeBSD < GSystem
       lines.each do |line|
         components = line.split "|"
         name = components.first
-        sep = name.rindex "-"
-        next if sep.nil?
-        version = name[sep+1..-1]
-        name = name[0...sep]
+        idx = name.rindex "-"
+        next if idx.nil?
+        version = name[idx+1..-1]
+        name = name[0...idx]
         description = components[3]
         category = components[6]
         homepage = components[9]
@@ -43,9 +43,9 @@ class FreeBSD < GSystem
       i = 0
       names.each do |node|
         name = node.stringValue
-        sep = name.rindex("-")
-        version = name[sep+1..-1]
-        name = name[0...sep]
+        idx = name.rindex("-")
+        version = name[idx+1..-1]
+        name = name[0...idx]
         category = node.href
         description = descriptions[i].stringValue
         category = category[0...category.index('.html')]

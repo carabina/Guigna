@@ -33,10 +33,10 @@
     NSArray *contents = [fileManager contentsOfDirectoryAtPath:[@"~/Music/iTunes/iTunes Media/Mobile Applications" stringByExpandingTildeInPath] error:nil];
     for (NSString *filename in contents) {
         NSString *ipa = [[NSString stringWithFormat:@"~/Music/iTunes/iTunes Media/Mobile Applications/%@", filename] stringByExpandingTildeInPath];
-        NSUInteger sep = [filename rangeOfString:@" " options:NSBackwardsSearch].location;
-        if (sep == NSNotFound)
+        NSUInteger idx = [filename rindex:@" "];
+        if (idx == NSNotFound)
             continue;
-        NSString *version = [filename substringWithRange:NSMakeRange(sep+1, [filename length]-sep-5)];
+        NSString *version = [filename substringWithRange:NSMakeRange(idx + 1, [filename length] - idx - 5)];
         NSString *output = [self outputFor:@"/usr/bin/unzip -p %@ iTunesMetadata.plist", [ipa stringByReplacingOccurrencesOfString:@" " withString:@"__"]];
         if (output == nil) // binary plist
             output = [self outputFor:@"/bin/sh -c /usr/bin/unzip__-p__%@__iTunesMetadata.plist__|__plutil__-convert__xml1__-o__-__-", [ipa stringByReplacingOccurrencesOfString:@" " withString:@"\\__"]];

@@ -29,15 +29,15 @@ class Pkgsrc: GSystem {
             for line in lines {
                 let components = line.split("|")
                 var name = components[0]
-                var sep = name.rindex("-")
-                if sep == NSNotFound {
+                var idx = name.rindex("-")
+                if idx == NSNotFound {
                     continue
                 }
-                let version = name.substringFromIndex(sep + 1)
-                // name = [name substringToIndex:sep];
+                let version = name.substringFromIndex(idx + 1)
+                // name = [name substringToIndex:idx];
                 let id = components[1]
-                sep = id.rindex("/")
-                name = id.substringFromIndex(sep + 1)
+                idx = id.rindex("/")
+                name = id.substringFromIndex(idx + 1)
                 let description = components[3]
                 let category = components[6]
                 let homepage = components[11]
@@ -60,18 +60,18 @@ class Pkgsrc: GSystem {
                     continue
                 }
                 var name = rowData[0].stringValue!
-                var sep = name.rindex("-")
-                if sep == NSNotFound {
+                var idx = name.rindex("-")
+                if idx == NSNotFound {
                     continue
                 }
-                let version = name.substring(sep + 1, name.length - sep - 3)
-                name = name.substringToIndex(sep)
+                let version = name.substring(idx + 1, name.length - idx - 3)
+                name = name.substringToIndex(idx)
                 var category = rowData[1].stringValue!
                 category = category.substring(1, category.length - 3)
                 var description = rowData[2].stringValue!
-                sep = description.rindex("  ")
-                if sep != NSNotFound {
-                    description = description.substringToIndex(sep)
+                idx = description.rindex("  ")
+                if idx != NSNotFound {
+                    description = description.substringToIndex(idx)
                 }
                 let pkg = GPackage(name: name, version: version, system: self, status: .Available)
                 pkg.categories = category
@@ -115,15 +115,15 @@ class Pkgsrc: GSystem {
         let whitespaceCharacterSet = NSCharacterSet.whitespaceCharacterSet()
         var i = 0
         for line in outputLines {
-            var sep = line.index(" ")
-            var name = line.substringToIndex(sep)
-            let description = line.substringFromIndex(sep + 1).stringByTrimmingCharactersInSet(whitespaceCharacterSet)
-            sep = name.rindex("-")
-            let version = name.substringFromIndex(sep + 1)
-            // name = [name substringToIndex:sep];
+            var idx = line.index(" ")
+            var name = line.substringToIndex(idx)
+            let description = line.substringFromIndex(idx + 1).stringByTrimmingCharactersInSet(whitespaceCharacterSet)
+            idx = name.rindex("-")
+            let version = name.substringFromIndex(idx + 1)
+            // name = [name substringToIndex:idx];
             let id = ids[i]
-            sep = id.index("/")
-            name = id.substringFromIndex(sep + 1)
+            idx = id.index("/")
+            name = id.substringFromIndex(idx + 1)
             status = .UpToDate
             var pkg: GPackage! = self[id]
             var latestVersion: String = (pkg == nil) ? "" : pkg.version

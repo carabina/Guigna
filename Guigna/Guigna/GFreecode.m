@@ -21,9 +21,9 @@
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//div[contains(@class,\"release\")]"];
     for (id node in nodes) {
         NSString *name = [[node[@"h2/a"] lastObject] stringValue];
-        NSUInteger sep = [name rangeOfString:@" " options:NSBackwardsSearch].location;
-        NSString *version = [name substringFromIndex:sep+1];
-        name = [name substringToIndex:sep];
+        NSUInteger idx = [name rindex:@" "];
+        NSString *version = [name substringFromIndex:idx + 1];
+        name = [name substringToIndex:idx];
         NSString *ID = [[[node[@"h2/a"] lastObject] href] lastPathComponent];
         NSArray *moreinfo = node[@"h2//a[contains(@class,\"moreinfo\")]"];
         NSString *homepage;
@@ -31,8 +31,8 @@
             homepage = self.homepage;
         else {
             homepage = moreinfo[0][@"@title"];
-            NSUInteger sep = [homepage rangeOfString:@" " options:NSBackwardsSearch].location;
-            homepage = [homepage substringFromIndex:sep+1];
+            NSUInteger idx = [homepage rindex:@" "];
+            homepage = [homepage substringFromIndex:idx + 1];
             if (![homepage hasPrefix:@"http://"])
                 homepage = [@"http://" stringByAppendingString:homepage]; 
         }

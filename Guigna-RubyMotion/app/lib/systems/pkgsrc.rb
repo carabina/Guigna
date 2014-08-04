@@ -31,13 +31,13 @@ class Pkgsrc < GSystem
       lines.each do |line|
         components = line.split "|"
         name = components.first
-        sep = name.rindex "-"
-        next if sep.nil?
-        version = name[sep+1..-1]
-        # name = [name substringToIndex:sep]
+        idx = name.rindex "-"
+        next if idx.nil?
+        version = name[idx+1..-1]
+        # name = [name substringToIndex:idx]
         id = components[1]
-        sep = id.rindex "/"
-        name = id[sep+1..-1]
+        idx = id.rindex "/"
+        name = id[idx+1..-1]
         description = components[3]
         category = components[6]
         homepage = components[11]
@@ -55,15 +55,15 @@ class Pkgsrc < GSystem
         row_data = node["td"]
         next if row_data.size == 0
         name = row_data.first.stringValue
-        sep = name.rindex("-")
-        next if !sep
-        version = name[sep+1..-3]
-        name = name[0...sep]
+        idx = name.rindex("-")
+        next if !idx
+        version = name[idx+1..-3]
+        name = name[0...idx]
         category = row_data[1].stringValue
         category = category[1..-3]
         description = row_data[2].stringValue
-        sep = description.rindex("  ")
-        description = description[0...sep] if sep
+        idx = description.rindex("  ")
+        description = description[0...idx] if idx
         pkg = GPackage.new(name, version, self, :available)
         pkg.categories = category
         pkg.description = description
@@ -94,15 +94,15 @@ class Pkgsrc < GSystem
     status = nil
     i = 0
     output.each do |line|
-      sep = line.index " "
-      name = line[0...sep]
-      description = line[sep+1..-1].strip
-      sep = name.rindex "-"
-      version = name[sep+1..-1]
-      # name = [name substringToIndex:sep]
+      idx = line.index " "
+      name = line[0...idx]
+      description = line[idx+1..-1].strip
+      idx = name.rindex "-"
+      version = name[idx+1..-1]
+      # name = [name substringToIndex:idx]
       id = ids[i]
-      sep = id.index "/"
-      name = id[sep+1..-1]
+      idx = id.index "/"
+      name = id[idx+1..-1]
       status = :uptodate
       pkg = self[id]
       latest_version = (pkg.nil? || pkg.version.nil? ) ? nil : pkg.version.dup

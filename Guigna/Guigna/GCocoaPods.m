@@ -29,8 +29,8 @@
     for (id node in nodes) {
         name = [node[@"title"][0] stringValue];
         description = [node[@"description"][0] stringValue];
-        NSUInteger sep = [description rangeOfString:@"</p>"].location;
-        description = [description substringToIndex:sep];
+        NSUInteger idx = [description index:@"</p>"];
+        description = [description substringToIndex:idx];
         while ([description hasPrefix:@"<p>"]) {
             description = [description substringFromIndex:3];
         }
@@ -69,9 +69,9 @@
  [self.items removeAllObjects];
  for (NSString *pod in output) {
  NSArray *lines = [pod split:@"\n"];
- NSUInteger sep = [lines[0] rangeOfString:@" (" options:NSBackwardsSearch].location;
- NSString *name = [lines[0] substringToIndex:sep];
- NSString *version = [lines[0] substringWithRange:NSMakeRange(sep+2, [lines[0] length]-sep-3)];
+ NSUInteger idx = [lines[0] rindex:@" ("];
+ NSString *name = [lines[0] substringToIndex:idx];
+ NSString *version = [lines[0] substringWithRange:NSMakeRange(idx + 2, [lines[0] length] - idx - 3)];
  GPackage *package = [[GPackage alloc] initWithName:name
  version:version
  system:self

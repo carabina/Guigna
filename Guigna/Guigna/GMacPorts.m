@@ -152,10 +152,10 @@
         name = components[0];
         version = [components[1] substringFromIndex:1];
         variants = nil;
-        NSUInteger sep = [version rangeOfString:@"+"].location;
-        if (sep != NSNotFound) {
-            variants = [[[version substringFromIndex:sep +1] split:@"+"] join];
-            version = [version substringToIndex:sep];
+        NSUInteger idx = [version index:@"+"];
+        if (idx != NSNotFound) {
+            variants = [[[version substringFromIndex:idx + 1] split:@"+"] join];
+            version = [version substringToIndex:idx];
         }
         if (variants != nil)
             version = [NSString stringWithFormat:@"%@ +%@", version, [variants stringByReplacingOccurrencesOfString:@" " withString:@"+"]];

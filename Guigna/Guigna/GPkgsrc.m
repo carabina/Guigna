@@ -37,14 +37,14 @@
         for (NSString *line in lines) {
             NSArray *components = [line split:@"|"];
             NSString *name = components[0];
-            NSUInteger sep = [name rangeOfString:@"-" options:NSBackwardsSearch].location;
-            if (sep == NSNotFound)
+            NSUInteger idx = [name rindex:@"-"];
+            if (idx == NSNotFound)
                 continue;
-            NSString *version = [name substringFromIndex:sep+1];
-            // name = [name substringToIndex:sep];
+            NSString *version = [name substringFromIndex:idx + 1];
+            // name = [name idx];
             NSString *ID = components[1];
-            sep = [ID rangeOfString:@"/" options:NSBackwardsSearch].location;
-            name = [ID substringFromIndex:sep+1];
+            idx = [ID rindex:@"/"];
+            name = [ID substringFromIndex:idx + 1];
             NSString *description = components[3];
             NSString *category = components[6];
             NSString *homepage = components[11];
@@ -66,17 +66,17 @@
             if ([rowData count] == 0)
                 continue;
             NSString *name = [rowData[0] stringValue];
-            NSUInteger sep = [name rangeOfString:@"-" options:NSBackwardsSearch].location;
-            if (sep == NSNotFound)
+            NSUInteger idx = [name rindex:@"-"];
+            if (idx == NSNotFound)
                 continue;
-            NSString *version = [name substringWithRange:NSMakeRange(sep+1, [name length]-sep-3)];
-            name = [name substringToIndex:sep];
+            NSString *version = [name substringWithRange:NSMakeRange(idx + 1, [name length] - idx - 3)];
+            name = [name substringToIndex:idx];
             NSString *category = [rowData[1] stringValue];
             category = [category substringWithRange:NSMakeRange(1, [category length]-3)];
             NSString *description = [rowData[2] stringValue];
-            sep = [description rangeOfString:@"  " options:NSBackwardsSearch].location;
-            if (sep != NSNotFound)
-                description = [description substringToIndex:sep];
+            idx = [description rindex:@"  "];
+            if (idx != NSNotFound)
+                description = [description substringToIndex:idx];
             GPackage *pkg = [[GPackage alloc] initWithName:name
                                                        version:version
                                                         system:self
@@ -115,15 +115,15 @@
     NSCharacterSet *whitespaceCharacterSet = [NSCharacterSet whitespaceCharacterSet];
     int i = 0;
     for (NSString *line in output) {
-        NSUInteger sep = [line rangeOfString:@" "].location;
-        NSString *name = [line substringToIndex:sep];
-        NSString *description = [[line substringFromIndex:sep+1] stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-        sep = [name rangeOfString:@"-" options:NSBackwardsSearch].location;
-        NSString *version = [name substringFromIndex:sep+1];
-        // name = [name substringToIndex:sep];
+        NSUInteger idx = [line index:@" "];
+        NSString *name = [line substringToIndex:idx];
+        NSString *description = [[line substringFromIndex:idx + 1] stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+        idx = [name rindex:@"-"];
+        NSString *version = [name substringFromIndex:idx + 1];
+        // name = [name idx];
         NSString *ID= ids[i];
-        sep = [ID rangeOfString:@"/"].location;
-        name = [ID substringFromIndex:sep+1];
+        idx = [ID index:@"/"];
+        name = [ID substringFromIndex:idx + 1];
         status = GUpToDateStatus;
         GPackage *pkg = self[ID];
         NSString *latestVersion = (pkg == nil) ? nil : [pkg.version copy];

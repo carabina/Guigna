@@ -27,9 +27,9 @@ class Freecode < GScrape
     nodes = agent.nodes_for_url(url, xpath:"//div[contains(@class,\"release\")]")
     nodes.each { |node|
       name = node["h2/a"][-1].stringValue
-      sep = name.rindex(" ")
-      version = name[sep+1..-1]
-      name = name[0...sep]
+      idx = name.rindex(" ")
+      version = name[idx+1..-1]
+      name = name[0...idx]
       id = node["h2/a"][-1].href.lastPathComponent
       # categories =
       moreinfo = node["h2//a[contains(@class,\"moreinfo\")]"]
@@ -37,8 +37,8 @@ class Freecode < GScrape
         homepage = @homepage
       else
         homepage = moreinfo[0]['@title']
-        sep = homepage.rindex(" ")
-        homepage = homepage[sep+1..-1]
+        idx = homepage.rindex(" ")
+        homepage = homepage[idx+1..-1]
         homepage = "http://" + homepage unless homepage.start_with? "http://"
       end
       tags = []
@@ -79,13 +79,13 @@ class PkgsrcSE < GScrape
     comments = main_div["div"][2..-1]
     names.each_with_index do |node, i|
       id = node["a"].first.stringValue
-      sep = id.rindex "/"
-      name = id[sep+1..-1]
-      category = id[0...sep]
+      idx = id.rindex "/"
+      name = id[idx+1..-1]
+      category = id[0...idx]
       version = dates[i].stringValue
-      sep = version.index " ("
-      if !sep.nil?
-        version = version[sep+2..-1]
+      idx = version.index " ("
+      if !idx.nil?
+        version = version[idx+2..-1]
         version = version[0...version.index(")")]
       else
         version = version.split.last
@@ -164,13 +164,13 @@ class MacUpdate < GScrape
       # workaround for "this operation cannot be performed with encoding `UTF-8' because Apple's ICU does not support it"
       ascii_name = String.new(name).force_encoding("ASCII")
       if ascii_name.size != name.size
-        sep = String.new(name).force_encoding("ASCII").rindex(" ") - (ascii_name.size - name.size)
+        idx = String.new(name).force_encoding("ASCII").rindex(" ") - (ascii_name.size - name.size)
       else
-        sep = name.rindex(" ")
+        idx = name.rindex(" ")
       end
-      if !sep.nil?
-        version = name[sep+1..-1]
-        name = name[0...sep]
+      if !idx.nil?
+        version = name[idx+1..-1]
+        name = name[0...idx]
       end
       description = node["span"].first.stringValue[2..-1]
       id = node["a"].first.href.split("/")[3]

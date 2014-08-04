@@ -405,17 +405,17 @@
         [self updateMarkedSource];
         return YES;
     }
-    NSUInteger sep = [history rangeOfString:@"--->" options:NSBackwardsSearch].location; // MacPorts
-    NSUInteger sep2 = [history rangeOfString:@"==>" options:NSBackwardsSearch].location; // Homebrew
+    NSUInteger idx = [history rindex:@"--->"]; // MacPorts
+    NSUInteger idx2 = [history rindex:@"==>"]; // Homebrew
     // TODO ===> pkgsrc
-    if (sep2 != NSNotFound && sep2 > sep)
-        sep = sep2; // most recent system
-    sep2 = [history rangeOfString:@"guigna --baton" options:NSBackwardsSearch].location;
-    if (sep2 != NSNotFound && sep != NSNotFound && sep2 > sep)
-        sep = NSNotFound; // the last was a shell command
-    if (sep == NSNotFound)
-        sep = [history rangeOfString:@"\n" options:NSBackwardsSearch].location;
-    NSArray *lastLines = [[history substringFromIndex:sep] split:@"\n"];
+    if (idx2 != NSNotFound && idx2 > idx)
+        idx = idx2; // most recent system
+    idx2 = [history rindex:@"guigna --baton"];
+    if (idx2 != NSNotFound && idx != NSNotFound && idx2 > idx)
+        idx = NSNotFound; // the last was a shell command
+    if (idx == NSNotFound)
+        idx = [history rindex:@"\n"];
+    NSArray *lastLines = [[history substringFromIndex:idx] split:@"\n"];
     if ([lastLines count] > 1) {
         if ([lastLines[1] hasPrefix:@"Error"]) {
             [segmentedControl setSelectedSegment:-1];

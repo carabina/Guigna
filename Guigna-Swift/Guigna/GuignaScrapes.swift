@@ -36,13 +36,13 @@ class PkgsrcSE: GScrape {
         comments.removeAtIndex(0)
         for (i, node) in enumerate(names) {
             let id = node["a"][0].stringValue!
-            var sep = id.rindex("/")
-            let name = id.substringFromIndex(sep + 1)
-            let category = id.substringToIndex(sep)
+            var idx = id.rindex("/")
+            let name = id.substringFromIndex(idx + 1)
+            let category = id.substringToIndex(idx)
             var version = dates[i].stringValue!
-            sep = version.index(" (")
-            if sep != NSNotFound {
-                version = version.substringFromIndex(sep + 2)
+            idx = version.index(" (")
+            if idx != NSNotFound {
+                version = version.substringFromIndex(idx + 2)
                 version = version.substringToIndex(version.index(")"))
             } else {
                 version = version.substringFromIndex(version.rindex(" ") + 1)
@@ -215,11 +215,11 @@ class MacUpdate: GScrape {
         var nodes = xmlDoc.rootElement().nodesForXPath("//div[@class=\"appinfo\"]", error: nil) as [NSXMLNode]
         for node in nodes {
             var name = node["a"][0].stringValue!
-            let sep = name.rindex(" ")
+            let idx = name.rindex(" ")
             var version = ""
-            if sep != NSNotFound {
-                version = name.substringFromIndex(sep + 1)
-                name = name.substringToIndex(sep)
+            if idx != NSNotFound {
+                version = name.substringFromIndex(idx + 1)
+                name = name.substringToIndex(idx)
             }
             let description = node["span"][0].stringValue!.substringFromIndex(2)
             let id = node["a"][0].attribute("href").split("/")[3]

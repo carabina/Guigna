@@ -20,11 +20,11 @@
     NSArray *nodes = [self.agent nodesForURL:url XPath:@"//div[@class=\"appinfo\"]"];
     for (id node in nodes) {
         NSString *name = [node[@"a"][0] stringValue];
-        NSUInteger sep = [name rangeOfString:@" " options:NSBackwardsSearch].location;
+        NSUInteger idx = [name rindex:@" "];
         NSString *version = @"";
-        if (sep != NSNotFound) {
-            version = [name substringFromIndex:sep+1];
-            name = [name substringToIndex:sep];
+        if (idx != NSNotFound) {
+            version = [name substringFromIndex:idx + 1];
+            name = [name substringToIndex:idx];
         }
         NSString *description = [[node[@"span"][0] stringValue] substringFromIndex:2];
         NSString *ID = [[node[@"a"][0] href] split:@"/"][3];

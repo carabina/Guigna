@@ -18,6 +18,8 @@
 @interface NSString (GAdditions)
 - (BOOL)is:(NSString *)string;
 - (BOOL)contains:(NSString *)string;
+- (NSUInteger)index:(NSString *)string;
+- (NSUInteger)rindex:(NSString *)string;
 - (NSArray *)split;
 - (NSArray *)split:(NSString *)delimiter;
 @end

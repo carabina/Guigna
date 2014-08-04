@@ -115,10 +115,10 @@ class MacPorts < GSystem
       name = components.first
       version =  components[1][1..-1]
       variants = nil
-      sep = version.index "+"
-      if !sep.nil?
-        variants = version[sep+1..-1].split("+").join(" ")
-        version = version[0...sep]
+      idx = version.index "+"
+      if !idx.nil?
+        variants = version[idx+1..-1].split("+").join(" ")
+        version = version[0...idx]
       end
       if !variants.nil?
         version << " +#{variants.gsub(' ','+')}"
