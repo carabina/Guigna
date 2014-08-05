@@ -954,12 +954,15 @@
                     [self status:@"Computing dependencies..."];
                     NSString *deps = [item deps];
                     NSString *dependents = [item dependents];
-                    if ([deps is:@""] && [dependents is:@""])
+                    if ([deps is:@""] && [dependents is:@""]) {
                         [self info:@"[No dependencies]"];
-                    else if (![dependents is:@""])
-                        [self info:[NSString stringWithFormat:@"%@\nDependents:\n%@", deps, dependents]];
-                    else
-                        [self info:deps];
+                    } else {
+                        deps = [NSString stringWithFormat:@"[Click on a dependency to search for it]\n%@", deps];
+                        if (![dependents is:@""])
+                            [self info:[NSString stringWithFormat:@"%@\nDependents:\n%@", deps, dependents]];
+                        else
+                            [self info:deps];
+                    }
                     [tableProgressIndicator stopAnimation:self];
                 }
             }

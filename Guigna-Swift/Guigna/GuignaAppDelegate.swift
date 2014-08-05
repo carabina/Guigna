@@ -972,14 +972,17 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     } else if selectedSegment == "Deps" {
                         tableProgressIndicator.startAnimation(self)
                         status("Computing dependencies...")
-                        let deps = item.deps
+                        var deps = item.deps
                         let dependents = item.dependents
                         if deps == "" && dependents == "" {
                             info("[No dependencies]")
-                        } else if dependents != "" {
-                            info("\(deps)\nDependents:\n\(dependents)")
                         } else {
-                            info(deps)
+                            deps = "[Click on a dependency to search for it]\n\(deps)"
+                            if dependents != "" {
+                                info("\(deps)\nDependents:\n\(dependents)")
+                            } else {
+                                info(deps)
+                            }
                         }
                         tableProgressIndicator.stopAnimation(self)
                     }

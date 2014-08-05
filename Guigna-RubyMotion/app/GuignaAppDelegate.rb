@@ -888,10 +888,13 @@ class GuignaAppDelegate
             dependents = item.dependents
             if deps == "" && dependents == ""
               info "[No dependencies]"
-            elsif dependents != ""
-              info deps + "\nDependents:\n" + dependents
             else
-              info deps
+              deps = "[Click on a dependency to search for it]\n#{deps}"
+              if dependents != ""
+                info deps + "\nDependents:\n" + dependents
+              else
+                info deps
+              end
             end
             tableProgressIndicator.stopAnimation self
           end
