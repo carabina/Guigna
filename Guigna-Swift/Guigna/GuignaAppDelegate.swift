@@ -12,9 +12,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     @IBOutlet var itemsTable: NSTableView!
     @IBOutlet var searchField: NSSearchField!
     @IBOutlet var tabView: NSTabView!
-    @IBOutlet strong var infoText: NSTextView!
+    @IBOutlet var infoText: NSTextView!
     @IBOutlet var webView: WebView!
-    @IBOutlet strong var logText: NSTextView!
+    @IBOutlet var logText: NSTextView!
     @IBOutlet var segmentedControl: NSSegmentedControl!
     @IBOutlet var commandsPopUp: NSPopUpButton!
     @IBOutlet var shellDisclosure: NSButton!
@@ -73,12 +73,12 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     var ready = false
     
     var shellColumns: Int {
-    get {
-        let attrs = [NSFontAttributeName: NSFont(name: "Andale Mono", size: 11.0)]
-        let charWidth = ("MMM".sizeWithAttributes(attrs).width - "M".sizeWithAttributes(attrs).width) / 2.0
-        let columns = Int(round((infoText.frame.size.width - 16.0) / charWidth + 0.5))
-        return columns
-    }
+        get {
+            let attrs = [NSFontAttributeName: NSFont(name: "Andale Mono", size: 11.0)]
+            let charWidth = ("MMM".sizeWithAttributes(attrs).width - "M".sizeWithAttributes(attrs).width) / 2.0
+            let columns = Int(round((infoText.frame.size.width - 16.0) / charWidth + 0.5))
+            return columns
+        }
     }
     
     func status(var msg: String) {
@@ -251,7 +251,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 macports.mode = GMode.Online  // FIXME: the compiler requires expilicit enum the first time it is seen
             }
             if !(macports.mode == GMode.Online && !fileManager.fileExistsAtPath("\(APPDIR)/MacPorts/PortIndex")) {
-                systems += macports
+                systems.append(macports)
                 if macports.cmd != portPath {
                     macports.prefix = portPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent
                     macports.cmd = portPath
@@ -267,14 +267,14 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if defaults["HomebrewStatus"] != nil && defaults["HomebrewStatus"] == GState.On.toRaw() {
             if fileManager.fileExistsAtPath(brewPath) { // TODO: online mode
                 var homebrew = Homebrew(agent: agent)
-                systems += homebrew
+                systems.append(homebrew)
                 if homebrew.cmd != brewPath {
                     homebrew.prefix = brewPath.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent
                     homebrew.cmd = brewPath
                 }
                 if fileManager.fileExistsAtPath("\(homebrew.prefix)/bin/brew-cask.rb") {
                     var homebrewcasks = HomebrewCasks(agent: agent)
-                    systems += homebrewcasks
+                    systems.append(homebrewcasks)
                     homebrewcasks.prefix = homebrew.prefix
                     homebrewcasks.cmd = brewPath + " cask"
                 }
@@ -291,7 +291,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             if !fileManager.fileExistsAtPath("/sw/bin/fink") {
                 fink.mode = .Online
             }
-            systems += fink
+            systems.append(fink)
         }
         
         // TODO: Index user defaults
@@ -306,7 +306,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             if !fileManager.fileExistsAtPath("/usr/pkg/sbin/pkg_info") {
                 pkgsrc.mode = .Online
             }
-            systems += pkgsrc
+            systems.append(pkgsrc)
         }
         
         if fileManager.fileExistsAtPath("\(APPDIR)/FreeBSD/INDEX") {
@@ -317,7 +317,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if defaults["FreeBSDStatus"] != nil && defaults["FreeBSDStatus"] == GState.On.toRaw() {
             var freebsd = FreeBSD(agent: agent)
             freebsd.mode = .Online
-            systems += freebsd
+            systems.append(freebsd)
         }
         
         if fileManager.fileExistsAtPath("/usr/local/bin/rudix") {
@@ -330,10 +330,10 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             if !fileManager.fileExistsAtPath("/usr/local/bin/rudix") {
                 rudix.mode = .Online
             }
-            systems += rudix
+            systems.append(rudix)
         }
         
-        systems += MacOSX(agent: agent)
+        systems.append(MacOSX(agent: agent))
         
         if !defaults["DebugMode"] {
             defaults["DebugMode"] = false
@@ -396,7 +396,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     
     func outlineView(outlineView: NSOutlineView!, isGroupItem item: AnyObject!) -> Bool {
         var source = item.representedObject as GSource
-        return source.categories && !(source is GSystem)
+        return source.categories != nil && !(source is GSystem)
     }
     
     func outlineView(outlineView: NSOutlineView!, viewForTableColumn tableColumn: NSTableColumn!, item: AnyObject!) -> NSView! {
@@ -404,7 +404,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         if !((item.parentNode as NSTreeNode).representedObject is GSource) {
             return outlineView.makeViewWithIdentifier("HeaderCell", owner:self) as NSTableCellView
         } else {
-            if !source.categories && ((item.parentNode as NSTreeNode).representedObject is GSystem) {
+            if source.categories == nil && ((item.parentNode as NSTreeNode).representedObject is GSystem) {
                 return outlineView.makeViewWithIdentifier("LeafCell", owner:self) as NSTableCellView
             } else {
                 return outlineView.makeViewWithIdentifier("DataCell", owner:self) as NSTableCellView
@@ -420,8 +420,8 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     func application(sender: NSApplication!, openFile filename: String!) -> Bool {
         status("Ready.")
         var history = shell.valueForKey("history") as String
-        if adminPassword {
-            let sudoCommand = "echo \"\(adminPassword)\" | sudo -S"
+        if adminPassword != nil {
+            let sudoCommand = "echo \"\(adminPassword!)\" | sudo -S"
             history = history.stringByReplacingOccurrencesOfString(sudoCommand, withString: "sudo")
         }
         history = history.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
@@ -638,18 +638,18 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 continue
             }
             var updateCmd = system.updateCmd
-            if updateCmd? == nil {
-                systemsToList += system
+            if updateCmd == nil {
+                systemsToList.append(system)
             } else if updateCmd.hasPrefix("sudo") {
-                systemsToUpdateAsync += system
+                systemsToUpdateAsync.append(system)
             } else {
-                systemsToUpdate += system
+                systemsToUpdate.append(system)
             }
         }
         if systemsToUpdateAsync.count > 0 {
             var updateCommands = [String]()
             for system in systemsToUpdateAsync {
-                updateCommands += system.updateCmd
+                updateCommands.append(system.updateCmd)
             }
             execute(updateCommands.join(" ; "), baton: "sync")
         }
@@ -695,7 +695,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         var selectedSystems = [GSystem]()
         for system in systems {
             if let idx = find(selectedNames, system.name) {
-                selectedSystems += system
+                selectedSystems.append(system)
                 selectedSources.removeAtIndex(idx)
             }
         }
@@ -703,7 +703,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             selectedSystems = systems
         }
         if selectedSources.count == 0 {
-            selectedSources += (sourcesController.content as NSArray)[0] as GSource // SYSTEMS
+            selectedSources.append((sourcesController.content as NSArray)[0] as GSource) // SYSTEMS
         }
         var src: String
         let filter = searchField.stringValue
@@ -756,7 +756,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                             status("Verifying \(src) packages...")
                             itemsController.filterPredicate = NSPredicate(format: "statusValue == \(st.toRaw())")
                             itemsTable.display()
-                            packages = itemsController.arrangedObjects.copy() as [GPackage]
+                            packages = itemsController.arrangedObjects as [GPackage]
                         }
                         
                     } else if src.hasPrefix("marked") {
@@ -765,14 +765,12 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                             status("Verifying marked packages...")
                             itemsController.filterPredicate = NSPredicate(format: "markValue != 0")
                             itemsTable.display()
-                            packages = itemsController.arrangedObjects.copy() as [GPackage]
+                            packages = itemsController.arrangedObjects as [GPackage]
                         }
                         
                     } else if !(src == "SYSTEMS" || src == "STATUS" || src == "") { // a category was selected
                         itemsController.filterPredicate = NSPredicate(format: "categories CONTAINS[c] '\(src)'")
-                        packages = (system.items as [GPackage]).filter {
-                            $0.categories? && $0.categories!.contains(src)
-                        }
+                        packages = system.items.filter { $0.categories != nil && $0.categories!.contains(src) } as [GPackage]
                         
                     } else { // a system was selected
                         itemsController.filterPredicate = nil
@@ -902,7 +900,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             var page: String! = nil
             if item != nil {
                 if selectedSegment == "Log" {
-                    if item.source.name == "MacPorts" && !item.categories? {
+                    if item.source.name == "MacPorts" && item.categories == nil {
                         page = packagesIndex[(item as GPackage).key]!.log
                     } else {
                         page = item.log
@@ -1199,7 +1197,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             command = "\(cmd) ; guigna --baton \(baton)"
         }
         
-        if adminPassword {
+        if adminPassword != nil {
             command = command.stringByReplacingOccurrencesOfString("sudo", withString:"echo \"\(adminPassword!)\" | sudo -S")
         }
         raiseShell(self)
@@ -1248,7 +1246,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             let clickedRow = itemsTable.clickedRow
             if clickedRow != -1 {
                 let arrangedObjects = itemsController.arrangedObjects as NSArray
-                selectedItems += arrangedObjects[itemsTable.clickedRow] as GItem
+                selectedItems.append(arrangedObjects[itemsTable.clickedRow] as GItem)
             }
             
             if title == "Mark" { // TODO: Disable marks based on status
@@ -1307,7 +1305,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     commandsPopUp.addItemWithTitle("[no package selected]")
                 } else {
                     let item = selectedItems[0] // TODO
-                    if item.system {
+                    if (item.system != nil) {
                         for commandArray in item.system.availableCommands() {
                             commandsPopUp.addItemWithTitle(commandArray[0])
                         }
@@ -1332,7 +1330,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         var selectedItems = selectedObjects.copy() as [GItem]
         if itemsTable.clickedRow != -1 {
             let arrangedObjects = itemsController.arrangedObjects as NSArray
-            selectedItems += arrangedObjects[itemsTable.clickedRow] as GItem
+            selectedItems.append(arrangedObjects[itemsTable.clickedRow] as GItem)
         }
         var title: String
         var mark: GMark = .NoMark
@@ -1377,7 +1375,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     markedOptions += (item as GPackage).markedOptions.split()
                 }
                 if sender.state == NSOffState {
-                    markedOptions += title
+                    markedOptions.append(title)
                 } else {
                     markedOptions.removeAtIndex(find(markedOptions, title)!)
                 }
@@ -1460,12 +1458,12 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         }
         
         // workaround since an immutable array is necessary as a Dictionary Optional
-        var systemsDict = [String: NSMutableArray]()
+        var systemsDict = [String: [GPackage]]()
         for system in markedSystems.allObjects as [GSystem] {
-            systemsDict[system.name] = NSMutableArray()
+            systemsDict[system.name] = [GPackage]()
         }
         for item in markedItems as [GPackage] {
-            systemsDict[item.system.name]!.addObject(item)
+            systemsDict[item.system.name]?.append(item)
         }
         
         let prefixes = ["/opt/local", "/usr/local", "/sw", "/usr/pkg"]
@@ -1473,7 +1471,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         var detectedPrefixes = [String]()
         for prefix in prefixes {
             if fileManager.fileExistsAtPath(prefix) {
-                detectedPrefixes += prefix
+                detectedPrefixes.append(prefix)
             }
         }
         for system in systems {
@@ -1523,7 +1521,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     if defaults["DebugMode"] == true {
                         command = item.system.verbosifiedCmd(command)
                     }
-                    systemCommands += command
+                    systemCommands.append(command)
                 }
             }
             
@@ -1534,15 +1532,15 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     }
                     if otherSystem.hideCmd != nil
                         && otherSystem.hideCmd != system.hideCmd
-                        && !find(systemTasks, otherSystem.hideCmd)
+                        && find(systemTasks, otherSystem.hideCmd) == nil
                         && fileManager.fileExistsAtPath(otherSystem.prefix) {
-                            tasks += otherSystem.hideCmd
-                            systemTasks += otherSystem.hideCmd
+                            tasks.append(otherSystem.hideCmd)
+                            systemTasks.append(otherSystem.hideCmd)
                             // TODO: set GOnlineMode
                     }
                 }
                 for prefix in detectedPrefixes {
-                    tasks += "sudo mv \(prefix) \(prefix)_off"
+                    tasks.append("sudo mv \(prefix) \(prefix)_off")
                 }
             }
             tasks += systemCommands
@@ -1553,14 +1551,14 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     }
                     if otherSystem.hideCmd != nil
                         && otherSystem.hideCmd != system.hideCmd
-                        && !find(systemTasks, otherSystem.unhideCmd)
+                        && find(systemTasks, otherSystem.unhideCmd) == nil
                         && fileManager.fileExistsAtPath(otherSystem.prefix) {
-                            tasks += otherSystem.unhideCmd
-                            systemTasks += otherSystem.unhideCmd
+                            tasks.append(otherSystem.unhideCmd)
+                            systemTasks.append(otherSystem.unhideCmd)
                     }
                 }
                 for prefix in detectedPrefixes {
-                    tasks += "sudo mv \(prefix)_off \(prefix)"
+                    tasks.append("sudo mv \(prefix)_off \(prefix)")
                 }
             }
         }
@@ -1620,7 +1618,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         var frame: NSRect = tabView.frame
         frame.size.width += 0
         frame.size.height -= 3
-        frame.origin.x = window.frame.origin.x + sourcesOutline.superview.frame.size.width + 1
+        frame.origin.x = window.frame.origin.x + sourcesOutline.superview!.frame.size.width + 1
         frame.origin.y = window.frame.origin.y + 22
         for window in terminal.valueForKey("windows") as [NSObject] {
             if (window.valueForKey("name") as NSString).containsString("Guigna ") {
@@ -1732,7 +1730,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                     }
                     
                     if system != nil {
-                        systems += system
+                        systems.append(system)
                         source = system
                         let systemsCount = systemsArray.count
                         systemsMutableArray.addObject(source)
@@ -1743,7 +1741,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                         sourcesSelectionDidChange(systemsMutableArray[systemsCount])
                         itemsController.addObjects(system.list())
                         itemsTable.display()
-                        allPackages +=  system.items as [GPackage]
+                        allPackages += system.items as [GPackage]
                         for (key, value) in system.index {
                             packagesIndex[key] = value
                         }
@@ -1787,25 +1785,25 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     func applyTheme(theme: String) {
         if theme == "Retro" {
             window.backgroundColor = NSColor.greenColor()
-            segmentedControl.superview.wantsLayer = true
-            segmentedControl.superview.layer.backgroundColor = NSColor.blackColor().CGColor
+            segmentedControl.superview!.wantsLayer = true
+            segmentedControl.superview!.layer!.backgroundColor = NSColor.blackColor().CGColor
             itemsTable.backgroundColor = NSColor.blackColor()
             itemsTable.usesAlternatingRowBackgroundColors = false
             tableFont = NSFont(name: "Andale Mono", size: 11.0)
             tableTextColor = NSColor.greenColor()
             itemsTable.gridColor = NSColor.greenColor()
             itemsTable.gridStyleMask = .DashedHorizontalGridLineMask
-            (sourcesOutline.superview.superview as NSScrollView).borderType = .LineBorder
+            (sourcesOutline.superview!.superview! as NSScrollView).borderType = .LineBorder
             sourcesOutline.backgroundColor = NSColor.blackColor()
             segmentedControl.segmentStyle = .SmallSquare
             commandsPopUp.bezelStyle = .SmallSquareBezelStyle
-            (infoText.superview.superview as NSScrollView).borderType = .LineBorder
+            (infoText.superview!.superview! as NSScrollView).borderType = .LineBorder
             infoText.backgroundColor = NSColor.blackColor()
             infoText.textColor = NSColor.greenColor()
             var cyanLinkAttribute = NSMutableDictionary(dictionary: linkTextAttributes)
             cyanLinkAttribute[NSForegroundColorAttributeName] = NSColor.cyanColor()
             infoText.linkTextAttributes = cyanLinkAttribute
-            (logText.superview.superview as NSScrollView).borderType = .LineBorder
+            (logText.superview!.superview! as NSScrollView).borderType = .LineBorder
             logText.backgroundColor = NSColor.blueColor()
             logText.textColor = NSColor.whiteColor()
             logTextColor = NSColor.whiteColor()
@@ -1823,22 +1821,22 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             
         } else { // Default theme
             window.backgroundColor = NSColor.windowBackgroundColor()
-            segmentedControl.superview.layer.backgroundColor = NSColor.windowBackgroundColor().CGColor
+            segmentedControl.superview!.layer!.backgroundColor = NSColor.windowBackgroundColor().CGColor
             itemsTable.backgroundColor = NSColor.whiteColor()
             itemsTable.usesAlternatingRowBackgroundColors = true
             tableFont = NSFont.controlContentFontOfSize(NSFont.systemFontSizeForControlSize(.SmallControlSize))
             tableTextColor = NSColor.blackColor()
             itemsTable.gridStyleMask = .GridNone
             itemsTable.gridColor = NSColor.gridColor()
-            (sourcesOutline.superview.superview as NSScrollView).borderType = .GrooveBorder
+            (sourcesOutline.superview!.superview! as NSScrollView).borderType = .GrooveBorder
             sourcesOutline.backgroundColor = sourceListBackgroundColor
             segmentedControl.segmentStyle = .Rounded
             commandsPopUp.bezelStyle = .RoundRectBezelStyle // TODO: Round in Mavericks
-            (infoText.superview.superview as NSScrollView).borderType = .GrooveBorder
+            (infoText.superview!.superview! as NSScrollView).borderType = .GrooveBorder
             infoText.backgroundColor = NSColor(calibratedRed: 0.82290249429999995, green: 0.97448979589999996, blue: 0.67131519269999995, alpha: 1.0) // light green
             infoText.textColor = NSColor.blackColor()
             infoText.linkTextAttributes = linkTextAttributes
-            (logText.superview.superview as NSScrollView).borderType = .GrooveBorder
+            (logText.superview!.superview! as NSScrollView).borderType = .GrooveBorder
             logText.backgroundColor = NSColor(calibratedRed: 1.0, green: 1.0, blue: 0.8, alpha: 1.0) // lioght yellow
             logText.textColor = NSColor.blackColor()
             logTextColor = NSColor.blackColor()
@@ -1916,111 +1914,93 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     @IBAction func details(sender: AnyObject) {
     }
     
-    @IBAction func saveAction(sender: AnyObject) {
-        // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
+    // MARK: - Core Data stack
+
+    lazy var applicationDocumentsDirectory: NSURL = {
+        // The directory the application uses to store the Core Data store file. This code uses a directory named "name.soranzio.guido.Guigna" in the user's Application Support directory.
+        let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
+        let appSupportURL = urls[urls.count - 1] as NSURL
+        return appSupportURL.URLByAppendingPathComponent("name.soranzio.guido.Guigna")
+    }()
+
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
+        let modelURL = NSBundle.mainBundle().URLForResource("Guigna", withExtension: "momd")
+        return NSManagedObjectModel(contentsOfURL: modelURL)
+    }()
+
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.) This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
+        let fileManager = NSFileManager.defaultManager()
+        var shouldFail = false
         var error: NSError? = nil
+        var failureReason = "There was an error creating or loading the application's saved data."
+
+        // Make sure the application files directory is there
+        let properties = self.applicationDocumentsDirectory.resourceValuesForKeys([NSURLIsDirectoryKey], error: &error)
+        if properties {
+            if !properties[NSURLIsDirectoryKey]!.boolValue {
+                failureReason = "Expected a folder to store application data, found a file \(self.applicationDocumentsDirectory.path)."
+                shouldFail = true
+            }
+        } else if error!.code == NSFileReadNoSuchFileError {
+            error = nil
+            fileManager.createDirectoryAtPath(self.applicationDocumentsDirectory.path, withIntermediateDirectories: true, attributes: nil, error: &error)
+        }
         
+        // Create the coordinator and store
+        var coordinator: NSPersistentStoreCoordinator?
+        if !shouldFail && (error == nil) {
+            coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+            let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Guigna.storedata")
+            if coordinator!.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+                coordinator = nil
+            }
+        }
+        
+        if shouldFail || (error != nil) {
+            // Report any error we got.
+            let dict = NSMutableDictionary()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            if error != nil {
+                dict[NSUnderlyingErrorKey] = error
+            }
+            error = NSError.errorWithDomain("YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            NSApplication.sharedApplication().presentError(error)
+            return nil
+        } else {
+            return coordinator
+        }
+    }()
+
+    lazy var managedObjectContext: NSManagedObjectContext? = {
+        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
+        let coordinator = self.persistentStoreCoordinator
+        if coordinator == nil {
+            return nil
+        }
+        var managedObjectContext = NSManagedObjectContext()
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+
+    // MARK: - Core Data Saving and Undo support
+
+    @IBAction func saveAction(sender: AnyObject!) {
+        // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
         if let moc = self.managedObjectContext {
             if !moc.commitEditing() {
-                println("\(NSStringFromClass(self.dynamicType)) unable to commit editing before saving")
+                NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing before saving")
             }
-            if !moc.save(&error) {
+            var error: NSError? = nil
+            if moc.hasChanges && !moc.save(&error) {
                 NSApplication.sharedApplication().presentError(error)
             }
         }
     }
-    
-    var applicationFilesDirectory: NSURL {
-    // Returns the directory the application uses to store the Core Data store file. This code uses a directory named "name.soranzio.guido.Guigna" in the user's Application Support directory.
-    let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
-        let appSupportURL: AnyObject = urls[urls.endIndex - 1]
-        return appSupportURL.URLByAppendingPathComponent("name.soranzio.guido.Guigna")
-    }
-    
-    var managedObjectModel: NSManagedObjectModel {
-    // Creates if necessary and returns the managed object model for the application.
-    if let mom = _managedObjectModel {
-        return mom
-        }
-        
-        let modelURL = NSBundle.mainBundle().URLForResource("Guigna", withExtension: "momd")
-        _managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL)
-        return _managedObjectModel!
-    }
-    var _managedObjectModel: NSManagedObjectModel? = nil
-    
-    var persistentStoreCoordinator: NSPersistentStoreCoordinator? {
-    // Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
-    if let psc = _persistentStoreCoordinator {
-        return psc
-        }
-        
-        let mom = self.managedObjectModel
-        
-        let fileManager = NSFileManager.defaultManager()
-        let applicationFilesDirectory = self.applicationFilesDirectory
-        var error: NSError? = nil
-        
-        let optProperties: NSDictionary? = applicationFilesDirectory.resourceValuesForKeys([NSURLIsDirectoryKey], error: &error)
-        
-        if let properties = optProperties {
-            if !properties[NSURLIsDirectoryKey].boolValue {
-                // Customize and localize this error.
-                let failureDescription = "Expected a folder to store application data, found a file \(applicationFilesDirectory.path)."
-                let dict = NSMutableDictionary()
-                dict[NSLocalizedDescriptionKey] = failureDescription
-                error = NSError.errorWithDomain("YOUR_ERROR_DOMAIN", code: 101, userInfo: dict)
-                
-                NSApplication.sharedApplication().presentError(error)
-                return nil
-            }
-        } else {
-            var ok = false
-            if error!.code == NSFileReadNoSuchFileError {
-                ok = fileManager.createDirectoryAtPath(applicationFilesDirectory.path, withIntermediateDirectories: true, attributes: nil, error: &error)
-            }
-            if !ok {
-                NSApplication.sharedApplication().presentError(error)
-                return nil
-            }
-        }
-        
-        let url = applicationFilesDirectory.URLByAppendingPathComponent("Guigna.storedata")
-        var coordinator = NSPersistentStoreCoordinator(managedObjectModel: mom)
-        if coordinator.addPersistentStoreWithType(NSXMLStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
-            NSApplication.sharedApplication().presentError(error)
-            return nil
-        }
-        _persistentStoreCoordinator = coordinator
-        
-        return _persistentStoreCoordinator
-    }
-    var _persistentStoreCoordinator: NSPersistentStoreCoordinator? = nil
-    
-    var managedObjectContext: NSManagedObjectContext? {
-    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-    if let moc = _managedObjectContext {
-        return moc
-        }
-        
-        let coordinator = self.persistentStoreCoordinator
-        if !coordinator {
-            var dict = NSMutableDictionary()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the store"
-            dict[NSLocalizedFailureReasonErrorKey] = "There was an error building up the data file."
-            let error = NSError.errorWithDomain("YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            NSApplication.sharedApplication().presentError(error)
-            return nil
-        }
-        _managedObjectContext = NSManagedObjectContext()
-        _managedObjectContext!.persistentStoreCoordinator = coordinator!
-        
-        return _managedObjectContext
-    }
-    var _managedObjectContext: NSManagedObjectContext? = nil
-    
-    func windowWillReturnUndoManager(window: NSWindow?) -> NSUndoManager? {
+
+    func windowWillReturnUndoManager(window: NSWindow!) -> NSUndoManager! {
         // Returns the NSUndoManager for the application. In this case, the manager returned is that of the managed object context for the application.
         if let moc = self.managedObjectContext {
             return moc.undoManager
@@ -2028,55 +2008,53 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             return nil
         }
     }
-    
-    func applicationShouldTerminate(sender: NSApplication) -> NSApplicationTerminateReply {
+
+    func applicationShouldTerminate(sender: NSApplication!) -> NSApplicationTerminateReply {
         // Save changes in the application's managed object context before the application terminates.
         
-        if !_managedObjectContext {
-            // Accesses the underlying stored property because we don't want to cause the lazy initialization
-            return .TerminateNow
-        }
-        let moc = self.managedObjectContext!
-        if !moc.commitEditing() {
-            println("\(NSStringFromClass(self.dynamicType)) unable to commit editing to terminate")
-            return .TerminateCancel
-        }
-        
-        if !moc.hasChanges {
-            return .TerminateNow
-        }
-        
-        var error: NSError? = nil
-        if !moc.save(&error) {
-            // Customize this code block to include application-specific recovery steps.
-            let result = sender.presentError(error)
-            if (result) {
+        if let moc = managedObjectContext {
+            if !moc.commitEditing() {
+                NSLog("\(NSStringFromClass(self.dynamicType)) unable to commit editing to terminate")
                 return .TerminateCancel
             }
             
-            let question = "Could not save changes while quitting. Quit anyway?" // NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message")
-            let info = "Quitting now will lose any changes you have made since the last successful save" // NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-            let quitButton = "Quit anyway" // NSLocalizedString(@"Quit anyway", @"Quit anyway button title")
-            let cancelButton = "Cancel" // NSLocalizedString(@"Cancel", @"Cancel button title")
-            let alert = NSAlert()
-            alert.messageText = question
-            alert.informativeText = info
-            alert.addButtonWithTitle(quitButton)
-            alert.addButtonWithTitle(cancelButton)
+            if !moc.hasChanges {
+                return .TerminateNow
+            }
             
-            let answer = alert.runModal()
-            if answer == NSAlertFirstButtonReturn {
-                return .TerminateCancel
+            var error: NSError? = nil
+            if !moc.save(&error) {
+                // Customize this code block to include application-specific recovery steps.
+                let result = sender.presentError(error)
+                if (result) {
+                    return .TerminateCancel
+                }
+                
+                let question = NSLocalizedString("Could not save changes while quitting. Quit anyway?", comment: "Quit without saves error question message")
+                let info = NSLocalizedString("Quitting now will lose any changes you have made since the last successful save", comment: "Quit without saves error question info");
+                let quitButton = NSLocalizedString("Quit anyway", comment: "Quit anyway button title")
+                let cancelButton = NSLocalizedString("Cancel", comment: "Cancel button title")
+                let alert = NSAlert()
+                alert.messageText = question
+                alert.informativeText = info
+                alert.addButtonWithTitle(quitButton)
+                alert.addButtonWithTitle(cancelButton)
+                
+                let answer = alert.runModal()
+                if answer == NSAlertFirstButtonReturn {
+                    return .TerminateCancel
+                }
             }
         }
-        
+        // If we got here, it is time to quit.
         return .TerminateNow
     }
+
     
     // GAppDelegate protocol
     
     func addItem(item: GItem) {
-        allPackages += item as GPackage
+        allPackages.append(item as GPackage)
     }
     
     func removeItem(item: GItem) {
@@ -2091,6 +2069,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
 
 
 // TODO
+
 @objc(GDefaultsTransformer)
 class GDefaultsTransformer: NSValueTransformer {
 }

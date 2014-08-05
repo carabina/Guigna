@@ -28,7 +28,7 @@ class Fink: GSystem {
                 let version = dataRows[1].stringValue!
                 let pkg = GPackage(name: name, version: version, system: self, status: .Available)
                 pkg.description = description
-                items += pkg
+                items.append(pkg)
                 self[name] = pkg
             }
         } else {
@@ -54,7 +54,7 @@ class Fink: GSystem {
                 }
                 let pkg = GPackage(name: name, version: version, system: self, status: status)
                 pkg.description = description
-                items += pkg
+                items.append(pkg)
                 self[name] = pkg
             }
         }
@@ -101,7 +101,7 @@ class Fink: GSystem {
                 }
             }
             pkg.installed = version
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -134,7 +134,7 @@ class Fink: GSystem {
                 pkg.status = .Outdated
             }
             pkg.description = description
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -216,36 +216,36 @@ class Fink: GSystem {
     
     
     override var updateCmd: String! {
-    get {
-        if mode == .Online {
-            return nil
-        } else {
-            return "sudo \(cmd) selfupdate"
+        get {
+            if mode == .Online {
+                return nil
+            } else {
+                return "sudo \(cmd) selfupdate"
+            }
         }
-    }
     }
     
     override var hideCmd: String! {
-    get {
-        return "sudo mv \(prefix) \(prefix)_off"}
+        get {
+            return "sudo mv \(prefix) \(prefix)_off"}
     }
     
     override var unhideCmd: String! {
-    get {
-        return "sudo mv \(prefix)_off \(prefix)"}
+        get {
+            return "sudo mv \(prefix)_off \(prefix)"}
     }
     
     
     class var setupCmd: String! {
         get {
             return "sudo mv /usr/local /usr/local_off ; sudo mv /opt/local /opt/local_off ; sudo mv /usr/pkg /usr/pkg_off ; cd ~/Library/Application\\ Support/Guigna/Fink ; curl -L -O http://downloads.sourceforge.net/fink/fink-0.37.0.tar.gz ; tar -xvzf fink-0.37.0.tar.gz ; cd fink-0.37.0 ; sudo ./bootstrap ; /sw/bin/pathsetup.sh ; . /sw/bin/init.sh ; /sw/bin/fink selfupdate-rsync ; /sw/bin/fink index -f ; sudo mv /usr/local_off /usr/local ; sudo mv /opt/local_off /opt/local ; sudo mv /usr/pkg_off /usr/pkg"
-    }
+        }
     }
     
     class var removeCmd: String! {
         get {
             return "sudo rm -rf /sw"
-    }
+        }
     }
     
     override func verbosifiedCmd(command: String) -> String  {

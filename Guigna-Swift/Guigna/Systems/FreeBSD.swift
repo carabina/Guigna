@@ -33,7 +33,7 @@ class FreeBSD: GSystem {
                 pkg.categories = category
                 pkg.description = description
                 pkg.homepage = homepage
-                items += pkg
+                items.append(pkg)
                 // self[id] = pkg
             }
             
@@ -55,7 +55,7 @@ class FreeBSD: GSystem {
                 let pkg = GPackage(name: name, version: version, system: self, status: .Available)
                 pkg.categories = category
                 pkg.description = description
-                items += pkg
+                items.append(pkg)
                 // self[id] = pkg
                 i++
             }

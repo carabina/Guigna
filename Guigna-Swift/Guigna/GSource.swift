@@ -42,7 +42,7 @@ class GSource: NSObject {
     }
     
     func home(item: GItem!) -> String {
-        if item?.homepage? {
+        if item?.homepage != nil {
             return item.homepage
         } else {
             return homepage

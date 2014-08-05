@@ -55,7 +55,7 @@ class MacOSX: GSystem {
             pkg.description = pkg.id!
             pkg.installed = version
             // TODO: pkg.version
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         //    for pkg in installed() {
         //        index[pkg key].status = pkg.status
@@ -166,15 +166,15 @@ class MacOSX: GSystem {
             var dirs = output("\(cmd) --only-dirs --files \(pkgId)").split("\n")
             dirs.removeLast()
             for dir in dirs {
-                let dirPath: NSString = NSString.pathWithComponents([plist["volume"]!, plist["install-location"]!, dir])
+                let dirPath = NSString.pathWithComponents([plist["volume"]!, plist["install-location"]!, dir])
                 let fileAttributes = fileManager.attributesOfItemAtPath(dirPath, error: nil) as NSDictionary
-                if (!(fileAttributes.fileOwnerAccountID() == 0) && !dirPath.hasPrefix("/usr/local"))
-                    || dirPath.containsString(pkg.name)
-                    || dirPath.containsString(".")
+                if (!(Int(fileAttributes.fileOwnerAccountID()) == 0) && !dirPath.hasPrefix("/usr/local"))
+                    || dirPath.contains(pkg.name)
+                    || dirPath.contains(".")
                     || dirPath.hasPrefix("/opt/") {
-                        if (dirsToDelete.filter { dirPath.containsString($0) }).count == 0 {
-                            dirsToDelete += dirPath
-                            commands += "sudo rm -r \"\(dirPath)\""
+                        if (dirsToDelete.filter { dirPath.contains($0) }).count == 0 {
+                            dirsToDelete.append(dirPath)
+                            commands.append("sudo rm -r \"\(dirPath)\"")
                         }
                 }
             }
@@ -184,11 +184,11 @@ class MacOSX: GSystem {
                 let filePath = NSString.pathWithComponents([plist["volume"]!, plist["install-location"]!, file])
                 if !(fileManager.fileExistsAtPath(filePath, isDirectory: &isDir) && isDir) {
                     if (dirsToDelete.filter { filePath.contains($0) }).count == 0 {
-                        commands += "sudo rm \"\(filePath)\""
+                        commands.append("sudo rm \"\(filePath)\"")
                     }
                 }
             }
-            commands += "sudo \(cmd) --forget \(pkgId)"
+            commands.append("sudo \(cmd) --forget \(pkgId)")
         }
         return commands.join(" ; ")
         

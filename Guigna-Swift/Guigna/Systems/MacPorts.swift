@@ -27,7 +27,7 @@ class MacPorts: GSystem {
                 let categories = components[components.count - 1].split("/")[0]
                 var pkg = GPackage(name: name, version: version, system: self, status: .Available)
                 pkg.categories = categories
-                items += pkg
+                items.append(pkg)
                 self[name] = pkg
             }
             
@@ -101,7 +101,7 @@ class MacPorts: GSystem {
                 // if (self.mode == GOnlineMode) {
                 //    pkg.homepage = homepage;
                 // }
-                items += pkg
+                items.append(pkg)
                 self[name!] = pkg
             }
         }
@@ -166,7 +166,7 @@ class MacPorts: GSystem {
                 if status != .Inactive {
                     self[name] = pkg
                 } else {
-                    items += pkg
+                    items.append(pkg)
                     self.agent.appDelegate!.addItem(pkg)  // TODO: ugly
                 }
             } else {
@@ -176,7 +176,7 @@ class MacPorts: GSystem {
             }
             pkg.installed = version
             pkg.options = variants
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -211,7 +211,7 @@ class MacPorts: GSystem {
                 pkg.status = .Outdated
             }
             pkg.installed = version
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -231,7 +231,7 @@ class MacPorts: GSystem {
         
         for pkg in installed() {
             if pkg.status == .Inactive {
-                pkgs += pkg
+                pkgs.append(pkg)
             }
         }
         return pkgs
@@ -364,23 +364,23 @@ class MacPorts: GSystem {
     }
     
     override var updateCmd: String! {
-    get {
-        if mode == .Online {
-            return "sudo cd ; cd ~/Library/Application\\ Support/Guigna/Macports ; /usr/bin/rsync -rtzv rsync://rsync.macports.org/release/tarballs/PortIndex_darwin_13_i386/PortIndex PortIndex"
-        } else {
-            return "sudo \(cmd) -d selfupdate"
+        get {
+            if mode == .Online {
+                return "sudo cd ; cd ~/Library/Application\\ Support/Guigna/Macports ; /usr/bin/rsync -rtzv rsync://rsync.macports.org/release/tarballs/PortIndex_darwin_13_i386/PortIndex PortIndex"
+            } else {
+                return "sudo \(cmd) -d selfupdate"
+            }
         }
-    }
     }
     
     override var hideCmd: String! {
-    get {
-        return "sudo mv \(prefix) \(prefix)_off"}
+        get {
+            return "sudo mv \(prefix) \(prefix)_off"}
     }
     
     override var unhideCmd: String! {
-    get {
-        return "sudo mv \(prefix)_off \(prefix)"}
+        get {
+            return "sudo mv \(prefix)_off \(prefix)"}
     }
     
 }

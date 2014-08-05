@@ -33,9 +33,9 @@ extension String {
     //    }
     
     var length: Int {
-    get {
-        return countElements(self)
-    }
+        get {
+            return countElements(self)
+        }
     }
     
     //    func index(string: String) -> Int {
@@ -141,9 +141,9 @@ extension NSXMLNode {
     }
     
     var href: String { // FIXME: coompiling error when used
-    get {
-        return (self as NSXMLElement).attributeForName("href").stringValue!
-    }
+        get {
+            return (self as NSXMLElement).attributeForName("href").stringValue!
+        }
     }
 }
 

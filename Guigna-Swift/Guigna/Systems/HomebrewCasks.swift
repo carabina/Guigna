@@ -45,7 +45,7 @@ class HomebrewCasks: GSystem {
                     pkg = prevPackage!
                 }
             }
-            items += pkg
+            items.append(pkg)
             self[name] = pkg
         }
         self.installed() // update status
@@ -73,7 +73,7 @@ class HomebrewCasks: GSystem {
         var status: GStatus
         
         // TODO: remove inactive packages from items and allPackages
-
+        
         for pkg in items as [GPackage] {
             status = pkg.status
             pkg.installed = nil
@@ -106,7 +106,7 @@ class HomebrewCasks: GSystem {
                     pkg.status = .Outdated
                 }
             }
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -127,7 +127,7 @@ class HomebrewCasks: GSystem {
         
         for pkg in installed() {
             if pkg.status == .Outdated {
-                pkgs += pkg
+                pkgs.append(pkg)
             }
         }
         return pkgs
@@ -239,15 +239,15 @@ class HomebrewCasks: GSystem {
     //    }
     
     override var hideCmd: String! {
-    get {
-        return "sudo mv \(prefix) \(prefix)_off"
-    }
+        get {
+            return "sudo mv \(prefix) \(prefix)_off"
+        }
     }
     
     override var unhideCmd: String! {
-    get {
-        return "sudo mv \(prefix)_off \(prefix)"
-    }
+        get {
+            return "sudo mv \(prefix)_off \(prefix)"
+        }
     }
     
     // TODO: class vars  not yet supported
@@ -255,13 +255,13 @@ class HomebrewCasks: GSystem {
     class var setupCmd: String! {
         get {
             return "\(prefix())/bin/brew install caskroom/cask/brew-cask ; \(prefix())/bin/brew cask list"
-    }
+        }
     }
     
     class var removeCmd: String! {
         get {
             return "\(prefix())/bin/brew untap caskroom/cask"
-    }
+        }
     }
     
     override func verbosifiedCmd(command: String) -> String {

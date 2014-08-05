@@ -52,7 +52,7 @@ class Rudix: GSystem {
                     items.removeAtIndex(idx)
                 }
             }
-            items += pkg
+            items.append(pkg)
             self[name] = pkg
         }
         self.installed() // update status
@@ -97,7 +97,7 @@ class Rudix: GSystem {
                 }
             }
             pkg.installed = "" // TODO
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -144,21 +144,21 @@ class Rudix: GSystem {
     
     
     override var hideCmd: String! {
-    get {
-        return "sudo mv \(prefix) \(prefix)_off"
-    }
+        get {
+            return "sudo mv \(prefix) \(prefix)_off"
+        }
     }
     
     override var unhideCmd: String! {
-    get {
-        return "sudo mv \(prefix)_off \(prefix)"
-    }
+        get {
+            return "sudo mv \(prefix)_off \(prefix)"
+        }
     }
     
     class var setupCmd: String! {
         get {
             return "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"
-    }
+        }
     }
 }
 

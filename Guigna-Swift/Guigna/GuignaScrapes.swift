@@ -4,7 +4,7 @@ class GScrape: GSource {
     var pageNumber: Int
     var itemsPerPage: Int!
     
-    init(name: String, agent: GAgent!) {
+    override init(name: String, agent: GAgent!) {
         pageNumber = 1
         super.init(name: name, agent: agent)
     }
@@ -54,7 +54,7 @@ class PkgsrcSE: GScrape {
             entry.id = id
             entry.description = description
             entry.categories = category
-            entries += entry
+            entries.append(entry)
         }
         items = entries
     }
@@ -89,7 +89,7 @@ class Debian: GScrape {
             let name = components[1]
             let version = components[2]
             var pkg = GItem(name: name, version: version, source: self, status: .Available)
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         items = pkgs
     }
@@ -135,7 +135,7 @@ class PyPI: GScrape {
             let description = rowData[2].stringValue!
             var egg = GItem(name: name, version: version, source: self, status: .Available)
             egg.description = description
-            eggs += egg
+            eggs.append(egg)
         }
         items = eggs
     }
@@ -174,7 +174,7 @@ class RubyGems: GScrape {
             let info = spans[1].stringValue!
             var gem = GItem(name: name, version: version, source: self, status: .Available)
             gem.description = info
-            gems += gem
+            gems.append(gem)
         }
         items = gems
     }
@@ -226,7 +226,7 @@ class MacUpdate: GScrape {
             let app = GItem(name: name, version: version, source: self, status: .Available)
             app.id = id
             app.description = description
-            apps += app
+            apps.append(app)
         }
         items = apps
     }
@@ -281,7 +281,7 @@ class AppShopper: GScrape {
             app.id = id
             app.categories = category
             app.description = "\(type) \(fixedPrice)"
-            apps += app
+            apps.append(app)
         }
         items = apps
     }
@@ -356,7 +356,7 @@ class AppShopperIOS: GScrape {
             app.id = id
             app.categories = category
             app.description = "\(type) \(fixedPrice)"
-            apps += app
+            apps.append(app)
         }
         items = apps
     }

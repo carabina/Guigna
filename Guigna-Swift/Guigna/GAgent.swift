@@ -15,9 +15,9 @@ class GAgent: NSObject {
             let components = tokens[1...tokens.count-1]
             for component: String in components {
                 if component == "\"\"" {
-                    args += ""
+                    args.append("")
                 } else {
-                    args += component.stringByReplacingOccurrencesOfString("__", withString: " ")
+                    args.append(component.stringByReplacingOccurrencesOfString("__", withString: " "))
                 }
             }
         }

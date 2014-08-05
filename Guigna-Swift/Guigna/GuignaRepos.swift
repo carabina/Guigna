@@ -31,7 +31,7 @@ class Native: GRepo {
             pkg.homepage = homepage
             pkg.description = url
             pkg.URL = url
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         items = pkgs
     }

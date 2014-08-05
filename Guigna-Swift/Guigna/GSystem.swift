@@ -4,7 +4,7 @@ class GSystem: GSource {
     var prefix: String
     final var index: [String: GPackage] // declare final to work around the copy of the dictionary
     
-    init(name: String, agent: GAgent!) {
+    override init(name: String, agent: GAgent!) {
         prefix = ""
         index = [String: GPackage](minimumCapacity: 50000)
         super.init(name: name, agent: agent)
@@ -28,9 +28,9 @@ class GSystem: GSource {
     }
     
     var isHidden: Bool {
-    get {
-        return NSFileManager.defaultManager().fileExistsAtPath(prefix + "_off")
-    }
+        get {
+            return NSFileManager.defaultManager().fileExistsAtPath(prefix + "_off")
+        }
     }
     
     func key(package pkg: GPackage) -> String {
@@ -92,22 +92,22 @@ class GSystem: GSource {
     
     
     var updateCmd: String! {
-    get  {
-        return nil
-    }
+        get  {
+            return nil
+        }
     }
     
     
     var hideCmd: String! {
-    get  {
-        return nil
-    }
+        get  {
+            return nil
+        }
     }
     
     var unhideCmd: String! {
-    get  {
-        return nil
-    }
+        get  {
+            return nil
+        }
     }
     
     func verbosifiedCmd(command: String) -> String {

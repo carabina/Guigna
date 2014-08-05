@@ -28,52 +28,52 @@ class GItem: NSObject {
     weak var system: GSystem!
     
     var status: GStatus {
-    willSet(newValue) {
-        self.willChangeValueForKey("statusValue")
-    }
-    didSet(newValue) {
-        self.didChangeValueForKey("statusValue")
-    }
+        willSet(newValue) {
+            self.willChangeValueForKey("statusValue")
+        }
+        didSet(newValue) {
+            self.didChangeValueForKey("statusValue")
+        }
     }
     var statusValue: NSNumber {
-    get {
-        return NSNumber.numberWithInteger(self.status.toRaw())
-    }
-    set {
-        status = GStatus.fromRaw(newValue.integerValue)!
-    }
+        get {
+            return NSNumber.numberWithInteger(self.status.toRaw())
+        }
+        set {
+            status = GStatus.fromRaw(newValue.integerValue)!
+        }
     }
     
     var mark: GMark {
-    willSet(newValue) {
-        self.willChangeValueForKey("markValue")
-    }
-    didSet(newValue) {
-        self.didChangeValueForKey("markValue")
-    }
+        willSet(newValue) {
+            self.willChangeValueForKey("markValue")
+        }
+        didSet(newValue) {
+            self.didChangeValueForKey("markValue")
+        }
     }
     var markValue: NSNumber {
-    get {
-        return NSNumber.numberWithInteger(self.mark.toRaw())
-    }
-    set {
-        mark = GMark.fromRaw(newValue.integerValue)!
-    }
+        get {
+            return NSNumber.numberWithInteger(self.mark.toRaw())
+        }
+        set {
+            mark = GMark.fromRaw(newValue.integerValue)!
+        }
     }
     
     var installed: String!
     var categories: String?
     var _description: String?
     override var description: String {
-    get {
-        if _description {
-            return _description!
-        } else {
-            return ""
+        get {
+            if _description != nil {
+                return _description!
+            } else {
+                return ""
+            }
         }
-    }
-    set {
-        self._description = newValue}
+        set {
+            self._description = newValue}
     }
     var homepage: String!
     var screenshots: String!
@@ -91,45 +91,45 @@ class GItem: NSObject {
     }
     
     var info: String {
-    get {
-        return source.info(self)
-    }
+        get {
+            return source.info(self)
+        }
     }
     
     var home: String {
-    get {
-        return source.home(self)
-    }
+        get {
+            return source.home(self)
+        }
     }
     
     var log: String {
-    get {
-        return source.log(self)
-    }
+        get {
+            return source.log(self)
+        }
     }
     
     var contents: String {
-    get {
-        return source.contents(self)
-    }
+        get {
+            return source.contents(self)
+        }
     }
     
     var cat: String {
-    get {
-        return source.cat(self)
-    }
+        get {
+            return source.cat(self)
+        }
     }
     
     var deps: String {
-    get {
-        return source.deps(self)
-    }
+        get {
+            return source.deps(self)
+        }
     }
     
     var dependents: String {
-    get {
-        return source.dependents(self)
-    }
+        get {
+            return source.dependents(self)
+        }
     }
 }
 

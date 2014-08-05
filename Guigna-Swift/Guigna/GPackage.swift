@@ -12,44 +12,44 @@ class GPackage: GItem {
     }
     
     var key: String  {
-    get {
-        return self.system.key(package: self)
-    }
+        get {
+            return self.system.key(package: self)
+        }
     }
     
     var installCmd: String {
-    get {
-        return self.system.installCmd(self)
-    }
+        get {
+            return self.system.installCmd(self)
+        }
     }
     
     var uninstallCmd: String {
-    get {
-        return self.system.uninstallCmd(self)
-    }
+        get {
+            return self.system.uninstallCmd(self)
+        }
     }
     
     var deactivateCmd: String {
-    get {
-        return self.system.deactivateCmd(self)
-    }
+        get {
+            return self.system.deactivateCmd(self)
+        }
     }
     
     var upgradeCmd: String {
-    get {
-        return self.system.upgradeCmd(self)
-    }
+        get {
+            return self.system.upgradeCmd(self)
+        }
     }
     
     var fetchCmd: String {
-    get {
-        return self.system.fetchCmd(self)
-    }
+        get {
+            return self.system.fetchCmd(self)
+        }
     }
     
     var cleanCmd: String {
-    get {
-        return self.system.cleanCmd(self)
-    }
+        get {
+            return self.system.cleanCmd(self)
+        }
     }
 }

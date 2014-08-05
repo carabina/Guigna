@@ -27,7 +27,7 @@ class Homebrew: GSystem {
             if bottle != "" {
                 pkg.description = "Bottle"
             }
-            items += pkg
+            items.append(pkg)
             self[name] = pkg
         }
         // TODO HomebrewMainTaps
@@ -81,9 +81,9 @@ class Homebrew: GSystem {
                 for var i = 0 ; i < versionCount - 1 ; i++ {
                     var inactivePkg = GPackage(name: name, version: latestVersion, system: self, status: .Inactive)
                     inactivePkg.installed = components[i]
-                    items += inactivePkg
+                    items.append(inactivePkg)
                     self.agent.appDelegate!.addItem(inactivePkg) // TODO: ugly
-                    pkgs += inactivePkg
+                    pkgs.append(inactivePkg)
                 }
             }
             if pkg == nil {
@@ -95,7 +95,7 @@ class Homebrew: GSystem {
                 }
             }
             pkg.installed = version
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -133,7 +133,7 @@ class Homebrew: GSystem {
                 pkg.status = .Outdated
             }
             pkg.installed = version
-            pkgs += pkg
+            pkgs.append(pkg)
         }
         return pkgs
     }
@@ -153,7 +153,7 @@ class Homebrew: GSystem {
         
         for pkg in installed() {
             if pkg.status == .Inactive {
-                pkgs += pkg
+                pkgs.append(pkg)
             }
         }
         return pkgs
@@ -276,33 +276,33 @@ class Homebrew: GSystem {
     
     
     override var updateCmd: String! {
-    get {
-        return "\(cmd) update"
-    }
+        get {
+            return "\(cmd) update"
+        }
     }
     
     override var hideCmd: String! {
-    get {
-        return "sudo mv \(prefix) \(prefix)_off"
-    }
+        get {
+            return "sudo mv \(prefix) \(prefix)_off"
+        }
     }
     
     override var unhideCmd: String! {
-    get {
-        return "sudo mv \(prefix)_off \(prefix)"
-    }
+        get {
+            return "sudo mv \(prefix)_off \(prefix)"
+        }
     }
     
     class var setupCmd: String! {
         get {
             return "ruby -e \"$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)\" ; /usr/local/bin/brew update"
-    }
+        }
     }
     
     class var removeCmd: String! {
         get {
             return "cd /usr/local ; curl -L https://raw.github.com/gist/1173223 -o uninstall_homebrew.sh; sudo sh uninstall_homebrew.sh ; rm uninstall_homebrew.sh ; sudo rm -rf /Library/Caches/Homebrew; rm -rf /usr/local/.git"
-    }
+        }
     }
     
     override func verbosifiedCmd(command: String) -> String {

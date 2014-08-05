@@ -46,7 +46,7 @@ class Pkgsrc: GSystem {
                 pkg.categories = category
                 pkg.description = description
                 pkg.homepage = homepage
-                items += pkg
+                items.append(pkg)
                 self[id] = pkg
             }
             
@@ -78,7 +78,7 @@ class Pkgsrc: GSystem {
                 pkg.description = description
                 let id = "\(category)/\(name)"
                 pkg.id = id
-                items += pkg
+                items.append(pkg)
                 self[id] = pkg
             }
         }
@@ -138,7 +138,7 @@ class Pkgsrc: GSystem {
             pkg.installed = version
             pkg.description = description
             pkg.id = id
-            pkgs += pkg
+            pkgs.append(pkg)
             i++
         }
         return pkgs
@@ -264,36 +264,36 @@ class Pkgsrc: GSystem {
     }
     
     override var updateCmd: String! {
-    get {
-        if mode == .Online || agent.appDelegate!.defaults["pkgsrcCVS"] == false {
-            return nil
-        } else {
-            return "sudo cd; cd /usr/pkgsrc ; sudo cvs update -dP"
+        get {
+            if mode == .Online || agent.appDelegate!.defaults["pkgsrcCVS"] == false {
+                return nil
+            } else {
+                return "sudo cd; cd /usr/pkgsrc ; sudo cvs update -dP"
+            }
         }
-    }
     }
     
     override var hideCmd: String! {
-    get {
-        return "sudo mv \(prefix) \(prefix)_off"}
+        get {
+            return "sudo mv \(prefix) \(prefix)_off"}
     }
     
     override var unhideCmd: String! {
-    get {
-        return "sudo mv \(prefix)_off \(prefix)"}
+        get {
+            return "sudo mv \(prefix)_off \(prefix)"}
     }
     
     
     class var setupCmd: String! {
         get {
             return "sudo mv /usr/local /usr/local_off ; sudo mv /opt/local /opt/local_off ; sudo mv /sw /sw_off ; cd ~/Library/Application\\ Support/Guigna/pkgsrc ; curl -L -O ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc.tar.gz ; sudo tar -xvzf pkgsrc.tar.gz -C /usr; cd /usr/pkgsrc/bootstrap ; sudo ./bootstrap --compiler clang; sudo mv /usr/local_off /usr/local ; sudo mv /opt/local_off /opt/local ; sudo mv /sw_off /sw"
-    }
+        }
     }
     
     class var removeCmd: String! {
         get {
             return "sudo rm -r /usr/pkg ; sudo rm -r /usr/pkgsrc ; sudo rm -r /var/db/pkg"
-    }
+        }
     }
 }
 
