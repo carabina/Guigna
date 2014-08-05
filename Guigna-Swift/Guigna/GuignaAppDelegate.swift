@@ -70,7 +70,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     
     var adminPassword: String?
     var minuteTimer: NSTimer?
-    var ready = false
+    dynamic var ready = false
     
     var shellColumns: Int {
         get {
