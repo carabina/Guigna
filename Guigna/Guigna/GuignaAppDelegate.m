@@ -1080,7 +1080,7 @@
             [[NSWorkspace sharedWorkspace] openFile:file];
         }
         
-    } else if ([selectedSegment is:@"Deps"]) { // TODO clear filter
+    } else if ([selectedSegment is:@"Deps"]) {
         NSString *dep = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         NSArray *selectedItems = [itemsController selectedObjects];
         GItem *item = nil;
@@ -1089,6 +1089,8 @@
             item = selectedItems[0];
             pkg = item.system[dep];
             if (pkg != nil) {
+                [searchField setStringValue:dep];
+                [searchField performClick:self];
                 [itemsController setSelectedObjects:@[pkg]];
                 [itemsTable scrollRowToVisible:[itemsController selectionIndex]];
                 [_window makeFirstResponder: itemsTable];

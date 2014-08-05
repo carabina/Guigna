@@ -1107,13 +1107,15 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 NSWorkspace.sharedWorkspace().openFile(file)
             }
             
-        } else if selectedSegment == "Deps" { // TODO clear filter
+        } else if selectedSegment == "Deps" {
             let dep = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             let selectedItems = itemsController.selectedObjects
             var item: GItem! = nil
             if selectedItems.count > 0 {
                 item = selectedItems[0] as? GItem
                 if let pkg = item.system[dep] {
+                    searchField.stringValue = dep
+                    searchField.performClick(self)
                     itemsController.setSelectedObjects([pkg])
                     itemsTable.scrollRowToVisible(itemsController.selectionIndex)
                     window.makeFirstResponder(itemsTable)
