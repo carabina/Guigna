@@ -756,7 +756,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                             status("Verifying \(src) packages...")
                             itemsController.filterPredicate = NSPredicate(format: "statusValue == \(st.toRaw())")
                             itemsTable.display()
-                            packages = itemsController.arrangedObjects as [GPackage]
+                            packages = (itemsController.arrangedObjects as NSArray).mutableCopy() as [GPackage]
                         }
                         
                     } else if src.hasPrefix("marked") {
@@ -765,7 +765,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                             status("Verifying marked packages...")
                             itemsController.filterPredicate = NSPredicate(format: "markValue != 0")
                             itemsTable.display()
-                            packages = itemsController.arrangedObjects as [GPackage]
+                            packages = (itemsController.arrangedObjects as NSArray).mutableCopy() as [GPackage]
                         }
                         
                     } else if !(src == "SYSTEMS" || src == "STATUS" || src == "") { // a category was selected

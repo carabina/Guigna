@@ -20,6 +20,7 @@ TODO
 * Rudix commands
 * mdfind 'kMDItemContentType==com.apple.application-bundle'
 * Manage --force flags
+* suggest 'sudo chown $USER:admin /usr/local'
 * itemsTable date column
 * Fink categories, deps, binaries
 * pkgsrc deps, outdated, options, Pkgsrc.se CVSWeb
