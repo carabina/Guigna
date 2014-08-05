@@ -12,7 +12,6 @@
 		C515C6E81477942200B526BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C515C6E71477942200B526BD /* main.m */; };
 		C515C6EC1477942200B526BD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C515C6EA1477942200B526BD /* Credits.rtf */; };
 		C515C6EF1477942200B526BD /* GuignaAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C515C6EE1477942200B526BD /* GuignaAppDelegate.m */; };
-		C515C6F51477942200B526BD /* Guigna.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C515C6F31477942200B526BD /* Guigna.xcdatamodeld */; };
 		C515C6FC147794EC00B526BD /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C515C6FB147794EC00B526BD /* WebKit.framework */; };
 		C515C7021477958500B526BD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C515C7011477958500B526BD /* MainMenu.xib */; };
 		C515C71C1477975900B526BD /* source-appshopper.tiff in Resources */ = {isa = PBXBuildFile; fileRef = C515C7091477975900B526BD /* source-appshopper.tiff */; };
@@ -94,7 +93,6 @@
 		C515C6EB1477942200B526BD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		C515C6ED1477942200B526BD /* GuignaAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GuignaAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C515C6EE1477942200B526BD /* GuignaAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GuignaAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C515C6F41477942200B526BD /* Guigna.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Guigna.xcdatamodel; sourceTree = "<group>"; };
 		C515C6FB147794EC00B526BD /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		C515C7011477958500B526BD /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		C515C7091477975900B526BD /* source-appshopper.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "source-appshopper.tiff"; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 				C5B0FB0E14C6D3D500391B63 /* GTask.h */,
 				C5B0FB0F14C6D3D500391B63 /* GTask.m */,
 				C515C7011477958500B526BD /* MainMenu.xib */,
-				C515C6F31477942200B526BD /* Guigna.xcdatamodeld */,
 				C575C26A14A8BCDD007BEF5F /* Systems */,
 				C51C1B4314CF4F2D00EC7D47 /* Repos */,
 				C575C26614A8A8F5007BEF5F /* Scrapes */,
@@ -493,7 +490,6 @@
 				C56062D8198CCF83001F0F93 /* GLibrary.m in Sources */,
 				C515C6EF1477942200B526BD /* GuignaAppDelegate.m in Sources */,
 				C5F9255418DEE7A60022EF85 /* GNative.m in Sources */,
-				C515C6F51477942200B526BD /* Guigna.xcdatamodeld in Sources */,
 				C56792D9148614BC000D347D /* GItem.m in Sources */,
 				C56792DD148614E1000D347D /* GPackage.m in Sources */,
 				C56792E014861513000D347D /* GSource.m in Sources */,
@@ -671,19 +667,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		C515C6F31477942200B526BD /* Guigna.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				C515C6F41477942200B526BD /* Guigna.xcdatamodel */,
-			);
-			currentVersion = C515C6F41477942200B526BD /* Guigna.xcdatamodel */;
-			path = Guigna.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = C515C6CE1477942100B526BD /* Project object */;
 }
