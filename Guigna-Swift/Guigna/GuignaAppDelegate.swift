@@ -1107,9 +1107,18 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                 NSWorkspace.sharedWorkspace().openFile(file)
             }
             
-        } else if selectedSegment == "Deps" {
-            let package = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-            println("TODO select dep: \(package)")
+        } else if selectedSegment == "Deps" { // TODO clear filter
+            let dep = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let selectedItems = itemsController.selectedObjects
+            var item: GItem! = nil
+            if selectedItems.count > 0 {
+                item = selectedItems[0] as? GItem
+                if let pkg = item.system[dep] {
+                    itemsController.setSelectedObjects([pkg])
+                    itemsTable.scrollRowToVisible(itemsController.selectionIndex)
+                    window.makeFirstResponder(itemsTable)
+                }
+            }
         }
     }
     

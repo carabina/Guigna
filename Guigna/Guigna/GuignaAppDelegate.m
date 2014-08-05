@@ -1080,9 +1080,20 @@
             [[NSWorkspace sharedWorkspace] openFile:file];
         }
         
-    } else if ([selectedSegment is:@"Deps"]) {
-        NSString *package = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSLog(@"TODO select dep: %@", package);
+    } else if ([selectedSegment is:@"Deps"]) { // TODO clear filter
+        NSString *dep = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSArray *selectedItems = [itemsController selectedObjects];
+        GItem *item = nil;
+        GPackage *pkg;
+        if ([selectedItems count] > 0) {
+            item = selectedItems[0];
+            pkg = item.system[dep];
+            if (pkg != nil) {
+                [itemsController setSelectedObjects:@[pkg]];
+                [itemsTable scrollRowToVisible:[itemsController selectionIndex]];
+                [_window makeFirstResponder: itemsTable];
+            }
+        }
     }
 }
 

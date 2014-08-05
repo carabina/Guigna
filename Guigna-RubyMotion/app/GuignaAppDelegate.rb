@@ -1010,8 +1010,22 @@ class GuignaAppDelegate
         NSWorkspace.sharedWorkspace.openFile file
       end
       
-    elsif selected_segment == "Deps"
-      package = line.strip
+    elsif selected_segment == "Deps" # TODO: clear filter
+      puts "clicked dep"
+      dep = line.strip
+      puts dep
+      selected_items = itemsController.selectedObjects
+      item = nil
+      if selected_items.count > 0
+        item = selected_items.first
+        puts dep
+        pkg = item.system[dep]
+        if pkg != nil
+          itemsController.setSelectedObjects [pkg]
+          itemsTable.scrollRowToVisible itemsController.selectionIndex
+          window.makeFirstResponder itemsTable
+        end
+      end
     end
   end
   
