@@ -37,7 +37,7 @@ class MacPorts: GSystem {
                 // TODO: fetch PortIndex
                 portIndex = NSString(contentsOfFile: "~/Library/Application Support/Guigna/MacPorts/PortIndex".stringByExpandingTildeInPath, encoding: NSUTF8StringEncoding, error: nil)
             } else {
-                portIndex = NSString(contentsOfFile: "\(prefix)/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding: NSUTF8StringEncoding, error: nil)
+                portIndex = NSString(contentsOfFile: "\(prefix)/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex", encoding: NSUTF8StringEncoding, error: nil) ?? ""
             }
             let s =  NSScanner(string: portIndex)
             s.charactersToBeSkipped = NSCharacterSet(charactersInString: "")

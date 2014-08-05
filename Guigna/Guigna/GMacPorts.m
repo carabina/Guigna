@@ -50,8 +50,11 @@
         NSString *portIndex;
         if (self.mode == GOnlineMode) // TODO: fetch PortIndex
             portIndex = [NSString stringWithContentsOfFile:[@"~/Library/Application Support/Guigna/MacPorts/PortIndex" stringByExpandingTildeInPath] encoding:NSUTF8StringEncoding error:nil];
-        else
+        else {
             portIndex = [NSString stringWithContentsOfFile:[self.prefix stringByAppendingString:@"/var/macports/sources/rsync.macports.org/release/tarballs/ports/PortIndex"] encoding:NSUTF8StringEncoding error:nil];
+            if (portIndex == nil)
+                portIndex = @"";
+        }
         NSScanner *s =  [NSScanner scannerWithString:portIndex];
         [s setCharactersToBeSkipped:[NSCharacterSet characterSetWithCharactersInString:@""]];
         NSMutableCharacterSet *endsCharaterSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
