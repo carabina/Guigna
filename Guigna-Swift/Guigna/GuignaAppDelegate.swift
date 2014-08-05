@@ -62,13 +62,13 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
     var previousSegment = 0
     let APPDIR = "~/Library/Application Support/Guigna".stringByExpandingTildeInPath
     
-    var tableFont: NSFont!
-    var tableTextColor: NSColor!
-    var logTextColor: NSColor!
-    var linkTextAttributes: NSDictionary!
-    var sourceListBackgroundColor: NSColor!
+    dynamic var tableFont: NSFont!
+    dynamic var tableTextColor: NSColor!
+    dynamic var logTextColor: NSColor!
+    dynamic var linkTextAttributes: NSDictionary!
+    dynamic var sourceListBackgroundColor: NSColor!
     
-    var adminPassword: String?
+    dynamic var adminPassword: String?
     var minuteTimer: NSTimer?
     dynamic var ready = false
     
