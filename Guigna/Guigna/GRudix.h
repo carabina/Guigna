@@ -2,4 +2,6 @@
 
 @interface GRudix : GSystem
 
++ (NSString *)clampedOSVersion;
+
 @end

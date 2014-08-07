@@ -14,7 +14,7 @@ class Rudix < GSystem
     @cmd = "#{@prefix}/bin/rudix"
   end
   
-  def clamped_os_version
+  def self.clamped_os_version
     os_version = G.os_version
     if os_version < "10.6" || os_version > "10.9"
       os_version = "10.9"
@@ -25,7 +25,7 @@ class Rudix < GSystem
     @index.clear
     @items.clear
     command = "#{cmd} search"
-    osx_version = clamped_os_version()
+    osx_version = Rudix.clamped_os_version()
     if G.os_version != osx_version
       command = "export OSX_VERSION=#{osx_version} ; #{cmd} search"
     end
@@ -131,7 +131,7 @@ class Rudix < GSystem
   
   def install_cmd(pkg)
     command = "#{cmd} install #{pkg.name}"
-    osx_version = clamped_os_version()
+    osx_version = Rudix.clamped_os_version()
     if G.os_version != osx_version
       command = "OSX_VERSION=#{osx_version} #{command}"
     end
@@ -148,7 +148,12 @@ class Rudix < GSystem
     "sudo mv #{prefix}_off #{prefix}"
   end
   def self.setup_cmd
-    "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"
+    command = "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"
+    osx_version = Rudix.clamped_os_version()
+    if G.os_version != osx_version
+      command = "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo OSX_VERSION=#{osx_version} python - install rudix"
+    end
+    command
   end
   
 end

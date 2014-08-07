@@ -17,7 +17,7 @@
     return self;
 }
 
-- (NSString *)clampedOSVersion {
++ (NSString *)clampedOSVersion {
     NSString *osVersion = [G OSVersion];
     if ([osVersion compare:@"10.6" options:NSNumericSearch] == NSOrderedAscending || [osVersion compare:@"10.9"options:NSNumericSearch] == NSOrderedDescending ) {
         osVersion = @"10.9";
@@ -30,7 +30,7 @@
     [self.index removeAllObjects];
     [self.items removeAllObjects];
     NSString *command = [NSString stringWithFormat: @"%@ search", self.cmd];
-    NSString *osxVersion = [self clampedOSVersion];
+    NSString *osxVersion = [GRudix clampedOSVersion];
     if (![[G OSVersion] is:osxVersion]) {
         command = [NSString stringWithFormat:@"/bin/sh -c export__OSX_VERSION=%@__;__%@__search", osxVersion,  self.cmd];
     }
@@ -160,7 +160,7 @@
 
 - (NSString *)installCmd:(GPackage *)pkg {
     NSString *command = [NSString stringWithFormat: @"%@ install %@", self.cmd, pkg.name];
-    NSString *osxVersion = [self clampedOSVersion];
+    NSString *osxVersion = [GRudix clampedOSVersion];
     if (![[G OSVersion] is:osxVersion]) {
         command = [NSString stringWithFormat:@"OSX_VERSION=%@ %@", osxVersion,  command];
     }
@@ -181,7 +181,12 @@
 }
 
 + (NSString *)setupCmd {
-    return @"curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix";
+    NSString *command = [NSString stringWithFormat:@"curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"];
+    NSString *osxVersion = [GRudix clampedOSVersion];
+    if (![[G OSVersion] is:osxVersion]) {
+        command = [NSString stringWithFormat:@"curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo OSX_VERSION=%@ python - install rudix", osxVersion];
+    }
+    return command;
 }
 
 @end

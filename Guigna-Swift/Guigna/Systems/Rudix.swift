@@ -9,7 +9,7 @@ class Rudix: GSystem {
         cmd = "\(prefix)/bin/rudix"
     }
     
-    func clampedOSVersion() -> String {
+    class func clampedOSVersion() -> String {
         var osVersion = G.OSVersion()
         if osVersion < "10.6" || osVersion > "10.9" {
             osVersion = "10.9"
@@ -23,7 +23,7 @@ class Rudix: GSystem {
         items.removeAll(keepCapacity: true)
         
         var command = "\(cmd) search"
-        var osxVersion = clampedOSVersion()
+        var osxVersion = Rudix.clampedOSVersion()
         if G.OSVersion() != osxVersion {
             command = "/bin/sh -c export__OSX_VERSION=\(osxVersion)__;__\(cmd)__search"
         }
@@ -131,7 +131,7 @@ class Rudix: GSystem {
     
     override func installCmd(pkg: GPackage) -> String {
         var command = "\(cmd) install \(pkg.name)"
-        let osxVersion = clampedOSVersion()
+        let osxVersion = Rudix.clampedOSVersion()
         if G.OSVersion() != osxVersion {
             command = "OSX_VERSION=\(osxVersion) \(command)"
         }
@@ -157,7 +157,12 @@ class Rudix: GSystem {
     
     class var setupCmd: String! {
         get {
-            return "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"
+            var command = "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo python - install rudix"
+            let osxVersion = Rudix.clampedOSVersion()
+            if G.OSVersion() != osxVersion {
+                command = "curl -s https://raw.githubusercontent.com/rudix-mac/rpm/master/rudix.py | sudo OSX_VERSION=\(osxVersion) python - install rudix"
+            }
+            return command
         }
     }
 }
