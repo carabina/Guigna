@@ -1544,6 +1544,7 @@ class GuignaAppDelegate
           end
           sourcesOutline.reloadData
           sourcesOutline.display
+          itemsController.setSortDescriptors [NSSortDescriptor.sortDescriptorWithKey("status_order", ascending:false)]
           options_status "OK."
         else
           options_status "#{title}'s #{command} not detected."

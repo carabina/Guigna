@@ -1767,6 +1767,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                         }
                         sourcesOutline.reloadData()
                         sourcesOutline.display()
+                        itemsController.sortDescriptors = [NSSortDescriptor(key: "statusValue", ascending: false)]
                         optionsStatus("OK.")
                     } else {
                         optionsStatus("\(title)'s \(command) not detected.")

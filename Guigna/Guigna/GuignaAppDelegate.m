@@ -1688,6 +1688,7 @@
                 }
                 [sourcesOutline reloadData];
                 [sourcesOutline display];
+                [itemsController setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"status" ascending:NO]]];
                 [self optionsStatus:@"OK."];
             } else {
                 [self optionsStatus:[NSString stringWithFormat:@"%@'s %@ not detected.", title, command]];
