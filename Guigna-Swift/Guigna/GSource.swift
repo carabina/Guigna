@@ -99,6 +99,8 @@ class GSourceTransformer: NSValueTransformer {
             return NSImage(named: "system-homebrewcasks.tiff")
         case "Mac OS X":
             return NSImage(named: "system-macosx.tiff")
+        case "iTunes":
+            return NSImage(named: "system-itunes.tiff")
         case "Fink":
             return NSImage(named: "system-fink.tiff")
         case "pkgsrc":

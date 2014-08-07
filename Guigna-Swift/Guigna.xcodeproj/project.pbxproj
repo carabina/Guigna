@@ -17,6 +17,7 @@
 		C554334C1972EE060080B0BD /* Fink.swift in Sources */ = {isa = PBXBuildFile; fileRef = C554334B1972EE060080B0BD /* Fink.swift */; };
 		C56062DA198D0704001F0F93 /* Rudix.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56062D9198D0704001F0F93 /* Rudix.swift */; };
 		C56062DC198D0833001F0F93 /* GLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56062DB198D0833001F0F93 /* GLibrary.swift */; };
+		C562EF901993BA16001309A9 /* ITunes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C562EF8F1993BA16001309A9 /* ITunes.swift */; };
 		C5635BEB1952F53F007424E2 /* MacPorts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5635BEA1952F53F007424E2 /* MacPorts.swift */; };
 		C5779CAA1969922B00755926 /* HomebrewCasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5779CA91969922B00755926 /* HomebrewCasks.swift */; };
 		C5A1214F1945D91800A351A8 /* GAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A1214E1945D91800A351A8 /* GAgent.swift */; };
@@ -88,6 +89,7 @@
 		C554334B1972EE060080B0BD /* Fink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fink.swift; sourceTree = "<group>"; };
 		C56062D9198D0704001F0F93 /* Rudix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rudix.swift; sourceTree = "<group>"; };
 		C56062DB198D0833001F0F93 /* GLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLibrary.swift; sourceTree = "<group>"; };
+		C562EF8F1993BA16001309A9 /* ITunes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITunes.swift; sourceTree = "<group>"; };
 		C5635BEA1952F53F007424E2 /* MacPorts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacPorts.swift; sourceTree = "<group>"; };
 		C5779CA91969922B00755926 /* HomebrewCasks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomebrewCasks.swift; sourceTree = "<group>"; };
 		C5A1214E1945D91800A351A8 /* GAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GAgent.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 				C5E07BBB1972779400DA3CD3 /* Pkgsrc.swift */,
 				C5A5B206198FD9E7000CB3FD /* FreeBSD.swift */,
 				C56062D9198D0704001F0F93 /* Rudix.swift */,
+				C562EF8F1993BA16001309A9 /* ITunes.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				C554334C1972EE060080B0BD /* Fink.swift in Sources */,
 				C5AD0FB6196287360001FB53 /* GPackage.swift in Sources */,
 				C51ED05C19458CB0000B582A /* main.swift in Sources */,
+				C562EF901993BA16001309A9 /* ITunes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

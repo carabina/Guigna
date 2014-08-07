@@ -52,7 +52,7 @@ class MacOSX: GSystem {
             var pkg = GPackage(name: name, version: "", system: self, status: .UpToDate)
             pkg.id = ids.join()
             pkg.categories = category
-            pkg.description = pkg.id!
+            pkg.description = pkg.id
             pkg.installed = version
             // TODO: pkg.version
             pkgs.append(pkg)
@@ -87,7 +87,7 @@ class MacOSX: GSystem {
     }
     
     override func home(item: GItem) -> String {
-        var homeppage = "http://support.apple.com/downloads/"
+        var homepage = "http://support.apple.com/downloads/"
         if item.categories == "storeagent" || item.categories == "storedownloadd" {
             let url = "http://itunes.apple.com/lookup?bundleId=\(item.id)"
             let data = NSData(contentsOfURL: NSURL(string: url))

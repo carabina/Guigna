@@ -333,6 +333,14 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             systems.append(rudix)
         }
         
+        if !defaults["iTunesStatus"] {
+            defaults["iTunesStatus"] = GState.On.toRaw()
+        }
+        if defaults["iTunesStatus"] != nil && defaults["iTunesStatus"] == GState.On.toRaw() {
+            var itunes = ITunes(agent: agent)
+            systems.append(itunes)
+        }
+        
         systems.append(MacOSX(agent: agent))
         
         if !defaults["DebugMode"] {
@@ -1741,6 +1749,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
                         command = "/usr/local/bin/rudix"
                         system = Rudix(agent: agent)
                         system.mode = (NSFileManager.defaultManager().fileExistsAtPath(command)) ? .Offline : .Online
+                        
+                    } else if title == "iTunes" {
+                        system = ITunes(agent: agent)
                     }
                     
                     if system != nil {
