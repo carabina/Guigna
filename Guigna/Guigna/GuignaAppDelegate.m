@@ -1180,7 +1180,7 @@
     NSString *command;
     if ([baton is:@"relaunch"]) {
         self.ready = NO;
-        command = [NSString stringWithFormat:@"%@ ; osascript -e 'tell app \"Guigna\"' -e 'quit' -e 'end' &>/dev/null ; osascript -e 'tell app \"Guigna\"' -e 'activate' -e 'end' &>/dev/null &", cmd];
+        command = [NSString stringWithFormat:@"%@ ; osascript -e 'tell app \"Guigna\"' -e 'quit' -e 'end tell' &>/dev/null ; osascript -e 'tell app \"Guigna\"' -e 'ignoring application responses' -e 'activate' -e 'end ignoring' -e 'end tell' &>/dev/null", cmd];
     }
     else
         command = [NSString stringWithFormat:@"%@ ; guigna --baton %@", cmd, baton];

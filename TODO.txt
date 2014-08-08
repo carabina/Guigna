@@ -9,7 +9,6 @@ FIXME
 * Help doesn't always open the wiki page
 * The password to sudo is echoed in clear text
 * Old uninstalled Mac OS X packages shouldn't be shown
-* After installing a system via Options the old shell is not closed and reused
 * A new Shell should be opened if the user closed the last one
 
 

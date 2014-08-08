@@ -1096,7 +1096,7 @@ class GuignaAppDelegate
     log "😺===> #{brief_cmd}\n"
     if baton == "relaunch"
       self.ready = false
-      command = "#{cmd} ; osascript -e 'tell app \"Guigna-RubyMotion\"' -e 'quit' -e 'end' &>/dev/null ; osascript -e 'tell app \"Guigna-RubyMotion\"' -e 'activate' -e 'end' &>/dev/null &"
+      command = "#{cmd} ; osascript -e 'tell app \"Guigna-RubyMotion\"' -e 'quit' -e 'end tell' &>/dev/null ; osascript -e 'tell app \"Guigna-RubyMotion\"' -e 'ignoring application responses' -e 'activate' -e 'end ignoring' -e 'end tell' &>/dev/null"
     else
       command = "#{cmd} ; guigna --baton #{baton}"
     end

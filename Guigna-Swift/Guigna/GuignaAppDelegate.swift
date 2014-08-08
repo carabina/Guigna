@@ -1213,7 +1213,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         var command: String
         if baton == "relaunch" {
             self.ready = false
-            command = "\(cmd) ; osascript -e 'tell app \"Guigna\"' -e 'quit' -e 'end' &>/dev/null ; osascript -e 'tell app \"Guigna\"' -e 'activate' -e 'end' &>/dev/null &"
+            command = "\(cmd) ; osascript -e 'tell app \"Guigna\"' -e 'quit' -e 'end tell' &>/dev/null ; osascript -e 'tell app \"Guigna\"' -e 'ignoring application responses' -e 'activate' -e 'end ignoring' -e 'end tell' &>/dev/null"
         }
         else {
             command = "\(cmd) ; guigna --baton \(baton)"
