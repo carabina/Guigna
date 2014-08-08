@@ -22,12 +22,18 @@ class Rudix: GSystem {
         index.removeAll(keepCapacity: true)
         items.removeAll(keepCapacity: true)
         
-        var command = "\(cmd) search"
-        var osxVersion = Rudix.clampedOSVersion()
-        if G.OSVersion() != osxVersion {
-            command = "/bin/sh -c export__OSX_VERSION=\(osxVersion)__;__\(cmd)__search"
+        var manifest = ""
+        if mode == GMode.Online {
+            manifest = NSString(contentsOfURL: NSURL(string: "http://rudix.org/download/2014/10.9/00MANIFEST.txt"), encoding: NSUTF8StringEncoding, error: nil)
+        } else {
+            var command = "\(cmd) search"
+            var osxVersion = Rudix.clampedOSVersion()
+            if G.OSVersion() != osxVersion {
+                command = "/bin/sh -c export__OSX_VERSION=\(osxVersion)__;__\(cmd)__search"
+                manifest = output(command)
+            }
         }
-        var outputLines = output(command).split("\n")
+        var outputLines = manifest.split("\n")
         outputLines.removeLast()
         for line in outputLines {
             var components = line.split("-")

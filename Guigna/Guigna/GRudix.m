@@ -29,14 +29,20 @@
 - (NSArray *)list {
     [self.index removeAllObjects];
     [self.items removeAllObjects];
-    NSString *command = [NSString stringWithFormat: @"%@ search", self.cmd];
-    NSString *osxVersion = [GRudix clampedOSVersion];
-    if (![[G OSVersion] is:osxVersion]) {
-        command = [NSString stringWithFormat:@"/bin/sh -c export__OSX_VERSION=%@__;__%@__search", osxVersion,  self.cmd];
+    NSString *manifest;
+    if (self.mode == GOnlineMode) {
+        manifest = [NSString stringWithContentsOfURL:[NSURL URLWithString:@"http://rudix.org/download/2014/10.9/00MANIFEST.txt"] encoding:NSUTF8StringEncoding error:nil];
+    } else {
+        NSString *command = [NSString stringWithFormat: @"%@ search", self.cmd];
+        NSString *osxVersion = [GRudix clampedOSVersion];
+        if (![[G OSVersion] is:osxVersion]) {
+            command = [NSString stringWithFormat:@"/bin/sh -c export__OSX_VERSION=%@__;__%@__search", osxVersion,  self.cmd];
+        }
+        manifest = [self outputFor:command];
     }
-    NSMutableArray *output = [NSMutableArray arrayWithArray:[[self outputFor:command] split:@"\n"]];
-    [output removeLastObject];
-    for (NSString *line in output) {
+    NSMutableArray *lines = [NSMutableArray arrayWithArray:[manifest split:@"\n"]];
+    [lines removeLastObject];
+    for (NSString *line in lines) {
         NSMutableArray *components = [NSMutableArray arrayWithArray:[line split:@"-"]];
         NSMutableString *name = [NSMutableString stringWithString:components[0]];
         if ([components count] == 4) {
@@ -97,36 +103,6 @@
         [pkgs addObject:pkg];
     }
     return pkgs;
-}
-
-
-
-- (void)refresh { // TODO: convert from GRepo to GOnlineMode GSystem
-    NSMutableArray *pkgs = [NSMutableArray array];
-    NSString *url = @"http://rudix.org/download/2014/10.9/";
-    NSArray *links = [self.agent nodesForURL:url XPath:@"//tbody//tr//a"];
-    NSCharacterSet *decimalCharSet = [NSCharacterSet decimalDigitCharacterSet];
-    for (id link in links) {
-        NSString *name = [link stringValue];
-        if ([name hasPrefix:@"Parent Dir"] || [name contains:@"MANIFEST"] || [name contains:@"ALIASES"])
-            continue;
-        NSUInteger idx = [name index:@"-"];
-        NSString *version = [name substringFromIndex:idx + 1];
-        version = [version substringToIndex:[version length]-4];
-        if (![decimalCharSet characterIsMember:[version characterAtIndex:0]]) {
-            NSUInteger idx2 = [version index:@"-"];
-            version = [version substringFromIndex:idx2 + 1];
-            idx += idx2 + 1;
-        }
-        name = [name substringToIndex:idx];
-        GItem *pkg = [[GItem alloc] initWithName:name
-                                         version:version
-                                          source:self
-                                          status:GAvailableStatus];
-        pkg.homepage = [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", pkg.name];
-        [pkgs addObject:pkg];
-    }
-    self.items = pkgs;
 }
 
 - (NSString *)home:(GItem *)item {

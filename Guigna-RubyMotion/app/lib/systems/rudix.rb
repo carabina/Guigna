@@ -24,13 +24,17 @@ class Rudix < GSystem
   def list
     @index.clear
     @items.clear
-    command = "#{cmd} search"
-    osx_version = Rudix.clamped_os_version()
-    if G.os_version != osx_version
-      command = "export OSX_VERSION=#{osx_version} ; #{cmd} search"
+    if self.mode == :online
+      manifest = NSString.stringWithContentsOfURL(NSURL.URLWithString("http://rudix.org/download/2014/10.9/00MANIFEST.txt"), encoding:NSUTF8StringEncoding, error:nil)
+    else
+      command = "#{cmd} search"
+      osx_version = Rudix.clamped_os_version()
+      if G.os_version != osx_version
+        command = "export OSX_VERSION=#{osx_version} ; #{cmd} search"
+      end
+      manifest = `#{command}`
     end
-    output = `#{command}`
-    output.split("\n").each do |line|
+    manifest.split("\n").each do |line|
       components = line.split "-"
       name = components[0]
       if components.size == 4
@@ -79,30 +83,6 @@ class Rudix < GSystem
       pkgs << pkg
     end
     return pkgs
-  end
-      
-  def refresh
-    pkgs = []
-    url = "http://rudix.org/download/2014/10.9/"
-    links = agent.nodes_for_url(url, xpath:"//tbody//tr//a")
-    decimalCharSet = NSCharacterSet.decimalDigitCharacterSet
-    links.each do |link|
-      name = link.stringValue
-      next if name.start_with? 'Parent Dir' or name.include?("MANIFEST") or name.include?("ALIASES")
-      idx = name.index "-"
-      version = name[idx+1..-1]
-      version = version[0...-4]
-      if not decimalCharSet.characterIsMember(version[0].ord)
-        idx2 = version.index("-")
-        version = version[idx2+1..-1]
-        idx += idx2+1
-      end
-      name = name[0...idx]
-      pkg = GItem.new(name, version, self, :available)
-      pkg.homepage = "http://rudix.org/packages/#{pkg.name}.html"
-      pkgs << pkg
-    end
-    @items = pkgs
   end
   
   def home(item)
