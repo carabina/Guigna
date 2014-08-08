@@ -1836,6 +1836,10 @@
         [self execute:[GRudix setupCmd] withBaton:@"relaunch"];
     }
     
+    else if ([title is:@"Remove Rudix"]) {
+        [self execute:[GRudix removeCmd] withBaton:@"relaunch"];
+    }
+    
     else if ([title is:@"Fetch MacPorts PortIndex"]) {
         [self execute:@"cd ~/Library/Application\\ Support/Guigna/Macports ; /usr/bin/rsync -rtzv rsync://rsync.macports.org/release/tarballs/PortIndex_darwin_12_i386/PortIndex PortIndex"];
         

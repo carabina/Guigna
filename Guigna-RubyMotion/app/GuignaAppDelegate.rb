@@ -1685,6 +1685,8 @@ class GuignaAppDelegate
     
     when "Install Rudix"
       self.execute(Rudix.setup_cmd, with_baton:"relaunch")
+    when "Remove Rudix"
+      self.execute(Rudix.remove_cmd, with_baton:"relaunch")
         
     when "Fetch MacPorts PortIndex"
       self.execute("cd ~/Library/Application\\ Support/Guigna/Macports ; /usr/bin/rsync -rtzv rsync://rsync.macports.org/release/tarballs/PortIndex_darwin_12_i386/PortIndex PortIndex")

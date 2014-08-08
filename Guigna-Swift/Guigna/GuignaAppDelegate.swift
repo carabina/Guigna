@@ -1917,6 +1917,9 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         } else if  title == "Install Rudix" {
             execute(Rudix.setupCmd, baton: "relaunch")
             
+        } else if  title == "Remove Rudix" {
+            execute(Rudix.removeCmd, baton: "relaunch")
+            
         } else {
             execute("echo TODO")
         }

@@ -165,5 +165,11 @@ class Rudix: GSystem {
             return command
         }
     }
+    
+    class var removeCmd: String! {
+        get {
+            return "sudo /usr/local/bin/rudix -R" // TODO: prefix
+        }
+    }
 }
 

@@ -189,4 +189,9 @@
     return command;
 }
 
++ (NSString *)removeCmd {
+    return [NSString stringWithFormat:@"sudo %@/bin/rudix -R", self.prefix];
+}
+
+
 @end

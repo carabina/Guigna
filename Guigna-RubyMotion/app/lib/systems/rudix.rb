@@ -155,5 +155,8 @@ class Rudix < GSystem
     end
     command
   end
+  def self.remove_cmd
+    "sudo #{self.prefix}/bin/rudix -R"
+  end
   
 end

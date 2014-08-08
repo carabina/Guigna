@@ -1291,6 +1291,12 @@
                                                 <action selector="tools:" target="386" id="1451"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Remove Rudix" id="4HW-TI-zxH">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="tools:" target="386" id="vGC-Ub-0Wq"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Zw1-xC-2g0"/>
                                         <menuItem title="Install Gentoo" id="QT4-R7-Xd5">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -1985,6 +1991,12 @@ DQ
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="tools:" target="386" id="1448"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Remove Rudix" id="gaY-Lx-1XY">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="tools:" target="386" id="EHQ-o6-Quf"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="uBm-22-Fw6"/>
