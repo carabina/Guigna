@@ -147,6 +147,14 @@
     return [NSString stringWithFormat:@"sudo %@ remove %@", self.cmd, pkg.name];
 }
 
+- (NSString *)fetchCmd:(GPackage *)pkg {
+    NSString *command = [NSString stringWithFormat: @"cd ~/Downloads ; %@ --download %@", self.cmd, pkg.name];
+    NSString *osxVersion = [GRudix clampedOSVersion];
+    if (![[G OSVersion] is:osxVersion]) {
+        command = [NSString stringWithFormat:@"cd ~/Downloads ; OSX_VERSION=%@ %@ --download %@", osxVersion,  self.cmd, pkg.name];
+    }
+    return command;
+}
 
 - (NSString *)hideCmd {
     return [NSString stringWithFormat:@"sudo mv %@ %@_off", self.prefix, self.prefix];

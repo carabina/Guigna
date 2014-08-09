@@ -120,6 +120,14 @@ class Rudix < GSystem
   def uninstall_cmd(pkg)
     "sudo #{cmd} remove #{pkg.name}"
   end
+  def fetch_cmd(pkg)
+    command = "cd ~/Downloads ; #{cmd} --download #{pkg.name}"
+    osx_version = Rudix.clamped_os_version()
+    if G.os_version != osx_version
+      command = "cd ~/Downloads ; OSX_VERSION=#{osx_version} #{cmd} --download #{pkg.name}"
+    end
+    command
+  end
   
   def hide_cmd
     "sudo mv #{prefix} #{prefix}_off"

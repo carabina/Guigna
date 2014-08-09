@@ -33,9 +33,9 @@ class Rudix: GSystem {
                 manifest = output(command)
             }
         }
-        var outputLines = manifest.split("\n")
-        outputLines.removeLast()
-        for line in outputLines {
+        var lines = manifest.split("\n")
+        lines.removeLast()
+        for line in lines {
             var components = line.split("-")
             var name = components[0]
             if components.count == 4 {
@@ -148,6 +148,14 @@ class Rudix: GSystem {
         return "sudo \(cmd) remove \(pkg.name)"
     }
     
+    override func fetchCmd(pkg: GPackage) -> String {
+        var command = "cd ~/Downloads ; \(cmd) --download \(pkg.name)"
+        let osxVersion = Rudix.clampedOSVersion()
+        if G.OSVersion() != osxVersion {
+            command = "cd ~/Downloads ; OSX_VERSION=\(osxVersion) \(cmd) --download \(pkg.name)"
+        }
+        return command
+    }
     
     override var hideCmd: String! {
         get {
