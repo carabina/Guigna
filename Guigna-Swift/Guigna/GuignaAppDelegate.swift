@@ -622,6 +622,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             self.updateMarkedSource()
             self.tableProgressIndicator.stopAnimation(self)
             self.applyButton.enabled = false
+            self.stopButton.enabled = false
             self.ready = true
             self.status("OK.")
         }

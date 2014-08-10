@@ -564,6 +564,7 @@ class GuignaAppDelegate
       update_marked_source
       tableProgressIndicator.stopAnimation self
       applyButton.setEnabled false
+      stopButton.setEnabled false
       self.ready = true
       status "OK."
     }

@@ -603,6 +603,7 @@
             [self updateMarkedSource];
             [tableProgressIndicator stopAnimation:self];
             [applyButton setEnabled:NO];
+            [stopButton setEnabled:NO];
             self.ready = YES;
             [self status:@"OK."];
         });
