@@ -86,7 +86,15 @@ class Rudix < GSystem
   end
   
   def home(item)
-    "http://rudix.org/packages/#{item.name}.html"
+    cat(item).split("\n").each do |line|
+      if line.start_with?("Site=")
+        homepage = line[5..-1].strip
+        if homepage.start_with?("http")
+          return homepage
+        end
+      end
+    end
+    return "http://rudix.org/packages/#{item.name}.html"
   end
   
   def log(item)

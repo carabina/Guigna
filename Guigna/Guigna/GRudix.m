@@ -106,6 +106,14 @@
 }
 
 - (NSString *)home:(GItem *)item {
+    NSString *homepage;
+    for (NSString *line in [[self cat:item] split:@"\n"]) {
+        if ([line hasPrefix:@"Site="]) {
+            homepage = [[line substringFromIndex:5] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if ([homepage hasPrefix:@"http"])
+                return homepage;
+        }
+    }
     return [NSString stringWithFormat:@"http://rudix.org/packages/%@.html", item.name];
 }
 
