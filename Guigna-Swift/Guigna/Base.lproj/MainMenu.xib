@@ -826,7 +826,7 @@
                             <action selector="stop:" target="386" id="801"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="090FA208-CF0B-41B7-94B0-1E1598CE7B07" label="Sync" paletteLabel="Sync" toolTip="Sync with the remote repositories" tag="-1" image="toolbar-sync" id="430">
+                    <toolbarItem implicitItemIdentifier="090FA208-CF0B-41B7-94B0-1E1598CE7B07" label="Sync" paletteLabel="Sync" toolTip="Sync with the remote repositories" tag="-1" image="toolbar-sync" autovalidates="NO" id="430">
                         <connections>
                             <action selector="syncAction:" target="386" id="1171"/>
                         </connections>

@@ -304,6 +304,7 @@ class GuignaAppDelegate
 
     applyButton.enabled = false
     stopButton.enabled = false
+    syncButton.enabled = false
     
     self.options self
   end
@@ -565,6 +566,7 @@ class GuignaAppDelegate
       tableProgressIndicator.stopAnimation self
       applyButton.setEnabled false
       stopButton.setEnabled false
+      syncButton.setEnabled true
       self.ready = true
       status "OK."
     }
@@ -574,6 +576,7 @@ class GuignaAppDelegate
     tableProgressIndicator.startAnimation self
     info "[Contents not yet available]"
     update_cmdline ""
+    syncButton.enabled = false
     stopButton.enabled = true
     sync(sender)
   end

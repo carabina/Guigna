@@ -334,6 +334,7 @@
     
     [applyButton setEnabled:NO];
     [stopButton setEnabled:NO];
+    [syncButton setEnabled:NO];
     
     [self options:self];
 }
@@ -604,6 +605,7 @@
             [tableProgressIndicator stopAnimation:self];
             [applyButton setEnabled:NO];
             [stopButton setEnabled:NO];
+            [syncButton setEnabled:YES];
             self.ready = YES;
             [self status:@"OK."];
         });
@@ -615,6 +617,7 @@
     [tableProgressIndicator startAnimation:self];
     [self info:@"[Contents not yet available]"];
     [self updateCmdLine:@""];
+    [syncButton setEnabled:NO];
     [stopButton setEnabled:YES];
     [self sync:sender];
 }

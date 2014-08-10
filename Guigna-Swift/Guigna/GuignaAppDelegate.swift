@@ -378,6 +378,8 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         
         self.applyButton.enabled = false
         self.stopButton.enabled = false
+        self.syncButton.enabled = false
+
         
         self.options(self)
     }
@@ -623,6 +625,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
             self.tableProgressIndicator.stopAnimation(self)
             self.applyButton.enabled = false
             self.stopButton.enabled = false
+            self.syncButton.enabled = true
             self.ready = true
             self.status("OK.")
         }
@@ -632,6 +635,7 @@ class GuignaAppDelegate: NSObject, GAppDelegate, NSApplicationDelegate, NSMenuDe
         tableProgressIndicator.startAnimation(self)
         info("[Contents not yet available]")
         updateCmdLine("")
+        syncButton.enabled = false
         stopButton.enabled = true
         self.sync(sender)
     }
